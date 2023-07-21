@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkblabzio=self.webpackChunkblabzio||[]).push([[5589],{9805:function(e,n,u){u.r(n),u.d(n,{default:function(){return l}});var t=u(7294);function l(){return t.createElement("div",null)}}}]);
+//# sourceMappingURL=component---src-pages-about-advertise-js-4351605edbe2010a0e38.js.map
