@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkblabzio=self.webpackChunkblabzio||[]).push([[5405],{4308:function(e,n,u){u.r(n),u.d(n,{default:function(){return l}});var t=u(7294);function l(){return t.createElement("div",null)}}}]);
-//# sourceMappingURL=component---src-pages-about-writeforus-js-ee1c4215bb75e5e8862b.js.map
