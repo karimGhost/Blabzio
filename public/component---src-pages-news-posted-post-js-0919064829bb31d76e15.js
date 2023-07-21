@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkblabzio=self.webpackChunkblabzio||[]).push([[1271],{2265:function(e,n,t){t.r(n),t.d(n,{Head:function(){return r},default:function(){return l}});var u=t(7294);function l(){return u.createElement("div",null)}const r=()=>u.createElement("title",null,"posts")}}]);
+//# sourceMappingURL=component---src-pages-news-posted-post-js-0919064829bb31d76e15.js.map
