@@ -954,6 +954,7 @@ const handleToggle = () => {
 
   // Function to handle the user's dislike action
   async function handleDislikeClick(id) {
+    
     if (!props.user) {
       return; // User is not logged in, do nothing
     }
@@ -982,6 +983,7 @@ const handleToggle = () => {
           ip: id,
           date: new Date(),
           userId: user.uid,
+
         });
       }
   
