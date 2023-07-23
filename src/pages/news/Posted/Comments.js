@@ -1227,7 +1227,7 @@ if(cas){
     }
 
   };
-}, []);
+}, [cas]);
 
 
 
@@ -1332,7 +1332,7 @@ const reg = /<pre [^>]*>/g;
   for (const match of matches) {
     const widthRegex = /width="(\d+)"/;
     const heightRegex = /height="(\d+)"/;
-    const srcRegex = /src="([^"]+)"/; // add regex to extract src attribute
+    const srcRegex = /src="([^"]+)"/; // add regex to extracregex to extractt src attribute
 
     const widthMatch = match.match(widthRegex);
     const heightMatch = match.match(heightRegex);
