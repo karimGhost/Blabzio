@@ -1205,13 +1205,13 @@ useEffect(() => {
 
   // Monitor changes to the editRef element's height
   const observer = new ResizeObserver(handleHeightChange);
-  if (editRef.current) {
+  if (editRef.current === null) {
     observer.observe(editRef.current);
   }
 
   // Cleanup the observer when component unmounts
   return () => {
-    if (editRef.current) {
+    if (editRef.current === null) {
       observer.unobserve(editRef.current);
     }
   };
@@ -1248,7 +1248,7 @@ const edits = (id) => {
   
   debouncedHandleChange(id);
 
-  alert("boo")
+
 };
 
 function handleEd(id) {
@@ -1259,6 +1259,8 @@ function handleEd(id) {
   alert("ji")
   }
 }
+
+
 
 function edited(id) {
  
