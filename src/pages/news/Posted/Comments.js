@@ -1188,25 +1188,25 @@ const editRef = useRef(null);
 
 const [useref, setuseRef] = useState(true);
 
-if(editRef.current){
-  const editHeight = editRef.current.getBoundingClientRect().height;
-      if (editHeight >= 120) {
-        editRef.current.style.height = "60vh";
-        edref.current.style.display = "flex";
-      } else {
-        editRef.current.style.height = "fit-content";
-        edref.current.style.display = "none";
-      }
 
-   
-  
-
-  }
 useEffect(() => {
 
  
   function handleHeightChange() {
- 
+    if(editRef.current){
+      const editHeight = editRef.current.getBoundingClientRect().height;
+          if (editHeight >= 120) {
+            editRef.current.style.height = "60vh";
+            edref.current.style.display = "flex";
+          } else {
+            editRef.current.style.height = "fit-content";
+            edref.current.style.display = "none";
+          }
+    
+       
+      
+    
+      }
 }
   // Monitor changes to the editRef element's height
   const observer = new ResizeObserver(handleHeightChange);
