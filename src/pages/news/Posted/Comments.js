@@ -1234,7 +1234,7 @@ const edits = (id) => {
 
 function handleEd(id) {
  
-  if (editHeight <= 500) {
+  if (editHeight <= 900) {
   if (editRef.current !== null && id === editRef.current.id) {
     editRef.current.style.height = '100%';
   
@@ -1242,7 +1242,7 @@ function handleEd(id) {
 }
 
 function edited(id) {
-  if (editHeight <= 500) {
+  if (editHeight <= 900) {
   if (editRef.current !== null && id === editRef.current.id) {
     editRef.current.style.height = '100%';
     setedref(false);
