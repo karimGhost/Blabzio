@@ -16641,8 +16641,15 @@ padding: 10px 50px;
 
 
 .ppp > div {
-background-color: ghostwhite  !important;
+background-color: ghostwhite  ;
 }
+
+
+.ppr > div {
+  background-color:  #272b3c   !important ;
+
+}
+
    
 .ppp > div > img{
 width: 100% !important;
