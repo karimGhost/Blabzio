@@ -122,7 +122,9 @@ const [vote, setVote] = useState({
 const [rates, setRates] = useState([]);
 
 // Function to handle the user's dislike action
-async function handleDislike(id) {
+async function handleDislike(id,e) {
+  e.stopPropagation();
+
   if (!props.user) {
     return; // User is not logged in, do nothing
   }
@@ -188,7 +190,8 @@ async function handleDislike(id) {
 
 
 // Function to handle the user's like action
-async function handleLike(id) {
+async function handleLike(id,e) {
+  e.stopPropagation();
   if (!props.user) {
     return; // User is not logged in, do nothing
   }
@@ -1234,19 +1237,19 @@ const edits = (id) => {
 
 function handleEd(id) {
  
-  if (editHeight <= 900) {
+ 
   if (editRef.current !== null && id === editRef.current.id) {
     editRef.current.style.height = '100%';
   
-  }}
+  }
 }
 
 function edited(id) {
-  if (editHeight <= 900) {
+ 
   if (editRef.current !== null && id === editRef.current.id) {
     editRef.current.style.height = '100%';
     setedref(false);
-  }
+  
  
 }
       

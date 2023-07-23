@@ -398,13 +398,14 @@ if(user){
 
  // console.log('How are there the the hare these commets ',cards)
 
-const handleComment = (id) =>{
+ const handleComment = (id, e) =>{
+  e.stopPropagation();
   setCards((cards) =>
     cards.map((card) =>
       card.id === id ? { ...card, showCommentBox: true } : card
     )
+     
   );
-
 
 
 
