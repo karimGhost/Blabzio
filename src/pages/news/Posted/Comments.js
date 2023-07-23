@@ -1269,7 +1269,7 @@ function handleEd(id) {
  
   setCas(false)
   if (editRef.current  && id === editRef.current.id) {
-    editRef.current = "min";
+    
     editRef.current.style.height = '100%';
 
   
@@ -1286,7 +1286,7 @@ function edited(id) {
   setCas(false)
 
   if (editRef.current && id === editRef.current.id) {
-    editRef.current = "min";
+   
 
     editRef.current.style.height = '100%';
     setedref(false);
