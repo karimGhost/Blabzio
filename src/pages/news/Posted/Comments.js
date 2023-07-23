@@ -1188,29 +1188,34 @@ const editRef = useRef(null);
 
 const [useref, setuseRef] = useState(true);
 
-  const editHeight = editRef.current?.getBoundingClientRect()?.height;
-
-
-
   
-
-
-    if(editRef.current){
+useEffect(() => {
+  function handleHeightChange() {
+    if (editRef.current) {
+      const editHeight = editRef.current.getBoundingClientRect().height;
       if (editHeight >= 120) {
         editRef.current.style.height = "60vh";
-  
-        edref.current.style.display ="flex"
-
-    
-      
-    } else {
-      editRef.current.style.height = "fit-content";
-       edref.current.style.display ="none"
+        edref.current.style.display = "flex";
+      } else {
+        editRef.current.style.height = "fit-content";
+        edref.current.style.display = "none";
+      }
+    }
   }
-  
 
-     
-      }    
+  // Monitor changes to the editRef element's height
+  const observer = new ResizeObserver(handleHeightChange);
+  if (editRef.current) {
+    observer.observe(editRef.current);
+  }
+
+  // Cleanup the observer when component unmounts
+  return () => {
+    if (editRef.current) {
+      observer.unobserve(editRef.current);
+    }
+  };
+}, []);
 
 
 
@@ -1230,9 +1235,13 @@ useEffect(() => {
   });
 }, []);
 
-const debouncedHandleChange = debounce((event) => {
-  handleEd(event);
-}, 300);
+const debouncedHandleChange = useCallback(
+  debounce((id) => {
+    handleEd(id);
+  }, 300),
+  []
+);
+
 
 const edits = (id) => {
   edited(id);
