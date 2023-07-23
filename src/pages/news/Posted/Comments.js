@@ -1190,6 +1190,8 @@ const [useref, setuseRef] = useState(true);
 
   
 useEffect(() => {
+
+  if(editRef === null)
   function handleHeightChange() {
  if(editRef.current){
   const editHeight = editRef.current.getBoundingClientRect().height;
@@ -1218,7 +1220,7 @@ useEffect(() => {
     }
 
   };
-}, [user]);
+}, []);
 
 
 
@@ -1256,8 +1258,7 @@ const edits = (id) => {
 
 function handleEd(id) {
  
-
-
+  editRef.current= true
   if (editRef.current  && id === editRef.current.id) {
     editRef.current.style.height = 'fit-content';
 
@@ -1271,7 +1272,7 @@ function handleEd(id) {
 
 function edited(id) {
  
-   
+  editRef.current = true
   if (editRef.current && id === editRef.current.id) {
     editRef.current.style.height = '100%';
     setedref(false);
