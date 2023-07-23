@@ -123,7 +123,7 @@ const [rates, setRates] = useState([]);
 
 // Function to handle the user's dislike action
 async function handleDislike(id,e) {
-  e.stopPropagation();
+  
 
   if (!props.user) {
     return; // User is not logged in, do nothing
@@ -186,12 +186,14 @@ async function handleDislike(id,e) {
   } catch (error) {
     console.error('Error updating:', error);
   }
+
+  e.stopPropagation();
 }
 
 
 // Function to handle the user's like action
-async function handleLike(id,e) {
-  e.stopPropagation();
+async function handleLike(id) {
+ 
   if (!props.user) {
     return; // User is not logged in, do nothing
   }
@@ -1248,7 +1250,7 @@ function handleEd(id) {
 
 function edited(id) {
  
-  
+
   if (editRef.current !== null && id === editRef.current.id) {
     editRef.current.style.height = '100%';
     setedref(false);
