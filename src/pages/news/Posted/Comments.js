@@ -1258,7 +1258,7 @@ const edits = (id) => {
 
 function handleEd(id) {
  
-  editRef.current= true
+  editRef.current = true
   if (editRef.current  && id === editRef.current.id) {
     editRef.current.style.height = 'fit-content';
 
