@@ -1205,17 +1205,17 @@ useEffect(() => {
 
   // Monitor changes to the editRef element's height
   const observer = new ResizeObserver(handleHeightChange);
-  if (editRef.current === null ) {
+  if (editRef.current) {
     observer.observe(editRef.current);
   }
 
   // Cleanup the observer when component unmounts
   return () => {
-    if (editRef.current === null) {
+    if (editRef.current) {
       observer.unobserve(editRef.current);
     }
   };
-}, []);
+}, [user]);
 
 
 
