@@ -1235,12 +1235,12 @@ useEffect(() => {
   });
 }, []);
 
-const debouncedHandleChange = useCallback(
-  debounce((id) => {
-    handleEd(id);
-  }, 300),
-  []
-);
+
+
+
+const debouncedHandleChange = debounce((event) => {
+  handleEd(event);
+}, 300);
 
 
 const edits = (id) => {
