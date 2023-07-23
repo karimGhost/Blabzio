@@ -1193,7 +1193,6 @@ useEffect(() => {
 
  
   function handleHeightChange() {
-     if(editref && editRef === null){
  if(editRef.current){
   const editHeight = editRef.current.getBoundingClientRect().height;
       if (editHeight >= 120) {
@@ -1205,7 +1204,7 @@ useEffect(() => {
       }
 
    
-  }
+  
 
   }
 }
