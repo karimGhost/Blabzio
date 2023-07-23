@@ -1195,7 +1195,7 @@ useEffect(() => {
 
  
   function handleHeightChange() {
-if(!cas){return;}
+if(cas){
 
     if(editRef.current){
       const editHeight = editRef.current.getBoundingClientRect().height;
@@ -1210,6 +1210,7 @@ if(!cas){return;}
        
       
     
+      }
       }
 }
   // Monitor changes to the editRef element's height
