@@ -488,9 +488,9 @@ const handlexits = (id)  => {
   setCards((cards) => cards.filter((card) => card.id !== id));
   setcardid((cardid) => cardid.filter((car) => car.id !== id))
 
-  setEditing(false);
-setval({})
-setonHide(true)
+ compl && setEditing(false);
+ comple && setval({})
+ compl && setonHide(true)
 }
 
 
