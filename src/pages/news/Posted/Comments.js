@@ -1191,7 +1191,7 @@ const [useref, setuseRef] = useState(true);
   
 useEffect(() => {
 
-  if(editRef === null)
+  if(editref && editRef === null)
   function handleHeightChange() {
  if(editRef.current){
   const editHeight = editRef.current.getBoundingClientRect().height;
