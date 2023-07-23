@@ -1187,8 +1187,8 @@ const fullSizeImage = props.fullSizeImage;
 const editRef = useRef(null);
 
 const [useref, setuseRef] = useState(true);
-const editHeight = editRef.current.getBoundingClientRect().height;
 
+const editHeight = editRef.current ? editRef.current.getBoundingClientRect().height : 0;
   
 useEffect(() => {
   function handleHeightChange() {
