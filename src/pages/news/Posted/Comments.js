@@ -1252,7 +1252,6 @@ const debouncedHandleChange = debounce((event) => {
 
 const edits = (id) => {
 
-  editRef.current = false
 
   edited(id);
   
@@ -1262,8 +1261,8 @@ const edits = (id) => {
 };
 
 function handleEd(id) {
-  editRef.current = false
-  if (!editRef.current  && id === editRef.current.id) {
+ 
+  if (editRef.current  && id === editRef.current.id) {
     editRef.current.style.height = '100%';
 
   
@@ -1277,7 +1276,7 @@ function handleEd(id) {
 function edited(id) {
 
  
-  if (!editRef.current && id === editRef.current.id) {
+  if (editRef.current && id === editRef.current.id) {
     editRef.current.style.height = '100%';
     setedref(false);
   
