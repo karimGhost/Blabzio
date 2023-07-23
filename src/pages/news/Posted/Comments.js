@@ -1187,12 +1187,12 @@ const fullSizeImage = props.fullSizeImage;
 const editRef = useRef(null);
 
 const [useref, setuseRef] = useState(true);
+const editHeight = editRef.current.getBoundingClientRect().height;
 
   
 useEffect(() => {
   function handleHeightChange() {
  
-      const editHeight = editRef.current.getBoundingClientRect().height;
       if (editHeight >= 120) {
         editRef.current.style.height = "60vh";
         edref.current.style.display = "flex";
@@ -1205,7 +1205,7 @@ useEffect(() => {
 
   // Monitor changes to the editRef element's height
   const observer = new ResizeObserver(handleHeightChange);
-  if (editRef.current ) {
+  if (editRef.current) {
     observer.observe(editRef.current);
   }
 
@@ -1253,25 +1253,27 @@ const edits = (id) => {
 
 function handleEd(id) {
  
- 
+  if (editHeight <= 120) {
   if (editRef.current  && id === editRef.current.id) {
-    editRef.current.style.height = '100%';
+    editRef.current.style.height = 'fit-content';
 
   }
+
+}
 }
 
 
 
 function edited(id) {
  
-
+  if (editHeight <= 120) {
   if (editRef.current && id === editRef.current.id) {
     editRef.current.style.height = '100%';
     setedref(false);
   
  
 }
-      
+}  
 
 
 }
