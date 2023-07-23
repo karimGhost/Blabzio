@@ -1259,9 +1259,9 @@ const edits = (id) => {
 };
 
 function handleEd(id) {
-  editRef.current = false
+
   if (!editRef.current  && id === editRef.current.id) {
-    editRef.current.style.height = 'fit-content';
+    editRef.current.style.height = '100%';
 
   
 
@@ -1272,7 +1272,7 @@ function handleEd(id) {
 
 
 function edited(id) {
-  editRef.current = false
+ 
  
   if (!editRef.current && id === editRef.current.id) {
     editRef.current.style.height = '100%';
