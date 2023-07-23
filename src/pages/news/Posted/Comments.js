@@ -1256,15 +1256,14 @@ const edits = (id) => {
 
 function handleEd(id) {
  
-  if(editRef.current){
-    const editHeight = editRef.current.getBoundingClientRect().height;
-  if (editHeight <= 120) {
+
+
   if (editRef.current  && id === editRef.current.id) {
     editRef.current.style.height = 'fit-content';
 
-  }
+  
 
-}
+
   }
 }
 
@@ -1272,16 +1271,14 @@ function handleEd(id) {
 
 function edited(id) {
  
-  if(editRef.current){
-    const editHeight = editRef.current.getBoundingClientRect().height;
-  if (editHeight <= 120) {
+   
   if (editRef.current && id === editRef.current.id) {
     editRef.current.style.height = '100%';
     setedref(false);
   
  
-}
-}  
+
+
   }
 
 }
