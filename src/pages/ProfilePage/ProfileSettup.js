@@ -138,20 +138,29 @@ const [unfilstate,setUnfilstate] = useState(0)
 useEffect(() => {
   let unfilstateCount = 0;
 
+const usertimed = usernames.useris &&  usernames.useris.trim();
 
-  if (usernames.useris === null || usernames.useris.trim() === '') {
+const usertimedfname = usernames.firstname && usernames.firstname.trim();
+
+const usertimedlname = usernames.lastname && usernames.lastname.trim();
+
+const usertimedlocation = usernames.Location && usernames.Location.trim();
+
+const usertimedDob = usernames.DOB && usernames.DOB.trim();
+
+  if (usernames && usernames.useris === null || usertimed === '') {
     unfilstateCount++;
   }
-  if (usernames.firstname === null || usernames.firstname.trim() === '') {
+  if ( usernames &&  usernames.firstname === null || usertimedfname === '') {
     unfilstateCount++;
   }
-  if (usernames.lastname === null || usernames.lastname.trim() === '') {
+  if ( usernames &&  usernames.lastname === null || usertimedlname === '') {
     unfilstateCount++;
   }
-  if (usernames.Location === null || usernames.Location.trim() === '') {
+  if (usernames &&  usernames.Location === null || usertimedlocation === '') {
     unfilstateCount++;
   }
-  if (usernames.DOB === null || usernames.DOB.trim() === '') {
+  if (usernames &&  usernames.DOB === null || usertimedDob === '') {
     unfilstateCount++;
   }
 
@@ -466,7 +475,7 @@ return(
    /*
 )
 }
-
+l
 */
 
   return (

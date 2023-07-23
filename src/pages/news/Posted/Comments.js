@@ -1182,26 +1182,28 @@ const editRef = useRef(null);
 const [useref, setuseRef] = useState(true);
 
   const editHeight = editRef.current?.getBoundingClientRect()?.height;
-if(editRef.current){
-  if (editHeight >= 120) {
-    editRef.current.style.height = "60vh";
-   
-    edref.current.style.display ="flex"
+
 
 
   
-  } else {
-    editRef.current.style.height = "fit-content";
-   edref.current.style.display ="none"
+
+
+    if(editRef.current){
+      if (editHeight >= 120) {
+        editRef.current.style.height = "60vh";
+  
+        edref.current.style.display ="flex"
+
+    
+      
+    } else {
+      editRef.current.style.height = "fit-content";
+       edref.current.style.display ="none"
   }
+  
 
-
- 
-  }
-
-
-
-
+     
+      }    
 
 
 
@@ -1231,19 +1233,25 @@ const edits = (id) => {
 };
 
 function handleEd(id) {
+  if (editHeight <= 119) {
+
   if (editRef.current !== null && id === editRef.current.id) {
-    console.log("it's fogginggggggggggggggggggggg second");
     editRef.current.style.height = '100%';
+  }
   }
 }
 
 function edited(id) {
-  console.log("it's fogginggggggggggggggggggggg first");
+  if (editHeight <= 119) {
   if (editRef.current !== null && id === editRef.current.id) {
-    console.log("it's fogginggggggggggggggggggggg third");
     editRef.current.style.height = '100%';
     setedref(false);
   }
+ 
+}
+      
+
+
 }
 
 
@@ -1608,12 +1616,12 @@ Are you sure you want to delete Your post ?
               </div> 
               </Card.Body>
 
-<div onClick={ () =>   edited(props.ids)}  className="w-auto p-0 " style={{color: props.dark ? "white" : "black", marginLeft: "auto", marginRight: "auto", padding:"0px", width:"100%"}} >
+<div  className="w-auto p-0 " style={{color: props.dark ? "white" : "black", marginLeft: "auto", marginRight: "auto", padding:"0px", width:"100%"}} >
 
 
 
 
-<div  ref={editRef}  className="ppp"   id={props.ids} style={{position:"relative",  background: "transparent",  cursor:"pointer", overflow:"hidden",  boxShadow: "inset 0px -28px 17px 1px rgba(0,0,0,0.19)", webkitBoxShadow: "inset 0px -28px 17px 1px rgba(0,0,0,0.19)",
+<div onClick={ () =>   edited(props.ids)}   ref={editRef}  className={`ppp ${props.dark && "ppr"}`}   id={props.ids} style={{position:"relative",  background: "transparent",  cursor:"pointer", overflow:"hidden",  boxShadow: "inset 0px -28px 17px 1px rgba(0,0,0,0.19)", webkitBoxShadow: "inset 0px -28px 17px 1px rgba(0,0,0,0.19)",
 moZboxShadow: "inset 0px -28px 17px 1px rgba(0,0,0,0.19)", marginLeft:"90px", marginRight:" 50px"}}  >
 {ReactHtmlParser(resizeImage(), { decodeEntities: false, })}
             </div>
@@ -1650,7 +1658,7 @@ moZboxShadow: "inset 0px -28px 17px 1px rgba(0,0,0,0.19)", marginLeft:"90px", ma
               </div>
              
             
-<div className="w-auto ppp p-0 "  style={{  color: props.dark ? "white" : "black", marginLeft: "auto", marginRight: "auto", padding:"0px", width:"200%"}} >
+<div className={`w-auto ppp p-0  ${props.dark && "darke"}`}  style={{  color: props.dark ? "white" : "black", marginLeft: "auto", marginRight: "auto", padding:"0px", width:"200%"}} >
 
 
             {ReactHtmlParser(htmlCopied) }
