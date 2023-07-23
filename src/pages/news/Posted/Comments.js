@@ -1256,7 +1256,7 @@ function handleEd(id) {
  
   if (editRef.current !== null && id === editRef.current.id) {
     editRef.current.style.height = '100%';
-  alert("ji")
+
   }
 }
 
