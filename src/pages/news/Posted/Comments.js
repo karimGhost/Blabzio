@@ -1205,7 +1205,7 @@ useEffect(() => {
 
   // Monitor changes to the editRef element's height
   const observer = new ResizeObserver(handleHeightChange);
-  if (editRef.current) {
+  if (editRef.current ) {
     observer.observe(editRef.current);
   }
 
@@ -1215,7 +1215,7 @@ useEffect(() => {
       observer.unobserve(editRef.current);
     }
   };
-}, [editRef.current]);
+}, []);
 
 
 
@@ -1254,7 +1254,7 @@ const edits = (id) => {
 function handleEd(id) {
  
  
-  if (editRef.current !== null && id === editRef.current.id) {
+  if (editRef.current  && id === editRef.current.id) {
     editRef.current.style.height = '100%';
 
   }
@@ -1265,7 +1265,7 @@ function handleEd(id) {
 function edited(id) {
  
 
-  if (editRef.current !== null && id === editRef.current.id) {
+  if (editRef.current && id === editRef.current.id) {
     editRef.current.style.height = '100%';
     setedref(false);
   
