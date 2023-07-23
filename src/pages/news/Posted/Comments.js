@@ -1188,12 +1188,7 @@ const editRef = useRef(null);
 
 const [useref, setuseRef] = useState(true);
 
-  
-useEffect(() => {
-
- 
-  function handleHeightChange() {
- if(editRef.current){
+if(editRef.current){
   const editHeight = editRef.current.getBoundingClientRect().height;
       if (editHeight >= 120) {
         editRef.current.style.height = "60vh";
@@ -1207,6 +1202,11 @@ useEffect(() => {
   
 
   }
+useEffect(() => {
+
+ 
+  function handleHeightChange() {
+ 
 }
   // Monitor changes to the editRef element's height
   const observer = new ResizeObserver(handleHeightChange);
