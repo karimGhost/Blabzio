@@ -1189,10 +1189,14 @@ const editRef = useRef(null);
 const [useref, setuseRef] = useState(true);
 
 
+
+
 useEffect(() => {
 
  
   function handleHeightChange() {
+if(editRef === "min"){return;}
+
     if(editRef.current){
       const editHeight = editRef.current.getBoundingClientRect().height;
           if (editHeight >= 120) {
@@ -1247,6 +1251,7 @@ useEffect(() => {
 
 const debouncedHandleChange = debounce((event) => {
   handleEd(event);
+
 }, 300);
 
 
@@ -1263,7 +1268,8 @@ const edits = (id) => {
 function handleEd(id) {
  
   if (editRef.current  && id === editRef.current.id) {
-    editRef.current.style.height = '700px';
+    editRef.current = "min";
+    editRef.current.style.height = '100%';
 
   
 
@@ -1277,7 +1283,9 @@ function edited(id) {
 
  
   if (editRef.current && id === editRef.current.id) {
-    editRef.current.style.height = '700px';
+    editRef.current = "min";
+
+    editRef.current.style.height = '100%';
     setedref(false);
   
  
