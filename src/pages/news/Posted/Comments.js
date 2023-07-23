@@ -1188,11 +1188,11 @@ const editRef = useRef(null);
 
 const [useref, setuseRef] = useState(true);
 
-const editHeight = editRef.current ? editRef.current.getBoundingClientRect().height : 0;
   
 useEffect(() => {
   function handleHeightChange() {
- 
+ if(editRef.current){
+  const editHeight = editRef.current.getBoundingClientRect().height;
       if (editHeight >= 120) {
         editRef.current.style.height = "60vh";
         edref.current.style.display = "flex";
@@ -1200,11 +1200,13 @@ useEffect(() => {
         editRef.current.style.height = "fit-content";
         edref.current.style.display = "none";
       }
-    alert("olo")
+   
   }
 
+  }
   // Monitor changes to the editRef element's height
   const observer = new ResizeObserver(handleHeightChange);
+  
   if (editRef.current) {
     observer.observe(editRef.current);
   }
@@ -1214,6 +1216,7 @@ useEffect(() => {
     if (editRef.current) {
       observer.unobserve(editRef.current);
     }
+
   };
 }, [user]);
 
@@ -1253,6 +1256,8 @@ const edits = (id) => {
 
 function handleEd(id) {
  
+  if(editRef.current){
+    const editHeight = editRef.current.getBoundingClientRect().height;
   if (editHeight <= 120) {
   if (editRef.current  && id === editRef.current.id) {
     editRef.current.style.height = 'fit-content';
@@ -1260,12 +1265,15 @@ function handleEd(id) {
   }
 
 }
+  }
 }
 
 
 
 function edited(id) {
  
+  if(editRef.current){
+    const editHeight = editRef.current.getBoundingClientRect().height;
   if (editHeight <= 120) {
   if (editRef.current && id === editRef.current.id) {
     editRef.current.style.height = '100%';
@@ -1274,7 +1282,7 @@ function edited(id) {
  
 }
 }  
-
+  }
 
 }
 
