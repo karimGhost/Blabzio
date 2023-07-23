@@ -1200,7 +1200,7 @@ useEffect(() => {
         editRef.current.style.height = "fit-content";
         edref.current.style.display = "none";
       }
-    
+    alert("olo")
   }
 
   // Monitor changes to the editRef element's height
@@ -1215,7 +1215,7 @@ useEffect(() => {
       observer.unobserve(editRef.current);
     }
   };
-}, []);
+}, [user]);
 
 
 
