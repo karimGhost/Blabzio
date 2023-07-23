@@ -1233,16 +1233,16 @@ const edits = (id) => {
 };
 
 function handleEd(id) {
-  if (editHeight <= 119) {
-
+ 
+  if (editHeight <= 500) {
   if (editRef.current !== null && id === editRef.current.id) {
     editRef.current.style.height = '100%';
-  }
-  }
+  
+  }}
 }
 
 function edited(id) {
-  if (editHeight <= 119) {
+  if (editHeight <= 500) {
   if (editRef.current !== null && id === editRef.current.id) {
     editRef.current.style.height = '100%';
     setedref(false);
