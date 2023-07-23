@@ -1215,7 +1215,7 @@ useEffect(() => {
       observer.unobserve(editRef.current);
     }
   };
-}, [user]);
+}, [editRef.current]);
 
 
 
