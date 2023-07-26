@@ -355,7 +355,7 @@ if(!user){
       <span onClick={() => setFullSizeImage(null)} className="close">&times;</span>
      
       <div className="autoforcezoom" style={{marginBottom: "100px", width: "100%",height: "100%", margin:"auto", alignItems: "center", display:"flex", flexDirection:"column",position:"fixed", zIndex: "50" }}>
-    <div style={{display:"inline-block", float:"right", marginTop: "-45px"}}>
+    <div style={{display:"inline-block", float:"right"}}>
     <span  onClick={zoomIn} style={{cursor:"pointer" }} className='m-3  text-light '>
       <FontAwesomeIcon className='hover-text-light' icon={faMagnifyingGlassPlus}/>
       </span> 
