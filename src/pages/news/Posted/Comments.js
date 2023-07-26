@@ -1350,7 +1350,7 @@ const ma = htmlStrin.match(reg);
 
     modifiedHtmlString = modifiedHtmlString.replace( 
       match,
-      `<div class=" p-image-preview-container card flex justify-content-center imagewraper d-flex-column">${newTag}</div>`
+      `<div class=" mt-5 p-image-preview-container card flex justify-content-center imagewraper d-flex-column">${newTag}</div>`
     );
   }
   return modifiedHtmlString;
@@ -1363,7 +1363,7 @@ const ifZomed ={
   right:  zoom &&"0",
 
   bottom: zoom && "0",
-zIndex: zoom && "20",
+zIndex: zoom && "50",
 backgroundColor:  zoom && "rgba(0,0,0,0.11)"
 }
 
