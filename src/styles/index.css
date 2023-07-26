@@ -16706,3 +16706,10 @@ overflow-wrap: break-word !important;
 word-break: break-word !important;
 overflow-wrap: break-word !important;
 }
+
+.autoforcezoom{
+
+
+  position: fixed !important;
+  z-index: 50 !important;
+}
