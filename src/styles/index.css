@@ -16709,7 +16709,8 @@ overflow-wrap: break-word !important;
 
 .autoforcezoom{
 
-
+overflow: scroll !important;
   position: fixed !important;
   z-index: 50 !important;
 }
+
