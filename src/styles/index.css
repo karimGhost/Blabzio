@@ -16727,3 +16727,20 @@ overflow: scroll !important;
 
   background-color: #000000db;
 }
+
+
+
+@media screen and (max-width: 1602px){
+
+  .row {
+  display: flex;
+    /* flex-wrap: wrap; */
+    /*  margin-left: -180px !important;
+    margin-right: -180px !important;
+ */
+  }
+  #wsmall{
+    width: 100% !important
+  }
+}
+
