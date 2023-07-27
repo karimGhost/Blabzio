@@ -485,7 +485,7 @@ const handlecancel = (id) =>{
     handledata(id)
     setonHide(true)
 
- setHasdata({})
+ setHasdata("")
    
   };
   

@@ -348,8 +348,7 @@ if(!user){
 
     <Layout dark={dark} setdark={setdark} setDark={props.setdark} setLig = {props.setLight} setLight={setLight}  userId= {props.userId} isBloged ={isBlogActive} users={props.users} style={{  overflow:  !onHide  && "hidden"} } onHide={onHide} light={light}  off={off} >
 
-              
-
+            
 {fullSizeImage &&
 <div className="transparentbg" style={{position:"fixed", zIndex:"45", top:"0",left:"0",bottom:"0",right:"0"}}> 
 <div id="myModal" className={`"moda" ${dark && "darken" }`} >
