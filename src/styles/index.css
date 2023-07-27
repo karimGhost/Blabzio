@@ -16744,3 +16744,16 @@ overflow: scroll !important;
   }
 }
 
+
+@media screen and (max-width: 902px){
+
+
+.ppp{
+     margin-left: 0px; 
+     margin-right: 0px; 
+    height: 100%;
+    width: 100%;
+}
+
+}
+
