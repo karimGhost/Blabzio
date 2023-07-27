@@ -351,6 +351,7 @@ if(!user){
               
 
 {fullSizeImage &&
+<div style={{position:"fixed", zIndex:"45", top:"0",left:"0",bottom:"0",right:"0"}}> 
 <div id="myModal" className={`"moda" ${dark && "darken" }`} >
       <span onClick={() => setFullSizeImage(null)} className="close">&times;</span>
      
@@ -368,7 +369,7 @@ if(!user){
       <img style={{ width: `${50 * zoomLevel}%`, textAlign: "center" , justifySelf:"center", marginLeft:"auto", marginRight:"auto"}} zoomSrc={fullSizeImage} src={fullSizeImage} alt="Full-size Image" preview />
      
       </div>
-    </div> }
+    </div>  </div>}
 
 <PagesData off={off}  />
 
