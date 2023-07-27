@@ -16745,12 +16745,12 @@ overflow: scroll !important;
 }
 
 
-@media screen and (max-width: 902px){
+@media screen and (max-width: 942px){
 
 
 .ppp{
-     margin-left: 0px; 
-     margin-right: 0px; 
+     margin-left: 0px !important; 
+     margin-right: 0pxn !important; 
     height: 100%;
     width: 100%;
 }
