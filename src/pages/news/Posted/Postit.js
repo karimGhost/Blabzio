@@ -351,7 +351,7 @@ if(!user){
               
 
 {fullSizeImage &&
-<div style={{position:"fixed", zIndex:"45", top:"0",left:"0",bottom:"0",right:"0"}}> 
+<div className="transparentbg" style={{position:"fixed", zIndex:"45", top:"0",left:"0",bottom:"0",right:"0"}}> 
 <div id="myModal" className={`"moda" ${dark && "darken" }`} >
       <span onClick={() => setFullSizeImage(null)} className="close">&times;</span>
      
