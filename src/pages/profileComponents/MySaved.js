@@ -378,7 +378,7 @@ if(cards){
       });
     
     
-     
+     setCompl(true)
       
      
         setonHide(false);
