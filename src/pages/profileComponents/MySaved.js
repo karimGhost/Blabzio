@@ -365,6 +365,9 @@ if(cards){
         mail: user.email,
         userId: user.uid,
       });
+
+     
+
     alert(cards.id)
     setEditing(cards.id);
   setval(newss)
@@ -485,10 +488,12 @@ useEffect(() => {
 
 const handlexits = (id)  => {
 
-  setCards({});
-  setcardid([]);
- compl && setval({});
- compl && setonHide(true);
+  if(!compl){return;}
+
+ setCards({})
+ setEditing(false)
+ setval({})
+ setcardid([])
 }
 
 
