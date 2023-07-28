@@ -487,7 +487,7 @@ const handlexits = (id)  => {
 
   setCards({});
   setcardid([]);
- comple && setval({});
+ compl && setval({});
  compl && setonHide(true);
 }
 

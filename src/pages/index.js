@@ -698,7 +698,7 @@ style={{
 <div className={`content-wrapper ${light && "back"}`}>
 
   
-                       <div  className="row  rounded"    data-aos='fade-up'> 
+                       <div  className="row    rounded"    data-aos='fade-up'> 
 
 
               <div className=" col-lg-3 stretch-card grid-margin">
@@ -709,15 +709,15 @@ style={{
 
                     <ul className="vertical-menu">
                     
-                      <li><Link to="/news/Business">Business</Link></li>
-                      <li><Link to="/news/">Entertainent</Link></li>
-                      <li><Link to="/news/">Sports</Link></li>
-                      <li><Link to="/news/">Technology</Link></li>
-                      <li><Link to="/news/">Politics</Link></li>
-                      <li><Link to="/news/">Trending</Link></li>
-                      <li><Link to="/news/">Magazine</Link></li>
-                      <li><Link to="/news/">Art</Link></li>
-                      <li><Link to="/news/">Travel</Link></li>
+                      <li><Link to="morenews/Business">Business</Link></li>
+                      <li><Link to="morenews/Entertainment/">Entertainent</Link></li>
+                      <li><Link to="morenews/Sports/">Sports</Link></li>
+                      <li><Link to="morenews/Technology/">Technology</Link></li>
+                      <li><Link to="morenews/Politics/">Politics</Link></li>
+                      <li><Link to="morenews/Trending/">Trending</Link></li>
+                      <li><Link to="morenews/Magazine/">Magazine</Link></li>
+                      <li><Link to="morenews/Art/">Art</Link></li>
+                      <li><Link to="morenews/Travel/">Travel</Link></li>
                     </ul>
                    
                   </div>
