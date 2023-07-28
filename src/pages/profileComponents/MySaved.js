@@ -597,7 +597,7 @@ const overflowWrap ={
   overflowWrap:"break-word",
   wordBreak:"break-word"
 }
-
+/*{ `<span className="bg-dark bgeditor w-100 h-100"> <h1 style=${ overflowWrap } className="h1Edit bg-dark"> ${val.title}</h1> <img  className="m-auto" src= ${noImg}/>  <br/>   <p style=${ overflowWrap } className="textEdi">${val.paragraphs }</p> </span>`}*/
   return (
 <Layout >
  
@@ -622,7 +622,8 @@ const overflowWrap ={
                 { editing ? (
 <div className="pp d-flex jusify-center" style={{background:"", width:"95vw", backdropFilter: "blur(25px)",  zIndex: "105", position: "fixed", top: "10px", left: "0", right: "0"}}>
 <div className="fineEditor" style={{marginLeft:"19%", position:"relative"}}>
-<Editor value={ `<span className="bg-dark bgeditor w-100 h-100"> <h1 style=${ overflowWrap } className="h1Edit bg-dark"> ${val.title}</h1> <img  className="m-auto" src= ${noImg}/>  <br/>   <p style=${ overflowWrap } className="textEdi">${val.paragraphs }</p> </span>`}
+<Editor
+ value="Add context to share along or Blank" 
   onTextChange={(e) => handleEdit(cards.id, e.htmlValue)}
   onPaste={handleImagePaste}
 
