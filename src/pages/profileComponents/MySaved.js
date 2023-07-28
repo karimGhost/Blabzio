@@ -404,7 +404,7 @@ const handleEdit = (id, newMessage) => {
 
   setcardid((cardid) =>
     cardid.map((car) =>
-      car.id === id ? { ...car, message: { newMessage, ...cards.message } } : car
+      car.id === id ? { ...car, message: { newMessage, ...car.message } } : car
     )
   );
   
