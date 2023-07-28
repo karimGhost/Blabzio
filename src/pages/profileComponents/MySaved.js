@@ -148,7 +148,14 @@ const [editing, setEditing] = useState(false)
 
     const app1212 = firebase.app('app1312')
     
+useEffect(() => {
+ 
+  if(cards.id){
 
+  
+  setEditing(cards.id);
+  }
+}, [cards])
 
     const apps2 = firebase.initializeApp(firebaseConfig01900, 'app200');
     const app2 = firebase.app('app200') 
@@ -365,7 +372,6 @@ if(cards){
         mail: user.email,
         userId: user.uid,
       });
-
      
 
     alert(cards.id)
@@ -509,10 +515,10 @@ const [showMark , SetshowMark] = useState(false)
 const [editorHtml, setEditorHtml] = useState('');
 
 const handlePost = (id) => {
-  setCompl(true)
  handledata(id)
   setonHide(true)
 alert(id)
+setCompl(true)
 
 compl &&  setEditing(false);
 
