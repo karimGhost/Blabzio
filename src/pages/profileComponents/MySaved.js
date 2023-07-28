@@ -485,11 +485,9 @@ useEffect(() => {
 
 const handlexits = (id)  => {
 
-  setCards((cards) => cards.filter((card) => card.id !== id));
-  setcardid((cardid) => cardid.filter((car) => car.id !== id))
-setCompl(true);
- compl && setEditing(false);
- comple && setval({})
+  setCards({});
+  setcardid([]);
+ comple && setval({});
  compl && setonHide(true);
 }
 
