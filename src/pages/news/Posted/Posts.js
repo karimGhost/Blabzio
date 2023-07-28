@@ -203,9 +203,7 @@ const handlexits = (id)  => {
 });
 
 
-setCards([])
 
-setcardid([])
 setEditing({});
 
 setonHide(true)
