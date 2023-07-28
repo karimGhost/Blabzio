@@ -374,7 +374,6 @@ if(cards){
       });
      
 
-    alert(cards.id)
     setEditing(cards.id);
   setval(newss)
     
@@ -599,7 +598,6 @@ const overflowWrap ={
   wordBreak:"break-word"
 }
 
-    console.log("here is the datas you have ", saved[0])
   return (
 <Layout >
  
