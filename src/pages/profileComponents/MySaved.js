@@ -506,6 +506,7 @@ const [showMark , SetshowMark] = useState(false)
 const [editorHtml, setEditorHtml] = useState('');
 
 const handlePost = (id) => {
+  setCompl(true)
  handledata(id)
   setonHide(true)
 alert(id)
