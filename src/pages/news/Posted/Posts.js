@@ -202,8 +202,16 @@ const handlexits = (id)  => {
  
 });
 
+
+setCards([])
+
+setcardid([])
+setEditing({});
+
 setonHide(true)
-setHasdata({})
+
+setonHide(true)
+setHasdata("")
 }
 
 
@@ -311,6 +319,8 @@ const handleClick = () => {
      
     },
   ]);
+
+
 
 setcardid((cardid) => [
   ...cardid,
