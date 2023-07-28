@@ -487,10 +487,10 @@ const handlexits = (id)  => {
 
   setCards((cards) => cards.filter((card) => card.id !== id));
   setcardid((cardid) => cardid.filter((car) => car.id !== id))
-
+setCompl(true);
  compl && setEditing(false);
  comple && setval({})
- compl && setonHide(true)
+ compl && setonHide(true);
 }
 
 
