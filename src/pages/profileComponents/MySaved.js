@@ -150,7 +150,7 @@ const [editing, setEditing] = useState(false)
     
 useEffect(() => {
  
-  if(cards.id){
+  if(cards){
 
   
   setEditing(cards.id);
