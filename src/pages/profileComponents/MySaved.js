@@ -147,15 +147,7 @@ const {user} = useAuth();
 const [editing, setEditing] = useState(false)
 
     const app1212 = firebase.app('app1312')
-    
-useEffect(() => {
- 
-  if(cards){
 
-  
-  setEditing(cards.id);
-  }
-}, [cards])
 
     const apps2 = firebase.initializeApp(firebaseConfig01900, 'app200');
     const app2 = firebase.app('app200') 
@@ -254,7 +246,15 @@ const [compl, setCompl] = useState(false)
   
 
     
-         
+             
+useEffect(() => {
+ 
+  if(cards.id){
+
+  
+  setEditing(cards.id);
+  }
+}, [cards])
        
   
 
