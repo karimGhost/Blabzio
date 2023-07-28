@@ -204,7 +204,6 @@ const handlexits = (id)  => {
 
 
 
-setEditing({});
 
 setonHide(true)
 
