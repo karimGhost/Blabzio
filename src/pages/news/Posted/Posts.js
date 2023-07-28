@@ -208,7 +208,6 @@ setEditing({});
 
 setonHide(true)
 
-setonHide(true)
 setHasdata("")
 }
 
