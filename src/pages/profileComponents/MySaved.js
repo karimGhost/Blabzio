@@ -629,7 +629,7 @@ const overflowWrap ={
 <Button
   label={editing ?   "post" : "Edit"}
   icon="pi pi-upload"
-  style={{zIndex: "3",position: "absolute", right: "0", bottom:"0"}}
+  style={{zIndex: "3",position: "absolute", right: "0"}}
   className=" p-button-dark p-button p-mt-2 p-2 bg-dark"
   onClick={() => handlePost(cards.id)}
 /> 
