@@ -15311,11 +15311,7 @@ margin-top: 40px !important;
   .customed{
     height: 100% !important;
     width: 100% !important;
-    position: fixed !important;
-    top: 0 !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
+   
   }
 }
 
@@ -16748,7 +16744,7 @@ padding: 29px !important
     display: flex;
       /* flex-wrap: wrap; */
       /*  margin-left: -180px !important;
-      margin-right: -180px !important;
+      margin-right: -180px !important;  .customed
    */
     }
     #wsmall{
