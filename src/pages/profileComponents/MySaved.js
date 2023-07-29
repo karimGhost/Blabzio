@@ -393,20 +393,17 @@ if(cards){
         console.log("tis is te loo",cards )
       
     };
+    const handleEdit = (id, newMessage) => {
+      const newCards = cards.map((card) =>
+        card.id === id ? { ...card, message: newMessage } : card
+      );
+      setCards(newCards);
     
-const handleEdit = (id, newMessage) => {
+      const newCar = cardid.map((card) =>
+      card.id === id ? { ...card, message: newMessage } : card
+    );
 
- setCards((cards) =>
-    cards.map((card) =>
-      card.id === id ? { ...card, message:  newMessage, ...card.message  } : card
-    )
-  );
-
-  setcardid((cardid) =>
-    cardid.map((car) =>
-      car.id === id ? { ...car, message:  newMessage, ...car.message  } : car
-    )
-  );
+  setcardid(newCar);
   
 };
  
