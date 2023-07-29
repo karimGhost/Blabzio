@@ -576,7 +576,7 @@ const isYoutubeLink = (link) => {
   return link.match(/^(https?:\/\/)?(www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/) !== null;
 };
 
-// Helper function to extract the YouTube video ID from a link
+// Helper function to hn the YouTube video ID from a link
 const extractYoutubeVideoId = (link) => {
   const videoIdMatch = link.match(/^(https?:\/\/)?(www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/);
   if (videoIdMatch) {

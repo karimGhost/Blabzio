@@ -16730,9 +16730,15 @@ overflow: scroll !important;
 
 
 
+ @media screen and (max-width: 679px) {
+  
+ 
 
+.paddin{
+padding: 29px !important
+}
 
-
+}
 @media screen and (max-width: 942px){
 
 
