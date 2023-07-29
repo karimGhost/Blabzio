@@ -620,7 +620,7 @@ const overflowWrap ={
 <div className="pp d-flex paddin jusify-center" style={{background:"", width:"95vw", backdropFilter: "blur(25px)",  zIndex: "105", position: "fixed", top: "10px", left: "0", right: "0"}}>
 <div className="fineEditor" style={{marginLeft:"19%", position:"relative"}}>
 <Editor
- value="Add context to share along or Blank" 
+ value="" 
   onTextChange={(e) => handleEdit(cards.id, e.htmlValue)}
   onPaste={handleImagePaste}
 placeholder="Add Subject or leave blank"
