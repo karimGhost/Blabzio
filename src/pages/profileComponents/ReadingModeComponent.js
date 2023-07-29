@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import {  useLocation } from '@reach/router';
 import MySaved from './MySaved';
-import noImage from "../../images/no-image.jpg"
+import Layout from '../../components/Layout';
+import noImage from "../../images/no-image.jpg";
+import { Button } from 'primereact/button';
+
 const ReadingModeComponent = ({location}) => {
 
   const queryParams = new URLSearchParams(location.search);
@@ -11,7 +14,8 @@ const ReadingModeComponent = ({location}) => {
 
   const [newsSaved, setnewsSaved] = useState([])
   return (
-   
+   <Layout>
+    <Button icon="pi-chevron-left"> </Button >
     <div className="container">
       <div style={{display:"none"}}>
       {  /* <MySaved setnewsSaved={setnewsSaved} /> */ }
@@ -28,6 +32,7 @@ const ReadingModeComponent = ({location}) => {
       </div>
     </div>
   </div>
+  </Layout>
   );
 };
 

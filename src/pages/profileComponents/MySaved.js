@@ -371,6 +371,7 @@ if(cards){
         datePosted: new Date(),
         mail: user.email,
         userId: user.uid,
+        news:"itsnews"
       });
      
 
