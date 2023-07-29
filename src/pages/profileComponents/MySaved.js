@@ -672,7 +672,7 @@ placeholder="Add Subject or leave blank"
 <Button  style={{fontSize:"1.5rem", cursor:"pointer",
  position:"absolute", top:"0", left:"0",
  zIndex:"10", color: 'slateblue' , margin:"auto", width:"100%", 
-  height:"100%" }} icon="pi pi-file-export" onClick={() => handleClick(newss)}>
+  height:"100%",background:"transparent", border:"none" }} icon="pi pi-file-export" onClick={() => handleClick(newss)}>
      <span style={{}}>Share</span></Button>
 
       <img style={{position:"relative", zIndex:"9"}} src={newss.images && newss.images[3] || noImg} 
