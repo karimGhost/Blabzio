@@ -759,11 +759,11 @@ useEffect(() => {
  </div>} 
 
       {cards.slice().reverse().map((card) => (
-  <div key={card.id}  className="paddin"  style={{   marginLeft:"auto",marginRight:"auto" }}>
+  <div key={card.id}  className=""  style={{   marginLeft:"auto",marginRight:"auto" }}>
 
 
 {!editing[card.id] ? (
-<div className="pp d-flex jusify-center" style={{background:"", width:"95vw", backdropFilter: "blur(25px)",  zIndex: "105", position: "relative", top: "10px", left: "0", right: "0"}}>
+<div className="pp d-flex paddin jusify-center" style={{background:"", width:"95vw", backdropFilter: "blur(25px)",  zIndex: "105", position: "relative", top: "10px", left: "0", right: "0"}}>
 <div className="autoaddi" style={{margin:"auto", position:"relative"}}>
   <Editor
     onPaste={handleImagePaste}

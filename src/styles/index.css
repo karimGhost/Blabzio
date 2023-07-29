@@ -16731,7 +16731,12 @@ overflow: scroll !important;
  
 
 .paddin{
-padding: 29px !important
+  width: 90% !important;
+  z-index: 105;
+  position: relative;
+  top: 0px;
+  left: 5% !important;
+  right: 5% !important;
 }
 
 }
