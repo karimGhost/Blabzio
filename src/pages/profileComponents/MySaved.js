@@ -666,16 +666,16 @@ placeholder="Add Subject or leave blank"
        <div   onClick={() => handleClick(newss)}   icon= {showMark === newss && "pi-file-export" }  onMouseEnter={ () => Setshow(newss)  }
         onMouseLeave={() => Setshow(false)}   onMouseOVer={() => Setshow(newss)  }
           onMouseDown={() => Setshow(false)}                   
-          className={`${!showMark && "image-container"} rotate-img img-fluid image-container`}
+          className={`${!showMark && "image-container"}  img-fluid image-container`}
 > 
 
 <Button  style={{fontSize:"1.5rem", cursor:"pointer",
  position:"absolute", top:"0", left:"0",
- zIndex:"9", color: 'slateblue' , margin:"auto", width:"100%", 
+ zIndex:"10", color: 'slateblue' , margin:"auto", width:"100%", 
   height:"100%" }} icon="pi pi-file-export" onClick={() => handleClick(newss)}>
      <span style={{}}>Share</span></Button>
 
-      <img src={newss.images && newss.images[3] || noImg}
+      <img style={{position:"relative", zIndex:"9"}} src={newss.images && newss.images[3] || noImg} 
                              alt="bannerImg"
                             
 width={400}
