@@ -617,13 +617,13 @@ const overflowWrap ={
                  <div className="row">
 
                 { editing ? (
-<div className="pp d-flex jusify-center" style={{background:"", width:"95vw", backdropFilter: "blur(25px)",  zIndex: "105", position: "fixed", top: "10px", left: "0", right: "0"}}>
+<div className="pp d-flex paddin jusify-center" style={{background:"", width:"95vw", backdropFilter: "blur(25px)",  zIndex: "105", position: "fixed", top: "10px", left: "0", right: "0"}}>
 <div className="fineEditor" style={{marginLeft:"19%", position:"relative"}}>
 <Editor
  value="Add context to share along or Blank" 
   onTextChange={(e) => handleEdit(cards.id, e.htmlValue)}
   onPaste={handleImagePaste}
-
+placeholder="Add Subject or leave blank"
   className="ql-snow ql-editor-custom customed"
   style={{ height: "320px", overflow: "scroll", width: "100%", marginLeft: "auto", marginRight: "auto" }}
 />
@@ -639,7 +639,7 @@ const overflowWrap ={
 
 <Button     
             icon="pi pi-times"
-            className="p-button-danger p-button p-mt-2 p-0 m-0"
+            className="p-button-danger p-button p-mt-2 p-0 m-0 exitbuttons"
             style={{zIndex: "3",position: "absolute", top: "0", right: "0"}}
 
             onClick={() => handlexits(cards.id)}
