@@ -1408,7 +1408,7 @@ if(!user){
   {isBlogActive && (      <div >  
 
                            <li className="nav-item">
-                           <Link getProps={({ isActive }) => ({  onClick: () =>  handleSethiddenav(isActive) }) } className={`${isBlogActive  && nav.isActive } nav-link`}  to="/news/Posted/Postit">The Wall</Link>
+                           <Link getProps={({ isActive }) => ({  onClick: () =>  handleSethiddenav(isActive) }) } className={`${isBlogActive  && nav.isActive } nav-link`}  to="/news/VideoUploader">The Wall</Link>
                            </li>
                            </div>
 )}
