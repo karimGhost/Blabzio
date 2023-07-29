@@ -513,7 +513,7 @@ const [editorHtml, setEditorHtml] = useState('');
 const handlePost = (id) => {
  handledata(id)
   setonHide(true)
-alert(id)
+
 setCompl(true)
 
 compl &&  setEditing(false);
