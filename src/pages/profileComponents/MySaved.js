@@ -398,13 +398,13 @@ const handleEdit = (id, newMessage) => {
 
  setCards((cards) =>
     cards.map((card) =>
-      card.id === id ? { ...card, message: { newMessage, ...card.message } } : card
+      card.id === id ? { ...card, message:  newMessage, ...card.message  } : card
     )
   );
 
   setcardid((cardid) =>
     cardid.map((car) =>
-      car.id === id ? { ...car, message: { newMessage, ...car.message } } : car
+      car.id === id ? { ...car, message:  newMessage, ...car.message  } : car
     )
   );
   
