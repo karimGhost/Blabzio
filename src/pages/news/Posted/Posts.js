@@ -764,7 +764,7 @@ useEffect(() => {
 
 {!editing[card.id] ? (
 <div className="pp d-flex jusify-center" style={{background:"", width:"95vw", backdropFilter: "blur(25px)",  zIndex: "105", position: "relative", top: "10px", left: "0", right: "0"}}>
-<div style={{margin:"auto", position:"relative"}}>
+<div className="autoaddi" style={{margin:"auto", position:"relative"}}>
   <Editor
     onPaste={handleImagePaste}
 
@@ -785,7 +785,7 @@ useEffect(() => {
 
 <Button     
             icon="pi pi-times"
-            className="p-button-danger p-button p-mt-2 p-0 m-0"
+            className="p-button-danger p-button p-mt-2 p-0 m-0 exitbuttons"
             style={{zIndex: "3",position: "absolute", top: "0", right: "0"}}
 
             onClick={() => handlexits(card.id)}

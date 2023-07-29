@@ -16765,3 +16765,32 @@ padding: 29px !important
 .darken {
   background-color: #161616 !important;
 }
+
+@media screen and (max-width: 720px){
+
+
+
+.autoaddi{
+
+margin: auto;
+position: relative;
+top: 0;
+bottom: 0;
+left: 0;
+right: 0 !important;
+height: 59vh !important;
+width: inherit !important;
+}
+.exitbuttons{
+  z-index: 3;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding: 2px !important;
+  width: fit-content;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  font-size: 3.2rem;
+
+}
+}
