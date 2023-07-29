@@ -1282,7 +1282,7 @@ if(!user){
                 
            <Dropdown.Toggle style={{border: "none"}}    className=" rounded-circle shadow-none bg-transparent b-none text-reset dropdown-toggle d-flex align-items-center hidden-arrow bord"    id="navbarDropdownMenuLink"  role="button" data-toggle="dropdown" aria-expanded="false" >
                           
-                           <Avatar style={{width: "4.5rem"}} className={`${profileImg ? "bg" : "flex align-items-center justify-content-center mr-2" } " p-overlay-badge"` } image={profileImg ? profileImg : "https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp"}  size="large" shape="circle" alt="profile"  >
+                           <Avatar style={{width: "4.5rem",height:"4.5rem"}} className={`${profileImg ? "bg" : "flex align-items-center justify-content-center mr-2" } " p-overlay-badge"` } image={profileImg ? profileImg : "https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp"}  size="large" shape="circle" alt="profile"  >
                            {totalLength === 0 && unfilstate === 0 || unfilstate === 0 && totalLength === 0 ? (
   <span></span>
 ) : (

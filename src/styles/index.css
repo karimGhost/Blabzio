@@ -16740,10 +16740,14 @@ overflow: scroll !important;
 }
 
 }
+
+
 @media screen and (max-width: 1042px){
 
 
-
+.ppp > p{
+  padding: 10px
+}
 
   .row {
     display: flex;
