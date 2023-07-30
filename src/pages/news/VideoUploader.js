@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import 'firebase/compat/app';
-import 'firebase/compat/database';
-import 'firebase/compat/storage';
+
 import { nanoid } from 'nanoid';
 import RecordRTC from 'recordrtc';
 import firebase from 'firebase/compat/app';
@@ -26,9 +25,12 @@ const firebaseConfig3333 = {
 
 
 function VideoUploader(){
+if(!user){
 
-
+return;
+}
 firebase.initializeApp(firebaseConfig3333, 'app3333');
+
 const { user,setUser, loading,signOut } = useAuth();
 const app3333 = firebase.app('app3333');
 
