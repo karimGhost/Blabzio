@@ -110,8 +110,8 @@ const database = firebase.database();
         {recording ? null : (
           <button
             className="btn btn-success mr-2"
-            onClick={() => setVideos((prevVideos) => [...prevVideos, mediaBlobUrl])}
-            disabled={!mediaBlobUrl}
+            onClick={() => setVideos((prevVideos) => [...prevVideos, mediaBlob])}
+            disabled={!mediaBlob}
           >
             Upload
           </button>
