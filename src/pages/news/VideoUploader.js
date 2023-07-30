@@ -4,7 +4,6 @@ import 'firebase/compat/database';
 import 'firebase/compat/storage';
 import { nanoid } from 'nanoid';
 import firebase from 'firebase/compat/app';
-import RecordRTC from 'recordrtc';
 const firebaseConfig121212 = {
   apiKey: "AIzaSyChFGTB5YEugUKho-YqcWVZtKJG3PIrtt0",
 
