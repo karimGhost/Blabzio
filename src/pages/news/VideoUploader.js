@@ -119,7 +119,7 @@ const database = firebase.database();
       </div>
       <video
         ref={videoRef}
-        src={mediaBlobUrl}
+        src={mediaBlob}
         style={{ width: '100%', marginBottom: '10px' }}
         autoPlay
         controls
