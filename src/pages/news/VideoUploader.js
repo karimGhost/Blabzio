@@ -58,6 +58,7 @@ const VideoRecorder = () => {
     });
   };
 
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file && file.size < 5000000) { // Maximum allowed file size is 5MB
@@ -66,7 +67,6 @@ const VideoRecorder = () => {
       alert('Please select a short video file (less than 5MB).');
     }
   };
-
   const handleUploadClick = () => {
     const { mediaBlob, mediaBlobUrl } = useReactMediaRecorder;
     if (mediaBlobUrl) {
