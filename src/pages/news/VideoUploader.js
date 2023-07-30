@@ -3,7 +3,6 @@ import 'firebase/database';
 import { nanoid } from 'nanoid';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/storage'; // Import storage module
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { useReactMediaRecorder } from 'react-media-recorder'; // Import react-media-recorder
 const firebaseConfig121212 = {
   apiKey: "AIzaSyChFGTB5YEugUKho-YqcWVZtKJG3PIrtt0",
