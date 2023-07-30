@@ -31,7 +31,7 @@ firebase.initializeApp(firebaseConfig3333, 'app3333');
 const { user,setUser, loading,signOut } = useAuth();
 const app3333 = firebase.app('app3333');
 
-const database = app3333.database();
+
 
   const [videos, setVideos] = useState([]);
   const [recording, setRecording] = useState(false);
