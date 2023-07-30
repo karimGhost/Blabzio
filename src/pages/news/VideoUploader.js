@@ -4,6 +4,7 @@ import 'firebase/compat/database';
 import 'firebase/compat/storage';
 import { nanoid } from 'nanoid';
 import RecordRTC from 'recordrtc';
+import firebase from 'firebase/compat/app';
 const firebaseConfig121212 = {
   apiKey: "AIzaSyChFGTB5YEugUKho-YqcWVZtKJG3PIrtt0",
 
@@ -21,6 +22,8 @@ const firebaseConfig121212 = {
 
   measurementId: "G-7V80059NF7"
 }
+
+
 firebase.initializeApp(firebaseConfig121212, 'app121212');
 
 const app4 = firebase.app('app121212');
