@@ -4,7 +4,6 @@ import 'firebase/compat/database';
 import 'firebase/compat/storage';
 import { nanoid } from 'nanoid';
 import firebase from 'firebase/compat/app';
-
 const firebaseConfig121212 = {
   apiKey: "AIzaSyChFGTB5YEugUKho-YqcWVZtKJG3PIrtt0",
 
@@ -24,58 +23,74 @@ const firebaseConfig121212 = {
 
 };
 
-const VideoUploader = () => {
+
+
+function VideoUploader() {
 
   firebase.initializeApp(firebaseConfig121212);
   const database = firebase.database(); 
 
   const [videos, setVideos] = useState([]);
   const [recording, setRecording] = useState(false);
-  const [mediaBlobUrl, setMediaBlobUrl] = useState('');
+  const [mediaBlob, setMediaBlob] = useState(null);
   const [commentInput, setCommentInput] = useState('');
 
   const videoRef = useRef(null);
-  const recorderRef = useRef(null);
-
-  
+  const mediaRecorderRef = useRef(null);
+  const chunksRef = useRef([]);
 
   const handleStartRecording = () => {
     setRecording(true);
     navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
       videoRef.current.srcObject = stream;
-      recorderRef.current = RecordRTC(stream, { type: 'video' });
-      recorderRef.current.startRecording();
+      mediaRecorderRef.current = new MediaRecorder(stream);
+      chunksRef.current = [];
+      mediaRecorderRef.current.ondataavailable = handleDataAvailable;
+      mediaRecorderRef.current.onstop = handleRecordingStopped;
+      mediaRecorderRef.current.start();
     });
   };
 
   const handleStopRecording = () => {
     setRecording(false);
-    recorderRef.current.stopRecording(() => {
-      const blob = recorderRef.current.getBlob();
-      const videoId = nanoid();
-  
-      // Using RTDB reference instead of the Firebase storage reference
-      const videoRef = database.ref('videos/' + videoId);
-  
-      videoRef
-        .put(blob)
-        .then(() => {
-          return videoRef.getDownloadURL();
-        })
-        .then((downloadURL) => {
-          const videoData = {
-            id: videoId,
-            url: downloadURL,
-            likes: 0,
-            dislikes: 0,
-            comments: [],
-          };
-          database.ref('videos/' + videoId).set(videoData);
-          setVideos((prevVideos) => [...prevVideos, videoData]);
-        });
+    mediaRecorderRef.current.stop();
+  };
+
+  const handleDataAvailable = (event) => {
+    if (event.data.size > 0) {
+      chunksRef.current.push(event.data);
+    }
+  };
+
+  const handleRecordingStopped = () => {
+    const blob = new Blob(chunksRef.current, { type: 'video/webm' });
+    setMediaBlob(blob);
+    chunksRef.current = [];
+  };
+
+  const handleUploadVideo = () => {
+    if (!mediaBlob) {
+      return;
+    }
+
+    const videoId = nanoid();
+    const storageRef = firebase.storage().ref();
+    const videoRef = storageRef.child('videos/' + videoId + '.webm');
+
+    videoRef.put(mediaBlob).then(() => {
+      videoRef.getDownloadURL().then((downloadURL) => {
+        const videoData = {
+          id: videoId,
+          url: downloadURL,
+          likes: 0,
+          dislikes: 0,
+          comments: [],
+        };
+        database.ref('videos/' + videoId).set(videoData);
+        setVideos((prevVideos) => [...prevVideos, videoData]);
+      });
     });
   };
-  
 
   const handleLike = (videoId) => {
     database
@@ -89,8 +104,7 @@ const VideoUploader = () => {
   };
 
   const handleDislike = (videoId) => {
-    
-      database
+    database
       .ref('videos/' + videoId)
       .transaction((video) => {
         if (video) {
@@ -125,7 +139,7 @@ const VideoUploader = () => {
   return (
     <div className="container mt-5">
       <h1 className="mb-4">Video Recorder</h1>
-      <div>
+      <div className="mb-2">
         {recording ? (
           <button className="btn btn-danger mr-2" onClick={handleStopRecording}>
             Stop Recording
@@ -136,25 +150,25 @@ const VideoUploader = () => {
           </button>
         )}
         {recording ? null : (
-          <button
-            className="btn btn-success mr-2"
-            onClick={() => setVideos((prevVideos) => [...prevVideos, mediaBlobUrl])}
-            disabled={!mediaBlobUrl}
-          >
-            Upload
+          <button className="btn btn-success" onClick={handleUploadVideo} disabled={!mediaBlob}>
+            Upload Video
           </button>
         )}
       </div>
-      <video
-        ref={videoRef}
-        src={mediaBlobUrl}
-        style={{ width: '100%', marginBottom: '10px' }}
-        autoPlay
-        controls
-      />
+      <div className="mb-4">
+        {mediaBlob && (
+          <video
+            ref={videoRef}
+            src={URL.createObjectURL(mediaBlob)}
+            style={{ width: '100%', marginBottom: '10px' }}
+            autoPlay
+            controls
+          />
+        )}
+      </div>
       <hr />
-      {videos.map((video, index) => (
-        <div key={index} className="card mb-3">
+      {videos.map((video) => (
+        <div key={video.id} className="card mb-3">
           <div className="card-body">
             <video
               src={video.url}
@@ -170,7 +184,10 @@ const VideoUploader = () => {
               <button className="btn btn-sm btn-primary mr-2" onClick={() => handleLike(video.id)}>
                 Like
               </button>
-              <button className="btn btn-sm btn-danger" onClick={() => handleDislike(video.id)}>
+              <button
+                className="btn btn-sm btn-danger"
+                onClick={() => handleDislike(video.id)}
+              >
                 Dislike
               </button>
             </div>
@@ -213,7 +230,6 @@ const VideoUploader = () => {
       ))}
     </div>
   );
-};
-
+}
 
 export default VideoUploader;
