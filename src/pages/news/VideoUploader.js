@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 
 import { nanoid } from 'nanoid';
-import RecordRTC from 'recordrtc';
+
 
 
 
@@ -16,11 +16,7 @@ function VideoUploader() {
 
   const handleStartRecording = () => {
     setRecording(true);
-    navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
-      videoRef.current.srcObject = stream;
-      recorderRef.current = RecordRTC(stream, { type: 'video' });
-      recorderRef.current.startRecording();
-    });
+   
   };
 
   const handleStopRecording = () => {
