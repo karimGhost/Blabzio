@@ -22,7 +22,7 @@
       "serve": "gatsby serve",
       "clean": "gatsby clean",
       "deploy": "gatsby build --prefix-paths && gh-pages -d public",
-   "deploy:ci": "gatsby build --prefix-paths && gh-pages -d public -r https://$GH_TOKEN@github.com/karimGhost/Blabzio.git"
+      "deploy:ci": "gatsby build --prefix-paths && gh-pages -d public -r https://$GH_TOKEN@github.com/karimGhost/Blabzio.git"
    },
    "dependencies": {
       "@emoji-mart/data": "^1.1.2",
@@ -95,6 +95,7 @@
       "react-lazy-load": "^4.0.1",
       "react-popper": "^2.3.0",
       "react-scroll-motion": "^0.3.2",
+      "react-video-recorder": "^3.19.4",
       "stream": "^0.0.2",
       "stream-browserify": "^3.0.0",
       "stream-http": "^3.2.0",

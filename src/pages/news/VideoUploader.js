@@ -4,23 +4,33 @@ import { nanoid } from 'nanoid';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/storage'; // Import storage module
 import { VideoRecorder } from 'react-video-recorder'; // Import VideoRecorder
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Your Firebase configuration
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  databaseURL: "YOUR_DATABASE_URL",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID",
-  measurementId: "YOUR_MEASUREMENT_ID"
-};
+const firebaseConfig121212 = {
+  apiKey: "AIzaSyChFGTB5YEugUKho-YqcWVZtKJG3PIrtt0",
+
+  authDomain: "thewall-10a4a.firebaseapp.com",
+
+  databaseURL: "https://thewall-10a4a-default-rtdb.firebaseio.com",
+
+  projectId: "thewall-10a4a",
+
+  storageBucket: "thewall-10a4a.appspot.com",
+
+  messagingSenderId: "221023885061",
+
+  appId: "1:221023885061:web:bc550d03edd2fbf60e496c",
+
+  measurementId: "G-7V80059NF7"
+}
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
+firebase.initializeApp(firebaseConfig121212, 'app121212');
+
+const app4 = firebase.app('app121212');
+
+  const database = app4.database(); 
+
 
 class VideoUploader extends React.Component {
   state = {
