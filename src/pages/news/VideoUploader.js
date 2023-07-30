@@ -5,7 +5,9 @@ import 'firebase/compat/storage';
 import { nanoid } from 'nanoid';
 import firebase from 'firebase/compat/app';
 import { FaThumbsUp, FaThumbsDown, FaTrashAlt, FaComment } from 'react-icons/fa';
-import { VideoRecorder } from 'react-video-recorder';
+
+import videojs from 'video.js';
+
 const firebaseConfig121212 = {
   apiKey: "AIzaSyChFGTB5YEugUKho-YqcWVZtKJG3PIrtt0",
 
@@ -25,14 +27,18 @@ const firebaseConfig121212 = {
 
 };
 
+
 function VideoUploader(){
 firebase.initializeApp(firebaseConfig121212);
 const database = firebase.database();
   const [videos, setVideos] = useState([]);
   const [commentInput, setCommentInput] = useState('');
+  const [mediaBlob, setMediaBlob] = useState(null);
+  const playerRef = useRef(null);
+  const videoRef = useRef(null);
 
-  const handleUploadVideo = (videoBlob) => {
-    if (!videoBlob) {
+  const handleUploadVideo = () => {
+    if (!mediaBlob) {
       return;
     }
 
@@ -40,7 +46,7 @@ const database = firebase.database();
     const storageRef = firebase.storage().ref();
     const videoRef = storageRef.child('videos/' + videoId + '.webm');
 
-    videoRef.put(videoBlob).then(() => {
+    videoRef.put(mediaBlob).then(() => {
       videoRef.getDownloadURL().then((downloadURL) => {
         const videoData = {
           id: videoId,
@@ -51,6 +57,7 @@ const database = firebase.database();
         };
         database.ref('videos/' + videoId).set(videoData);
         setVideos((prevVideos) => [...prevVideos, videoData]);
+        setMediaBlob(null);
       });
     });
   };
@@ -89,26 +96,64 @@ const database = firebase.database();
     });
   };
 
+  // Set up video player using videojs
+  const options = {
+    controls: true,
+    width: 640,
+    height: 480,
+    fluid: false,
+    plugins: {
+      record: {
+        audio: true,
+        video: true,
+        maxLength: 10,
+        displayMilliseconds: false,
+        debug: true,
+      },
+    },
+  };
+
+  const handleStartRecording = () => {
+    if (playerRef.current) {
+      const player = videojs(playerRef.current);
+      player.record().start();
+    }
+  };
+
+  const handleStopRecording = () => {
+    if (playerRef.current) {
+      const player = videojs(playerRef.current);
+      player.record().stop();
+    }
+  };
+
+  const handleCompleteRecording = (data) => {
+    setMediaBlob(new Blob([data], { type: 'video/webm' }));
+  };
+
   return (
     <div className="container mt-5">
       <h1 className="mb-4">Video Recorder</h1>
       <div className="mb-4">
-        <VideoRecorder
-          onRecordingComplete={handleUploadVideo}
-          renderActions={({ isRecording, startRecording, stopRecording }) => (
-            <div>
-              {isRecording ? (
-                <button className="btn btn-danger mr-2" onClick={stopRecording}>
-                  Stop Recording
-                </button>
-              ) : (
-                <button className="btn btn-primary mr-2" onClick={startRecording}>
-                  Start Recording
-                </button>
-              )}
-            </div>
-          )}
-        />
+        <video
+          ref={videoRef}
+          className="video-js vjs-default-skin"
+          style={{ width: '100%', marginBottom: '10px' }}
+          controls
+        >
+          <source src={mediaBlob && URL.createObjectURL(mediaBlob)} type="video/webm" />
+        </video>
+        <div>
+          <button className="btn btn-danger mr-2" onClick={handleStopRecording}>
+            Stop Recording
+          </button>
+          <button className="btn btn-primary mr-2" onClick={handleStartRecording}>
+            Start Recording
+          </button>
+          <button className="btn btn-success" onClick={handleUploadVideo} disabled={!mediaBlob}>
+            Upload Video
+          </button>
+        </div>
       </div>
       <hr />
       {videos.map((video, index) => (
@@ -126,10 +171,10 @@ const database = firebase.database();
             </div>
             <div className="my-3">
               <button className="btn btn-sm btn-primary mr-2" onClick={() => handleLike(video.id)}>
-                Like
+                <FaThumbsUp /> Like
               </button>
               <button className="btn btn-sm btn-danger" onClick={() => handleDislike(video.id)}>
-                Dislike
+                <FaThumbsDown /> Dislike
               </button>
             </div>
             <div>
@@ -156,14 +201,14 @@ const database = firebase.database();
                     id="button-addon2"
                     onClick={() => handleComment(video.id)}
                   >
-                    Post
+                    <FaComment /> Post
                   </button>
                 </div>
               </div>
             </div>
             <div>
               <button className="btn btn-danger btn-sm" onClick={() => handleDelete(video.id)}>
-                Delete
+                <FaTrashAlt /> Delete
               </button>
             </div>
           </div>
@@ -171,6 +216,6 @@ const database = firebase.database();
       ))}
     </div>
   );
-};
+}
 
 export default VideoUploader;
