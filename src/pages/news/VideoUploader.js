@@ -21,25 +21,17 @@ const firebaseConfig121212 = {
   appId: "1:221023885061:web:bc550d03edd2fbf60e496c",
 
   measurementId: "G-7V80059NF7"
-}
 
-
+};
 function VideoUploader() {
 
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig121212, 'app121212');
-
-const app4 = firebase.app('app121212');
-
-  const database = app4.database(); 
-
+  firebase.initializeApp(firebaseConfig121212);
+  const database = firebase.database(); 
 
   const [videos, setVideos] = useState([]);
   const [recording, setRecording] = useState(false);
   const [mediaBlob, setMediaBlob] = useState(null);
   const [commentInput, setCommentInput] = useState('');
-  const [userComments, setUserComments] = useState({}); // Store comments for each video
 
   const videoRef = useRef(null);
   const mediaRecorderRef = useRef(null);
@@ -55,13 +47,11 @@ const app4 = firebase.app('app121212');
       mediaRecorderRef.current.ondataavailable = (event) => {
         if (event.data.size > 0) {
           chunksRef.current.push(event.data);
-          videoRef.current.src = URL.createObjectURL(new Blob(chunksRef.current, { type: 'video/webm' }));
+          setMediaBlob(new Blob(chunksRef.current, { type: 'video/webm' }));
         }
       };
 
       mediaRecorderRef.current.onstop = () => {
-        const blob = new Blob(chunksRef.current, { type: 'video/webm' });
-        setMediaBlob(blob);
         chunksRef.current = [];
       };
 
@@ -100,63 +90,38 @@ const app4 = firebase.app('app121212');
   };
 
   const handleLike = (videoId) => {
-    setVideos((prevVideos) =>
-      prevVideos.map((video) =>
-        video.id === videoId ? { ...video, likes: video.likes + 1 } : video
-      )
-    );
+    database.ref('videos/' + videoId + '/likes').transaction((currentLikes) => (currentLikes || 0) + 1);
   };
 
   const handleDislike = (videoId) => {
-    setVideos((prevVideos) =>
-      prevVideos.map((video) =>
-        video.id === videoId ? { ...video, dislikes: video.dislikes + 1 } : video
-      )
-    );
-  };
-
-  const handleCommentChange = (event) => {
-    setCommentInput(event.target.value);
+    database.ref('videos/' + videoId + '/dislikes').transaction((currentDislikes) => (currentDislikes || 0) + 1);
   };
 
   const handleComment = (videoId) => {
-    const comment = commentInput.trim();
-    if (comment !== '') {
-      const videoComments = userComments[videoId] || [];
-      const commentData = { id: nanoid(), comment };
-      videoComments.push(commentData);
-
-      setUserComments((prevComments) => ({ ...prevComments, [videoId]: videoComments }));
-      setCommentInput('');
-
-      setVideos((prevVideos) =>
-        prevVideos.map((video) =>
-          video.id === videoId ? { ...video, comments: videoComments } : video
-        )
-      );
+    if (commentInput.trim() === '') {
+      return;
     }
+
+    database.ref('videos/' + videoId + '/comments').push({
+      userId: 'users', // Replace 'users' with the actual user ID if available
+      comment: commentInput.trim(),
+    });
+
+    setCommentInput('');
   };
+
   const handleDelete = (videoId) => {
-    // Delete the video data from the database
-    database.ref('videos/' + videoId).remove()
-      .then(() => {
-        // Once the data is deleted from the database, we can proceed to delete the video from storage
-        const storageRef = firebase.storage().ref();
-        const videoRef = storageRef.child('videos/' + videoId + '.webm');
-        videoRef.delete()
-          .then(() => {
-            // If the video is successfully deleted from storage, we can update the state to remove the video from the UI
-            setVideos((prevVideos) => prevVideos.filter((video) => video.id !== videoId));
-          })
-          .catch((error) => {
-            console.error('Error deleting video from storage:', error);
-          });
-      })
-      .catch((error) => {
-        console.error('Error deleting video data from database:', error);
-      });
+    const storageRef = firebase.storage().ref();
+    const videoStorageRef = storageRef.child('videos/' + videoId + '.webm');
+
+    // Delete video data from the database
+    database.ref('videos/' + videoId).remove();
+
+    // Delete video file from storage
+    videoStorageRef.delete().catch((error) => {
+      console.error('Error deleting video:', error);
+    });
   };
-  
 
   return (
     <div className="container mt-5">
@@ -213,22 +178,6 @@ const app4 = firebase.app('app121212');
                 <button onClick={() => handleDelete(video.id)}>
                   <FaTrashAlt />
                 </button>
-              </div>
-              <div>
-                {userComments[video.id]?.map((commentData) => (
-                  <div key={commentData.id}>
-                    <span>{commentData.comment}</span>
-                  </div>
-                ))}
-                <div>
-                  <input
-                    type="text"
-                    placeholder="Add a comment"
-                    value={commentInput}
-                    onChange={handleCommentChange}
-                  />
-                  <button onClick={() => handleComment(video.id)}>Add Comment</button>
-                </div>
               </div>
             </li>
           ))}
