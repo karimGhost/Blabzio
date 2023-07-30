@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkblabzio=self.webpackChunkblabzio||[]).push([[3251],{7477:function(e,n,t){t.r(n);var r=t(4578),u=t(7294);let a=function(e){function n(){return e.apply(this,arguments)||this}return(0,r.Z)(n,e),n.prototype.render=function(){return u.createElement("div",{className:"container"})},n}(u.Component);n.default=a}}]);
-//# sourceMappingURL=component---src-pages-news-video-uploader-js-36a3251f39106e8d3fed.js.map
