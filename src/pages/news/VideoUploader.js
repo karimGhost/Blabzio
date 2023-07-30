@@ -3,7 +3,7 @@ import 'firebase/database';
 import { nanoid } from 'nanoid';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/storage'; // Import storage module
-import { VideoRecorder } from 'react-video-recorder'; // Import VideoRecorder
+import VideoRecorder from 'react-video-recorder'
 
 // Your Firebase configuration
 const firebaseConfig121212 = {
