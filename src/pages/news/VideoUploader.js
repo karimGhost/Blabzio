@@ -25,10 +25,7 @@ const firebaseConfig3333 = {
 
 
 function VideoUploader(){
-if(!user){
 
-return;
-}
 firebase.initializeApp(firebaseConfig3333, 'app3333');
 
 const { user,setUser, loading,signOut } = useAuth();
