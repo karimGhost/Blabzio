@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import 'firebase/compat/app';
 import 'firebase/compat/database';
 import 'firebase/compat/storage';
