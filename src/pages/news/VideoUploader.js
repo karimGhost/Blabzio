@@ -5,13 +5,30 @@ import 'firebase/compat/storage';
 import { nanoid } from 'nanoid';
 import RecordRTC from 'recordrtc';
 import firebase from 'firebase/compat/app';
+const firebaseConfig121212 = {
+  apiKey: "AIzaSyChFGTB5YEugUKho-YqcWVZtKJG3PIrtt0",
 
-const firebaseConfig = {
-  // Your Firebase configuration object
-  // apiKey, authDomain, databaseURL, projectId, storageBucket, messagingSenderId, appId, measurementId, etc.
-};
+  authDomain: "thewall-10a4a.firebaseapp.com",
 
-firebase.initializeApp(firebaseConfig);
+  databaseURL: "https://thewall-10a4a-default-rtdb.firebaseio.com",
+
+  projectId: "thewall-10a4a",
+
+  storageBucket: "thewall-10a4a.appspot.com",
+
+  messagingSenderId: "221023885061",
+
+  appId: "1:221023885061:web:bc550d03edd2fbf60e496c",
+
+  measurementId: "G-7V80059NF7"
+}
+
+
+firebase.initializeApp(firebaseConfig121212, 'app121212');
+
+const app004 = firebase.app('app121212');
+
+const database = app004.database();
 
 function VideoUploader() {
   const [videos, setVideos] = useState([]);
@@ -36,7 +53,7 @@ function VideoUploader() {
     recorderRef.current.stopRecording(() => {
       const blob = recorderRef.current.getBlob();
       const videoId = nanoid();
-      const storageRef = firebase.storage().ref();
+      const storageRef = database.ref();
       const videoRef = storageRef.child('videos/' + videoId + '.webm');
       videoRef.put(blob).then(() => {
         videoRef.getDownloadURL().then((downloadURL) => {
@@ -47,7 +64,7 @@ function VideoUploader() {
             dislikes: 0,
             comments: [],
           };
-          firebase.database().ref('videos/' + videoId).set(videoData);
+          database.ref('videos/' + videoId).set(videoData);
           setVideos((prevVideos) => [...prevVideos, videoData]);
         });
       });
@@ -55,8 +72,7 @@ function VideoUploader() {
   };
 
   const handleLike = (videoId) => {
-    firebase
-      .database()
+    database
       .ref('videos/' + videoId)
       .transaction((video) => {
         if (video) {
@@ -67,8 +83,7 @@ function VideoUploader() {
   };
 
   const handleDislike = (videoId) => {
-    firebase
-      .database()
+    database
       .ref('videos/' + videoId)
       .transaction((video) => {
         if (video) {
@@ -88,14 +103,14 @@ function VideoUploader() {
       text: commentInput.trim(),
     };
 
-    firebase.database().ref('videos/' + videoId + '/comments').push(newComment);
+    database.ref('videos/' + videoId + '/comments').push(newComment);
     setCommentInput('');
   };
 
   const handleDelete = (videoId) => {
     const confirmDelete = window.confirm('Are you sure you want to delete this video?');
     if (confirmDelete) {
-      firebase.database().ref('videos/' + videoId).remove();
+      database.ref('videos/' + videoId).remove();
       setVideos((prevVideos) => prevVideos.filter((video) => video.id !== videoId));
     }
   };
