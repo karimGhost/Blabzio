@@ -138,37 +138,37 @@ const [unfilstate,setUnfilstate] = useState(0)
 useEffect(() => {
   let unfilstateCount = 0;
 
-const usertimed = usernames.useris &&  usernames.useris.trim();
+  const usertimed = usernames.useris && usernames.useris.trim();
+  const usertimedfname = usernames.firstname && usernames.firstname.trim();
+  const usertimedlname = usernames.lastname && usernames.lastname.trim();
+  const usertimedlocation = usernames.Location && usernames.Location.trim();
+  const usertimedDob = usernames.DOB && usernames.DOB.trim();
 
-const usertimedfname = usernames.firstname && usernames.firstname.trim();
-
-const usertimedlname = usernames.lastname && usernames.lastname.trim();
-
-const usertimedlocation = usernames.Location && usernames.Location.trim();
-
-const usertimedDob = usernames.DOB && usernames.DOB.trim();
-
-  if (usernames && usernames.useris === null || usertimed === '') {
+  if (usernames.useris === null || usertimed === '') {
     unfilstateCount++;
   }
-  if ( usernames &&  usernames.firstname === null || usertimedfname === '') {
+  if (usernames.firstname === null || usertimedfname === '') {
     unfilstateCount++;
   }
-  if ( usernames &&  usernames.lastname === null || usertimedlname === '') {
+  if (usernames.lastname === null || usertimedlname === '') {
     unfilstateCount++;
   }
-  if (usernames &&  usernames.Location === null || usertimedlocation === '') {
+  if (usernames.Location === null || usertimedlocation === '') {
     unfilstateCount++;
   }
-  if (usernames &&  usernames.DOB === null || usertimedDob === '') {
+  if (usernames.DOB === null || usertimedDob === '') {
     unfilstateCount++;
   }
 
   setUnfilstate(unfilstateCount);
-}, [user]);
+}, [usernames]); // Make sure to use 'usernames' as the dependency, not 'user'
 
 async function dataset(){
-
+  if (!user) {
+    // Handle the case where 'user' is not defined or not authenticated
+    console.error('User is not authenticated.');
+    return;
+  }
   const normalizedUsername = usernames.useris;
   const normalizedFirstname =usernames.firstname;
   const normalizedLastname = usernames.lastname;
