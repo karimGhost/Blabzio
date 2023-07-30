@@ -4,6 +4,7 @@ import 'firebase/compat/database';
 import 'firebase/compat/storage';
 import { nanoid } from 'nanoid';
 import firebase from 'firebase/compat/app';
+import { FaThumbsUp, FaThumbsDown, FaTrashAlt, FaComment } from 'react-icons/fa';
 const firebaseConfig121212 = {
   apiKey: "AIzaSyChFGTB5YEugUKho-YqcWVZtKJG3PIrtt0",
 
@@ -20,20 +21,25 @@ const firebaseConfig121212 = {
   appId: "1:221023885061:web:bc550d03edd2fbf60e496c",
 
   measurementId: "G-7V80059NF7"
-
-};
-
+}
 
 
 function VideoUploader() {
 
-  firebase.initializeApp(firebaseConfig121212);
-  const database = firebase.database(); 
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig121212, 'app121212');
+
+const app4 = firebase.app('app121212');
+
+  const database = app4.database(); 
+
 
   const [videos, setVideos] = useState([]);
   const [recording, setRecording] = useState(false);
   const [mediaBlob, setMediaBlob] = useState(null);
   const [commentInput, setCommentInput] = useState('');
+  const [userComments, setUserComments] = useState({}); // Store comments for each video
 
   const videoRef = useRef(null);
   const mediaRecorderRef = useRef(null);
@@ -41,12 +47,24 @@ function VideoUploader() {
 
   const handleStartRecording = () => {
     setRecording(true);
+    chunksRef.current = [];
     navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
       videoRef.current.srcObject = stream;
-      mediaRecorderRef.current = new MediaRecorder(stream);
-      chunksRef.current = [];
-      mediaRecorderRef.current.ondataavailable = handleDataAvailable;
-      mediaRecorderRef.current.onstop = handleRecordingStopped;
+      mediaRecorderRef.current = new MediaRecorder(stream, { mimeType: 'video/webm' });
+
+      mediaRecorderRef.current.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          chunksRef.current.push(event.data);
+          videoRef.current.src = URL.createObjectURL(new Blob(chunksRef.current, { type: 'video/webm' }));
+        }
+      };
+
+      mediaRecorderRef.current.onstop = () => {
+        const blob = new Blob(chunksRef.current, { type: 'video/webm' });
+        setMediaBlob(blob);
+        chunksRef.current = [];
+      };
+
       mediaRecorderRef.current.start();
     });
   };
@@ -54,18 +72,6 @@ function VideoUploader() {
   const handleStopRecording = () => {
     setRecording(false);
     mediaRecorderRef.current.stop();
-  };
-
-  const handleDataAvailable = (event) => {
-    if (event.data.size > 0) {
-      chunksRef.current.push(event.data);
-    }
-  };
-
-  const handleRecordingStopped = () => {
-    const blob = new Blob(chunksRef.current, { type: 'video/webm' });
-    setMediaBlob(blob);
-    chunksRef.current = [];
   };
 
   const handleUploadVideo = () => {
@@ -88,53 +94,69 @@ function VideoUploader() {
         };
         database.ref('videos/' + videoId).set(videoData);
         setVideos((prevVideos) => [...prevVideos, videoData]);
+        setMediaBlob(null);
       });
     });
   };
 
   const handleLike = (videoId) => {
-    database
-      .ref('videos/' + videoId)
-      .transaction((video) => {
-        if (video) {
-          video.likes = (video.likes || 0) + 1;
-        }
-        return video;
-      });
+    setVideos((prevVideos) =>
+      prevVideos.map((video) =>
+        video.id === videoId ? { ...video, likes: video.likes + 1 } : video
+      )
+    );
   };
 
   const handleDislike = (videoId) => {
-    database
-      .ref('videos/' + videoId)
-      .transaction((video) => {
-        if (video) {
-          video.dislikes = (video.dislikes || 0) + 1;
-        }
-        return video;
-      });
+    setVideos((prevVideos) =>
+      prevVideos.map((video) =>
+        video.id === videoId ? { ...video, dislikes: video.dislikes + 1 } : video
+      )
+    );
+  };
+
+  const handleCommentChange = (event) => {
+    setCommentInput(event.target.value);
   };
 
   const handleComment = (videoId) => {
-    if (commentInput.trim() === '') {
-      return;
+    const comment = commentInput.trim();
+    if (comment !== '') {
+      const videoComments = userComments[videoId] || [];
+      const commentData = { id: nanoid(), comment };
+      videoComments.push(commentData);
+
+      setUserComments((prevComments) => ({ ...prevComments, [videoId]: videoComments }));
+      setCommentInput('');
+
+      setVideos((prevVideos) =>
+        prevVideos.map((video) =>
+          video.id === videoId ? { ...video, comments: videoComments } : video
+        )
+      );
     }
-
-    const newComment = {
-      id: nanoid(),
-      text: commentInput.trim(),
-    };
-
-    database.ref('videos/' + videoId + '/comments').push(newComment);
-    setCommentInput('');
   };
-
   const handleDelete = (videoId) => {
-    const confirmDelete = window.confirm('Are you sure you want to delete this video?');
-    if (confirmDelete) {
-      database.ref('videos/' + videoId).remove();
-      setVideos((prevVideos) => prevVideos.filter((video) => video.id !== videoId));
-    }
+    // Delete the video data from the database
+    database.ref('videos/' + videoId).remove()
+      .then(() => {
+        // Once the data is deleted from the database, we can proceed to delete the video from storage
+        const storageRef = firebase.storage().ref();
+        const videoRef = storageRef.child('videos/' + videoId + '.webm');
+        videoRef.delete()
+          .then(() => {
+            // If the video is successfully deleted from storage, we can update the state to remove the video from the UI
+            setVideos((prevVideos) => prevVideos.filter((video) => video.id !== videoId));
+          })
+          .catch((error) => {
+            console.error('Error deleting video from storage:', error);
+          });
+      })
+      .catch((error) => {
+        console.error('Error deleting video data from database:', error);
+      });
   };
+  
 
   return (
     <div className="container mt-5">
@@ -167,67 +189,51 @@ function VideoUploader() {
         )}
       </div>
       <hr />
-      {videos.map((video) => (
-        <div key={video.id} className="card mb-3">
-          <div className="card-body">
-            <video
-              src={video.url}
-              controls
-              style={{ width: '100%', cursor: 'pointer' }}
-              onMouseEnter={(e) => e.target.play()}
-              onMouseLeave={(e) => e.target.pause()}
-            />
-            <div className="text-muted mt-2">
-              Likes: {video.likes || 0} | Dislikes: {video.dislikes || 0}
-            </div>
-            <div className="my-3">
-              <button className="btn btn-sm btn-primary mr-2" onClick={() => handleLike(video.id)}>
-                Like
-              </button>
-              <button
-                className="btn btn-sm btn-danger"
-                onClick={() => handleDislike(video.id)}
-              >
-                Dislike
-              </button>
-            </div>
-            <div>
-              <h5>Comments:</h5>
-              <ul className="list-unstyled">
-                {Object.values(video.comments || []).map((comment) => (
-                  <li key={comment.id}>{comment.text}</li>
+      <div>
+        <h2>Videos</h2>
+        <ul>
+          {videos.map((video) => (
+            <li key={video.id}>
+              <video src={video.url} style={{ width: '100px' }} controls />
+              <div>
+                <span>{`Likes: ${video.likes}`}</span>
+                <span>{`Dislikes: ${video.dislikes}`}</span>
+                <span>{`Comments: ${video.comments.length}`}</span>
+              </div>
+              <div>
+                <button onClick={() => handleLike(video.id)}>
+                  <FaThumbsUp />
+                </button>
+                <button onClick={() => handleDislike(video.id)}>
+                  <FaThumbsDown />
+                </button>
+                <button onClick={() => handleComment(video.id)}>
+                  <FaComment />
+                </button>
+                <button onClick={() => handleDelete(video.id)}>
+                  <FaTrashAlt />
+                </button>
+              </div>
+              <div>
+                {userComments[video.id]?.map((commentData) => (
+                  <div key={commentData.id}>
+                    <span>{commentData.comment}</span>
+                  </div>
                 ))}
-              </ul>
-              <div className="input-group mb-3">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Add a comment..."
-                  aria-label="Add a comment"
-                  aria-describedby="button-addon2"
-                  value={commentInput}
-                  onChange={(e) => setCommentInput(e.target.value)}
-                />
-                <div className="input-group-append">
-                  <button
-                    className="btn btn-outline-secondary"
-                    type="button"
-                    id="button-addon2"
-                    onClick={() => handleComment(video.id)}
-                  >
-                    Post
-                  </button>
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Add a comment"
+                    value={commentInput}
+                    onChange={handleCommentChange}
+                  />
+                  <button onClick={() => handleComment(video.id)}>Add Comment</button>
                 </div>
               </div>
-            </div>
-            <div>
-              <button className="btn btn-danger btn-sm" onClick={() => handleDelete(video.id)}>
-                Delete
-              </button>
-            </div>
-          </div>
-        </div>
-      ))}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
