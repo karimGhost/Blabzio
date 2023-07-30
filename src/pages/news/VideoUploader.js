@@ -1,39 +1,34 @@
 import React from 'react';
-import 'firebase/database'; 
+import 'firebase/database';
 import { nanoid } from 'nanoid';
 import firebase from 'firebase/compat/app';
-// Initialize Firebase
-const firebaseConfig121212 = {
-  apiKey: "AIzaSyChFGTB5YEugUKho-YqcWVZtKJG3PIrtt0",
+import 'firebase/compat/storage'; // Import storage module
+import { VideoRecorder } from 'react-video-recorder'; // Import VideoRecorder
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-  authDomain: "thewall-10a4a.firebaseapp.com",
-
-  databaseURL: "https://thewall-10a4a-default-rtdb.firebaseio.com",
-
-  projectId: "thewall-10a4a",
-
-  storageBucket: "thewall-10a4a.appspot.com",
-
-  messagingSenderId: "221023885061",
-
-  appId: "1:221023885061:web:bc550d03edd2fbf60e496c",
-
-  measurementId: "G-7V80059NF7"
-
+// Your Firebase configuration
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  databaseURL: "YOUR_DATABASE_URL",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID",
+  measurementId: "YOUR_MEASUREMENT_ID"
 };
-firebase.initializeApp(firebaseConfig121212);
-  const database = firebase.database(); 
 
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
 
-  
 class VideoUploader extends React.Component {
-
-  
   state = {
     videoFile: null,
     isRecording: false,
     recordedVideo: null,
     videos: [],
+    commentInput: "",
   };
 
   componentDidMount() {
@@ -63,22 +58,27 @@ class VideoUploader extends React.Component {
       alert('Please select a short video file (less than 5MB).');
     }
   };
+
+  handleVideoRecorded = (recordedBlob) => {
+    this.setState({ recordedVideo: recordedBlob });
+  };
+
   handleRecordClick = () => {
     if (!this.state.isRecording) {
       navigator.mediaDevices.getUserMedia({ video: true })
         .then((stream) => {
           const mediaRecorder = new MediaRecorder(stream);
           const chunks = [];
-  
+
           mediaRecorder.addEventListener('dataavailable', (event) => {
             chunks.push(event.data);
           });
-  
+
           mediaRecorder.addEventListener('stop', () => {
             const recordedBlob = new Blob(chunks, { type: 'video/webm' });
             this.setState({ recordedVideo: recordedBlob });
           });
-  
+
           mediaRecorder.start();
           this.setState({ isRecording: true, mediaRecorder, recordedChunks: chunks });
         })
@@ -90,15 +90,16 @@ class VideoUploader extends React.Component {
       this.setState({ isRecording: false });
     }
   };
-  
+
   handleUploadClick = () => {
     const { videoFile, recordedVideo } = this.state;
-  
-    if (videoFile || recordedVideo) {
+    const videoToUpload = videoFile || recordedVideo;
+
+    if (videoToUpload) {
       const storageRef = firebase.storage().ref();
       const videoRef = storageRef.child(videoFile ? videoFile.name : 'recorded_video.webm');
       const uploadTask = videoRef.put(videoFile || recordedVideo);
-  
+
       uploadTask.on(
         'state_changed',
         (snapshot) => {
@@ -128,7 +129,7 @@ class VideoUploader extends React.Component {
       );
     }
   };
-  
+
   handleLike = (videoId) => {
     database.ref('videos/' + videoId).transaction((video) => {
       if (video) {
@@ -154,6 +155,7 @@ class VideoUploader extends React.Component {
     };
 
     database.ref('videos/' + videoId + '/comments').push(newComment);
+    this.setState({ commentInput: "" }); // Clear the comment input after posting
   };
 
   handleDelete = (videoId) => {
@@ -169,6 +171,13 @@ class VideoUploader extends React.Component {
     return (
       <div className="container">
         <h1>Video Uploader</h1>
+        {/* Replace file input with VideoRecorder */}
+        <div className="form-group">
+          <VideoRecorder
+            onRecordingComplete={this.handleVideoRecorded}
+            isOnInitially={false} // Set this to true if you want the recorder to be on by default
+          />
+        </div>
         <div className="form-group">
           <input type="file" accept="video/*" onChange={this.handleFileChange} />
         </div>
@@ -218,6 +227,7 @@ class VideoUploader extends React.Component {
                     placeholder="Add a comment..."
                     aria-label="Add a comment"
                     aria-describedby="button-addon2"
+                    value={this.state.commentInput}
                     onChange={(e) => this.setState({ commentInput: e.target.value })}
                   />
                   <div className="input-group-append">
