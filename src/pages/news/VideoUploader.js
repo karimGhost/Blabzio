@@ -3,9 +3,11 @@ import 'firebase/database';
 import { nanoid } from 'nanoid';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/storage'; // Import storage module
-import VideoRecorder from 'react-video-recorder'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useMediaRecorder } from 'react-media-recorder'; // Import react-media-recorder
 
 // Your Firebase configuration
+// ... (existing Firebase configuration)
 const firebaseConfig121212 = {
   apiKey: "AIzaSyChFGTB5YEugUKho-YqcWVZtKJG3PIrtt0",
 
@@ -23,16 +25,13 @@ const firebaseConfig121212 = {
 
   measurementId: "G-7V80059NF7"
 }
-
-// Initialize Firebase
 firebase.initializeApp(firebaseConfig121212, 'app121212');
 
 const app4 = firebase.app('app121212');
 
   const database = app4.database(); 
 
-
-class VideoUploader extends React.Component {
+class VideoRecorder extends React.Component {
   state = {
     videoFile: null,
     isRecording: false,
@@ -73,32 +72,33 @@ class VideoUploader extends React.Component {
     this.setState({ recordedVideo: recordedBlob });
   };
 
-  handleRecordClick = () => {
-    if (!this.state.isRecording) {
-      navigator.mediaDevices.getUserMedia({ video: true })
-        .then((stream) => {
-          const mediaRecorder = new MediaRecorder(stream);
-          const chunks = [];
+  handleRecordStart = () => {
+    this.setState({ isRecording: true });
+    navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+      .then((stream) => {
+        const mediaRecorder = new MediaRecorder(stream);
+        const chunks = [];
 
-          mediaRecorder.addEventListener('dataavailable', (event) => {
-            chunks.push(event.data);
-          });
-
-          mediaRecorder.addEventListener('stop', () => {
-            const recordedBlob = new Blob(chunks, { type: 'video/webm' });
-            this.setState({ recordedVideo: recordedBlob });
-          });
-
-          mediaRecorder.start();
-          this.setState({ isRecording: true, mediaRecorder, recordedChunks: chunks });
-        })
-        .catch((error) => {
-          console.error('Error accessing video stream:', error);
+        mediaRecorder.addEventListener('dataavailable', (event) => {
+          chunks.push(event.data);
         });
-    } else {
-      this.state.mediaRecorder.stop();
-      this.setState({ isRecording: false });
-    }
+
+        mediaRecorder.addEventListener('stop', () => {
+          const recordedBlob = new Blob(chunks, { type: 'video/webm' });
+          this.setState({ recordedVideo: recordedBlob });
+        });
+
+        mediaRecorder.start();
+        this.setState({ mediaRecorder, recordedChunks: chunks });
+      })
+      .catch((error) => {
+        console.error('Error accessing video stream:', error);
+      });
+  };
+
+  handleRecordStop = () => {
+    this.state.mediaRecorder.stop();
+    this.setState({ isRecording: false });
   };
 
   handleUploadClick = () => {
@@ -107,8 +107,8 @@ class VideoUploader extends React.Component {
 
     if (videoToUpload) {
       const storageRef = firebase.storage().ref();
-      const videoRef = storageRef.child(videoFile ? videoFile.name : 'recorded_video.webm');
-      const uploadTask = videoRef.put(videoFile || recordedVideo);
+      const videoRef = storageRef.child(videoToUpload.name || 'recorded_video.webm');
+      const uploadTask = videoRef.put(videoToUpload);
 
       uploadTask.on(
         'state_changed',
@@ -176,25 +176,27 @@ class VideoUploader extends React.Component {
   };
 
   render() {
-    const { videos } = this.state;
+    const { videos, isRecording } = this.state;
 
     return (
       <div className="container">
         <h1>Video Uploader</h1>
-        {/* Replace file input with VideoRecorder */}
         <div className="form-group">
-          <VideoRecorder
-            onRecordingComplete={this.handleVideoRecorded}
-            isOnInitially={false} // Set this to true if you want the recorder to be on by default
-          />
+          {isRecording ? (
+            <button className="btn btn-danger" onClick={this.handleRecordStop}>
+              Release to Stop Recording
+            </button>
+          ) : (
+            <button className="btn btn-primary" onClick={this.handleRecordStart}>
+              Click and Hold to Record
+            </button>
+          )}
         </div>
+        {this.state.recordedVideo && (
+          <video src={URL.createObjectURL(this.state.recordedVideo)} autoPlay controls />
+        )}
         <div className="form-group">
           <input type="file" accept="video/*" onChange={this.handleFileChange} />
-        </div>
-        <div className="form-group">
-          <button className="btn btn-primary" onClick={this.handleRecordClick}>
-            {this.state.isRecording ? 'Stop Recording' : 'Start Recording'}
-          </button>
         </div>
         <div className="form-group">
           <button className="btn btn-success" onClick={this.handleUploadClick}>
@@ -265,4 +267,4 @@ class VideoUploader extends React.Component {
   }
 }
 
-export default VideoUploader;
+export default VideoRecorder;
