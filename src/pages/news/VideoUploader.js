@@ -5,7 +5,7 @@ import 'firebase/compat/storage';
 import { nanoid } from 'nanoid';
 import firebase from 'firebase/compat/app';
 import { FaThumbsUp, FaThumbsDown, FaTrashAlt, FaComment } from 'react-icons/fa';
-
+import { VideoRecorder } from 'react-video-recorder';
 const firebaseConfig121212 = {
   apiKey: "AIzaSyChFGTB5YEugUKho-YqcWVZtKJG3PIrtt0",
 
@@ -22,53 +22,17 @@ const firebaseConfig121212 = {
   appId: "1:221023885061:web:bc550d03edd2fbf60e496c",
 
   measurementId: "G-7V80059NF7"
+
 };
 
-
-function VideoUploader() {
-
+function VideoUploader(){
 firebase.initializeApp(firebaseConfig121212);
 const database = firebase.database();
-
   const [videos, setVideos] = useState([]);
-  const [recording, setRecording] = useState(false);
-  const [mediaBlob, setMediaBlob] = useState(null);
   const [commentInput, setCommentInput] = useState('');
 
-  const videoRef = useRef(null);
-  const mediaRecorderRef = useRef(null);
-  const chunksRef = useRef([]);
-
-  const handleStartRecording = () => {
-    setRecording(true);
-    chunksRef.current = [];
-    navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
-      videoRef.current.srcObject = stream;
-      mediaRecorderRef.current = new MediaRecorder(stream, { mimeType: 'video/webm' });
-
-      mediaRecorderRef.current.ondataavailable = (event) => {
-        if (event.data.size > 0) {
-          chunksRef.current.push(event.data);
-        }
-      };
-
-      mediaRecorderRef.current.onstop = () => {
-        const blob = new Blob(chunksRef.current, { type: 'video/webm' });
-        setMediaBlob(blob);
-        chunksRef.current = [];
-      };
-
-      mediaRecorderRef.current.start();
-    });
-  };
-
-  const handleStopRecording = () => {
-    setRecording(false);
-    mediaRecorderRef.current.stop();
-  };
-
-  const handleUploadVideo = () => {
-    if (!mediaBlob) {
+  const handleUploadVideo = (videoBlob) => {
+    if (!videoBlob) {
       return;
     }
 
@@ -76,7 +40,7 @@ const database = firebase.database();
     const storageRef = firebase.storage().ref();
     const videoRef = storageRef.child('videos/' + videoId + '.webm');
 
-    videoRef.put(mediaBlob).then(() => {
+    videoRef.put(videoBlob).then(() => {
       videoRef.getDownloadURL().then((downloadURL) => {
         const videoData = {
           id: videoId,
@@ -87,43 +51,65 @@ const database = firebase.database();
         };
         database.ref('videos/' + videoId).set(videoData);
         setVideos((prevVideos) => [...prevVideos, videoData]);
-        setMediaBlob(null);
       });
     });
   };
 
-  // Rest of the code for handling likes, dislikes, comments, and deletions
+  const handleLike = (videoId) => {
+    database.ref('videos/' + videoId + '/likes').transaction((currentLikes) => (currentLikes || 0) + 1);
+  };
+
+  const handleDislike = (videoId) => {
+    database.ref('videos/' + videoId + '/dislikes').transaction((currentDislikes) => (currentDislikes || 0) + 1);
+  };
+
+  const handleComment = (videoId) => {
+    if (commentInput.trim() === '') {
+      return;
+    }
+
+    database.ref('videos/' + videoId + '/comments').push({
+      userId: 'users', // Replace 'users' with the actual user ID if available
+      comment: commentInput.trim(),
+    });
+
+    setCommentInput('');
+  };
+
+  const handleDelete = (videoId) => {
+    const storageRef = firebase.storage().ref();
+    const videoStorageRef = storageRef.child('videos/' + videoId + '.webm');
+
+    // Delete video data from the database
+    database.ref('videos/' + videoId).remove();
+
+    // Delete video file from storage
+    videoStorageRef.delete().catch((error) => {
+      console.error('Error deleting video:', error);
+    });
+  };
 
   return (
     <div className="container mt-5">
       <h1 className="mb-4">Video Recorder</h1>
-      <div>
-        {recording ? (
-          <button className="btn btn-danger mr-2" onClick={handleStopRecording}>
-            Stop Recording
-          </button>
-        ) : (
-          <button className="btn btn-primary mr-2" onClick={handleStartRecording}>
-            Start Recording
-          </button>
-        )}
-        {recording ? null : (
-          <button
-            className="btn btn-success mr-2"
-            onClick={() => setVideos((prevVideos) => [...prevVideos, mediaBlob])}
-            disabled={!mediaBlob}
-          >
-            Upload
-          </button>
-        )}
+      <div className="mb-4">
+        <VideoRecorder
+          onRecordingComplete={handleUploadVideo}
+          renderActions={({ isRecording, startRecording, stopRecording }) => (
+            <div>
+              {isRecording ? (
+                <button className="btn btn-danger mr-2" onClick={stopRecording}>
+                  Stop Recording
+                </button>
+              ) : (
+                <button className="btn btn-primary mr-2" onClick={startRecording}>
+                  Start Recording
+                </button>
+              )}
+            </div>
+          )}
+        />
       </div>
-      <video
-        ref={videoRef}
-        src={mediaBlob}
-        style={{ width: '100%', marginBottom: '10px' }}
-        autoPlay
-        controls
-      />
       <hr />
       {videos.map((video, index) => (
         <div key={index} className="card mb-3">
@@ -187,5 +173,4 @@ const database = firebase.database();
   );
 };
 
-
-export default  VideoUploader;
+export default VideoUploader;
