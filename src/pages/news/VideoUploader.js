@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-//import RecordRTC from 'recordrtc';
-import firebase from 'firebase/compat/app';
+import RecordRTC from 'recordrtc';
+    import firebase from 'firebase/compat/app';
 import { nanoid } from 'nanoid';
 import { FaPlay, FaStop, FaCheck, FaThumbsUp, FaThumbsDown, FaReply } from 'react-icons/fa';
 import { useAuth } from '../../Accounts/useAuth';
@@ -66,7 +66,27 @@ const database = firebase.app("app212121")
   
 
   const handleRecord = async () => {
-   
+    if (isRecording) {
+      // Stop recording
+      recorderRef.current.stopRecording(() => {
+        const blob = recorderRef.current.getBlob();
+        const url = URL.createObjectURL(blob);
+        setVideoUrl(url);
+      });
+    } else {
+      // Start recording
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: true,
+        video: true,
+      });
+      const recorder = new RecordRTC(stream, {
+        type: 'video',
+        mimeType: 'video/webm',
+      });
+      recorderRef.current = recorder;
+      recorder.startRecording();
+    }
+    setIsRecording(!isRecording);
   };
 
   const handlePublish = () => {
@@ -187,24 +207,24 @@ const database = firebase.app("app212121")
       {/* Implement comment rendering, likes, dislikes, and replies */}
       <div className="comment-section">
         {comments.map((comment) => (
-          <div key={comment.id}>
-            <p>{comment.text}</p>
+          <div key={comment.id && comment.id}>
+            <p>{comment.text && comment.text}</p>
             <div>
               <button onClick={() => handleLikeComment(comment.id)}>
-                <FaThumbsUp /> {comment.likes}
+                <FaThumbsUp /> {comment.likes && comment.likes}
               </button>
               <button onClick={() => handleDislikeComment(comment.id)}>
-                <FaThumbsDown /> {comment.dislikes}
+                <FaThumbsDown /> {comment.dislikes && comment.dislikes}
               </button>
               <button onClick={() => handleToggleReplies(comment.id)}>
-                <FaReply /> {comment.replies.length} Replies
+                <FaReply /> {comment.replies && comment.replies.length} Replies
               </button>
             </div>
             {/* Implement rendering of replies */}
-            {comment.replies.length > 0 && (
+            {comment.replies && comment.replies.length > 0 && (
               <div>
                 {comment.replies.map((reply) => (
-                  <p key={reply.id}>{reply.text}</p>
+                  <p key={reply.id && reply.id}>{reply.text && reply.text}</p>
                 ))}
               </div>
             )}
@@ -217,7 +237,7 @@ const database = firebase.app("app212121")
                   onChange={(e) => setNewComment(e.target.value)}
                   placeholder="Reply to this comment"
                 />
-                <button onClick={() => handleAddReply(comment.id, newComment)}>
+                <button >
                   <FaReply /> Reply
                 </button>
               </div>
@@ -229,10 +249,9 @@ const database = firebase.app("app212121")
           <input
             type="text"
             value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
             placeholder="Add a comment"
           />
-          <button onClick={handleAddComment}>Add Comment</button>
+          <button >Add Comment</button>
         </div>
       </div>
     </div>
