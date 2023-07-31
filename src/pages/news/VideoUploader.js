@@ -3,7 +3,7 @@ import RecordRTC from 'recordrtc';
 import firebase from 'firebase/compat/app';
 import { nanoid } from 'nanoid';
 import { FaPlay, FaStop, FaCheck, FaThumbsUp, FaThumbsDown, FaReply } from 'react-icons/fa';
-
+import { useAuth } from '../../Accounts/useAuth';
 const firebaseConfig121212 = {
   // Your Firebase configuration object
   apiKey: "AIzaSyChFGTB5YEugUKho-YqcWVZtKJG3PIrtt0",
@@ -28,12 +28,11 @@ const firebaseConfig121212 = {
 
 
 
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
+
 
 const VideoUploader = () => {
 
+  const { user,setUser, loading,signOut } = useAuth();
 
 
 firebase.initializeApp(firebaseConfig121212, "app212121")
