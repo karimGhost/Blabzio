@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import RecordRTC from 'recordrtc';
+//import RecordRTC from 'recordrtc';
 import firebase from 'firebase/compat/app';
 import { nanoid } from 'nanoid';
 import { FaPlay, FaStop, FaCheck, FaThumbsUp, FaThumbsDown, FaReply } from 'react-icons/fa';
@@ -66,27 +66,7 @@ const database = firebase.app("app212121")
   
 
   const handleRecord = async () => {
-    if (isRecording) {
-      // Stop recording
-      recorderRef.current.stopRecording(() => {
-        const blob = recorderRef.current.getBlob();
-        const url = URL.createObjectURL(blob);
-        setVideoUrl(url);
-      });
-    } else {
-      // Start recording
-      const stream = await navigator.mediaDevices.getUserMedia({
-        audio: true,
-        video: true,
-      });
-      const recorder = new RecordRTC(stream, {
-        type: 'video',
-        mimeType: 'video/webm',
-      });
-      recorderRef.current = recorder;
-      recorder.startRecording();
-    }
-    setIsRecording(!isRecording);
+   
   };
 
   const handlePublish = () => {
