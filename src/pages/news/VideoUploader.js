@@ -6,7 +6,8 @@ import { nanoid } from 'nanoid';
 import firebase from 'firebase/compat/app';
 import { FaThumbsUp, FaThumbsDown, FaTrashAlt, FaComment } from 'react-icons/fa';
 
-import videojs from 'video.js';
+import VideoJS from './VideoJS'
+import 'video.js/dist/video-js.css';
 
 const firebaseConfig121212 = {
   apiKey: "AIzaSyChFGTB5YEugUKho-YqcWVZtKJG3PIrtt0",
@@ -61,6 +62,34 @@ const database = firebase.database();
       });
     });
   };
+
+
+
+  const videoJsOptions = {
+    autoplay: true,
+    controls: true,
+    responsive: true,
+    fluid: true,
+    sources: [{
+      src: '/path/to/video.mp4',
+      type: 'video/mp4'
+    }]
+  };
+
+  const handlePlayerReady = (player) => {
+    playerRef.current = player;
+
+    // You can handle player events here, for example:
+    player.on('waiting', () => {
+      videojs.log('player is waiting');
+    });
+
+    player.on('dispose', () => {
+      videojs.log('player will dispose');
+    });
+  };
+
+
 
   const handleLike = (videoId) => {
     database.ref('videos/' + videoId + '/likes').transaction((currentLikes) => (currentLikes || 0) + 1);
@@ -135,14 +164,12 @@ const database = firebase.database();
     <div className="container mt-5">
       <h1 className="mb-4">Video Recorder</h1>
       <div className="mb-4">
-        <video
-          ref={videoRef}
-          className="video-js vjs-default-skin"
-          style={{ width: '100%', marginBottom: '10px' }}
-          controls
-        >
-          <source src={mediaBlob && URL.createObjectURL(mediaBlob)} type="video/webm" />
-        </video>
+
+      <VideoJS options={videoJsOptions} onReady={handlePlayerReady} />
+
+
+
+       
         <div>
           <button className="btn btn-danger mr-2" onClick={handleStopRecording}>
             Stop Recording
