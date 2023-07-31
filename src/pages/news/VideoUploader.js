@@ -3,6 +3,7 @@ import RecordRTC from 'recordrtc';
 import firebase from 'firebase/compat/app';
 import { nanoid } from 'nanoid';
 import { FaPlay, FaStop, FaCheck, FaThumbsUp, FaThumbsDown, FaReply } from 'react-icons/fa';
+import { useAuth } from '../../Accounts/useAuth';
 const firebaseConfig121212 = {
   // Your Firebase configuration object
   apiKey: "AIzaSyChFGTB5YEugUKho-YqcWVZtKJG3PIrtt0",
@@ -31,9 +32,8 @@ const firebaseConfig121212 = {
 
 const VideoUploader = () => {
 
-  const user = "000";
-
-firebase.initializeApp(firebaseConfig121212, 'app212121')
+  const { user,setUser, loading,signOut } = useAuth();
+  firebase.initializeApp(firebaseConfig121212, 'app212121')
 
 const database = firebase.app("app212121")
 
@@ -46,7 +46,23 @@ const database = firebase.app("app212121")
 
   const recorderRef = useRef(null);
   const videoRef = useRef(null); // Add this line to reference the video element
+  useEffect(() => {
+    // Fetch comments from Firebase RTDB
+    const commentsRef = database.ref('comments');
+    commentsRef.on('value', (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const commentsArray = Object.keys(data).map((key) => ({
+          id: key,
+          ...data[key],
+        }));
+        setComments(commentsArray);
+      }
+    });
 
+    // Cleanup the Firebase listener on unmount
+    return () => commentsRef.off('value');
+  }, [user, database]);
   
 
   const handleRecord = async () => {
