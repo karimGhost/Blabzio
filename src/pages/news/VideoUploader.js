@@ -33,10 +33,6 @@ const firebaseConfig121212 = {
 const VideoUploader = () => {
 
   const { user,setUser, loading,signOut } = useAuth();
-  firebase.initializeApp(firebaseConfig121212, 'app212121')
-
-const database = firebase.app("app212121")
-
 
 
   const [isRecording, setIsRecording] = useState(false);
@@ -46,141 +42,34 @@ const database = firebase.app("app212121")
 
   const recorderRef = useRef(null);
   const videoRef = useRef(null); // Add this line to reference the video element
-  useEffect(() => {
-    // Fetch comments from Firebase RTDB
-    const commentsRef = database.ref('comments');
-    commentsRef.on('value', (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        const commentsArray = Object.keys(data).map((key) => ({
-          id: key,
-          ...data[key],
-        }));
-        setComments(commentsArray);
-      }
-    });
-
-    // Cleanup the Firebase listener on unmount
-    return () => commentsRef.off('value');
-  }, [user, database]);
-  
+ 
 
   const handleRecord = async () => {
-    if (isRecording) {
-      // Stop recording
-      recorderRef.current.stopRecording(() => {
-        const blob = recorderRef.current.getBlob();
-        const url = URL.createObjectURL(blob);
-        setVideoUrl(url);
-      });
-    } else {
-      // Start recording
-      const stream = await navigator.mediaDevices.getUserMedia({
-        audio: true,
-        video: true,
-      });
-      const recorder = new RecordRTC(stream, {
-        type: 'video',
-        mimeType: 'video/webm',
-      });
-      recorderRef.current = recorder;
-      recorder.startRecording();
-    }
-    setIsRecording(!isRecording);
+   
   };
 
   const handlePublish = () => {
-    if(!user){
-      return;
-    }
-    // Save the recorded video and its metadata to Firebase RTDB
-    const videoId = nanoid(); // Generate a unique ID for the video
-    const userId = user.uid; // Get the user's ID from Firebase Auth
-
-    // Save the video data to Firebase RTDB
-    const videosRef = database.ref('videos');
-    videosRef.child(videoId).set({
-      videoUrl,
-      userId,
-      likes: 0,
-      dislikes: 0,
-      comments: [],
-    });
-
-    // Reset the video recorder state
-    setIsRecording(false);
-    setVideoUrl(null);
+    
   };
 
   const handleAddComment = () => {
 
-    if(!user){
-      return;
-    }
-
-    if (newComment.trim() !== '') {
-      const commentId = nanoid(); // Generate a unique ID for the comment
-      const userId = user.uid; // Get the user's ID from Firebase Auth
-      const commentData = {
-        text: newComment,
-        userId,
-        likes: 0,
-        dislikes: 0,
-        replies: [],
-      };
-      const commentsRef = database.ref('comments');
-      commentsRef.child(commentId).set(commentData);
-      setNewComment('');
-    }
   };
   const handleLikeComment = (commentId) => {
-    const updatedComments = comments.map((comment) => {
-      if (comment.id === commentId) {
-        return { ...comment, likes: comment.likes + 1 };
-      }
-      return comment;
-    });
-    setComments(updatedComments);
-    // Update the likes in the Firebase RTDB as well
-    const commentsRef = database.ref('comments');
-    commentsRef.child(commentId).update({ likes: firebase.database.ServerValue.increment(1) });
+   
   };
 
   const handleDislikeComment = (commentId) => {
-    const updatedComments = comments.map((comment) => {
-      if (comment.id === commentId) {
-        return { ...comment, dislikes: comment.dislikes + 1 };
-      }
-      return comment;
-    });
-    setComments(updatedComments);
-    // Update the dislikes in the Firebase RTDB as well
-    const commentsRef = database.ref('comments');
-    commentsRef.child(commentId).update({ dislikes: firebase.database.ServerValue.increment(1) });
+   
   };
 
   // Implement reply functionality
   const handleAddReply = (commentId, newReply) => {
-    const updatedComments = comments.map((comment) => {
-      if (comment.id === commentId) {
-        return { ...comment, replies: [...comment.replies, { id: nanoid(), text: newReply }] };
-      }
-      return comment;
-    });
-    setComments(updatedComments);
-    // Update the replies in the Firebase RTDB as well
-    const commentsRef = database.ref('comments');
-    commentsRef.child(commentId).child('replies').push({ id: nanoid(), text: newReply });
+   
   };
 
   const handleToggleReplies = (commentId) => {
-    const updatedComments = comments.map((comment) => {
-      if (comment.id === commentId) {
-        return { ...comment, showReplies: !comment.showReplies };
-      }
-      return comment;
-    });
-    setComments(updatedComments);
+   
   };
 
   return (
