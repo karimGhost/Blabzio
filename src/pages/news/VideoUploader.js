@@ -48,6 +48,7 @@ const database = firebase.app("app212121")
   const [newComment, setNewComment] = useState('');
 
   const recorderRef = useRef(null);
+  const videoRef = useRef(null); // Add this line to reference the video element
 
   useEffect(() => {
     // Fetch comments from Firebase RTDB
@@ -187,76 +188,76 @@ const database = firebase.app("app212121")
 
   return (
     <div className="container mt-4">
-      {/* Video recorder UI */}
-      <video className="video-player" ref={videoRef} src={videoUrl} controls />
-      <div>
-        <button onClick={handleRecord} className="btn btn-primary mr-2">
-          {isRecording ? <FaStop /> : <FaPlay />}
+    {/* Video recorder UI */}
+    <video className="video-player" ref={videoRef} src={videoUrl} controls />
+    <div>
+      <button onClick={handleRecord} className="btn btn-primary mr-2">
+        {isRecording ? <FaStop /> : <FaPlay />}
+      </button>
+      {videoUrl && (
+        <button onClick={handlePublish} className="btn btn-success">
+          <FaCheck /> Publish
         </button>
-        {videoUrl && (
-          <button onClick={handlePublish} className="btn btn-success">
-            <FaCheck /> Publish
-          </button>
-        )}
-      </div>
-
-      {/* Comment section UI */}
-      <div>
-        <h2>Comments</h2>
-        {/* Implement comment rendering, likes, dislikes, and replies */}
-        <div className="comment-section">
-          {comments.map((comment) => (
-            <div key={comment.id}>
-              <p>{comment.text}</p>
+      )}
+    </div>
+  
+    {/* Comment section UI */}
+    <div>
+      <h2>Comments</h2>
+      {/* Implement comment rendering, likes, dislikes, and replies */}
+      <div className="comment-section">
+        {comments.map((comment) => (
+          <div key={comment.id}>
+            <p>{comment.text}</p>
+            <div>
+              <button onClick={() => handleLikeComment(comment.id)}>
+                <FaThumbsUp /> {comment.likes}
+              </button>
+              <button onClick={() => handleDislikeComment(comment.id)}>
+                <FaThumbsDown /> {comment.dislikes}
+              </button>
+              <button onClick={() => handleToggleReplies(comment.id)}>
+                <FaReply /> {comment.replies.length} Replies
+              </button>
+            </div>
+            {/* Implement rendering of replies */}
+            {comment.replies.length > 0 && (
               <div>
-                <button onClick={() => handleLikeComment(comment.id)}>
-                  <FaThumbsUp /> {comment.likes}
-                </button>
-                <button onClick={() => handleDislikeComment(comment.id)}>
-                  <FaThumbsDown /> {comment.dislikes}
-                </button>
-                <button onClick={() => handleToggleReplies(comment.id)}>
-                  <FaReply /> {comment.replies.length} Replies
+                {comment.replies.map((reply) => (
+                  <p key={reply.id}>{reply.text}</p>
+                ))}
+              </div>
+            )}
+            {/* Implement reply input for new replies */}
+            {comment.showReplies && (
+              <div>
+                <input
+                  type="text"
+                  value={newComment}
+                  onChange={(e) => setNewComment(e.target.value)}
+                  placeholder="Reply to this comment"
+                />
+                <button onClick={() => handleAddReply(comment.id, newComment)}>
+                  <FaReply /> Reply
                 </button>
               </div>
-              {/* Implement rendering of replies */}
-              {comment.replies.length > 0 && (
-                <div>
-                  {comment.replies.map((reply) => (
-                    <p key={reply.id}>{reply.text}</p>
-                  ))}
-                </div>
-              )}
-              {/* Implement reply input for new replies */}
-              {comment.showReplies && (
-                <div>
-                  <input
-                    type="text"
-                    value={newComment}
-                    onChange={(e) => setNewComment(e.target.value)}
-                                    placeholder="Reply to this comment"
-                                  />
-                                  <button onClick={() => handleAddReply(comment.id, newComment)}>
-                                    <FaReply /> Reply
-                                  </button>
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        ))}
-                        {/* Implement comment input for new comments */}
-                        <div>
-                          <input
-                            type="text"
-                            value={newComment}
-                            onChange={(e) => setNewComment(e.target.value)}
-                            placeholder="Add a comment"
-                          />
-                          <button onClick={handleAddComment}>Add Comment</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+            )}
+          </div>
+        ))}
+        {/* Implement comment input for new comments */}
+        <div>
+          <input
+            type="text"
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            placeholder="Add a comment"
+          />
+          <button onClick={handleAddComment}>Add Comment</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
                 );
               };
               
