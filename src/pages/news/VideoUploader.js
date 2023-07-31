@@ -1,42 +1,62 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import RecordRTC, { invokeSaveAsDialog } from 'recordrtc';
 
-// This imports the functional component from the previous sample.
-import VideoJS from './VideoJS'
+export default function App() {
+  const [stream, setStream] = useState(null);
+  const [blob, setBlob] = useState(null);
+  const refVideo = useRef(null);
+  const recorderRef = useRef(null);
 
-const VideoUploader = () => {
-  const playerRef = React.useRef(null);
-
-  const videoJsOptions = {
-    autoplay: true,
-    controls: true,
-    responsive: true,
-    fluid: true,
-    sources: [{
-      src: '/path/to/video.mp4',
-      type: 'video/mp4'
-    }]
-  };
-
-  const handlePlayerReady = (player) => {
-    playerRef.current = player;
-
-    // You can handle player events here, for example:
-    player.on('waiting', () => {
-      videojs.log('player is waiting');
+  const handleRecording = async () => {
+    // const cameraStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+    const mediaStream = await navigator.mediaDevices.getDisplayMedia({
+      video: {
+        width: 1920,
+        height: 1080,
+        frameRate: 30,
+      },
+      audio: false,
     });
 
-    player.on('dispose', () => {
-      videojs.log('player will dispose');
+    setStream(mediaStream);
+    recorderRef.current = new RecordRTC(mediaStream, { type: 'video' });
+    recorderRef.current.startRecording();
+  };
+
+  const handleStop = () => {
+    recorderRef.current.stopRecording(() => {
+      setBlob(recorderRef.current.getBlob());
     });
   };
+
+  const handleSave = () => {
+    invokeSaveAsDialog(blob);
+  };
+
+  useEffect(() => {
+    if (!refVideo.current) {
+      return;
+    }
+
+    // refVideo.current.srcObject = stream;
+  }, [stream, refVideo]);
 
   return (
-    <>
-      <div>Rest of app here</div>
-      <VideoJS options={videoJsOptions} onReady={handlePlayerReady} />
-      <div>Rest of app here</div>
-    </>
+    <div className="App">
+      <header className="App-header">
+        <button onClick={handleRecording}>start</button>
+        <button onClick={handleStop}>stop</button>
+        <button onClick={handleSave}>save</button>
+        {blob && (
+          <video
+            src={URL.createObjectURL(blob)}
+            controls
+            autoPlay
+            ref={refVideo}
+            style={{ width: '700px', margin: '1em' }}
+          />
+        )}
+      </header>
+    </div>
   );
 }
-
-export default VideoUploader;
