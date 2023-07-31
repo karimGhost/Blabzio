@@ -35,10 +35,9 @@ const VideoUploader = () => {
   const { user,setUser, loading,signOut } = useAuth();
 
 
-firebase.initializeApp(firebaseConfig121212, "app212121")
+firebase.initializeApp(firebaseConfig121212, 'app212121')
 
 const database = firebase.app("app212121")
-
 
 
 
@@ -188,6 +187,9 @@ const database = firebase.app("app212121")
 
   return (
     <div className="container mt-4">
+
+
+      <h1> welll should iot function fnfnkingr</h1>
     {/* Video recorder UI */}
     <video className="video-player" ref={videoRef} src={videoUrl} controls />
     <div>
@@ -258,7 +260,7 @@ const database = firebase.app("app212121")
     </div>
   </div>
   
-                );
+                )
               };
               
 export default VideoUploader;
