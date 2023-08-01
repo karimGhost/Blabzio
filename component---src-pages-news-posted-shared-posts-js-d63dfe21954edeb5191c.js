@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkblabzio=self.webpackChunkblabzio||[]).push([[6710],{8462:function(e,l,a){a.r(l);var u=a(7294);l.default=()=>u.createElement("div",null)}}]);
+//# sourceMappingURL=component---src-pages-news-posted-shared-posts-js-d63dfe21954edeb5191c.js.map
