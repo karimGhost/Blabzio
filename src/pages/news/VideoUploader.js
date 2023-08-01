@@ -5,7 +5,8 @@ import { nanoid } from 'nanoid';
 import videojs from 'video.js';
 import RecordRTC from 'recordrtc';
 import { useAuth } from '../../Accounts/useAuth';
-import { Button } from 'react-bootstrap';
+import { Button } from 'primereact/button';
+
 const firebaseConfig212121 = {
   apiKey: "AIzaSyChFGTB5YEugUKho-YqcWVZtKJG3PIrtt0",
 
