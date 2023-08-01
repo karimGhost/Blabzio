@@ -5,6 +5,7 @@ import { nanoid } from 'nanoid';
 import videojs from 'video.js';
 import RecordRTC from 'recordrtc';
 import { useAuth } from '../../Accounts/useAuth';
+
 const firebaseConfig121212 = {
   apiKey: "AIzaSyChFGTB5YEugUKho-YqcWVZtKJG3PIrtt0",
 
@@ -21,12 +22,12 @@ const firebaseConfig121212 = {
   appId: "1:221023885061:web:bc550d03edd2fbf60e496c",
 
   measurementId: "G-7V80059NF7"
-}
+};
 
 function VideoUploader() {
   firebase.initializeApp(firebaseConfig121212, 'app212121');
   const hhh = firebase.app('app212121').database();
-  const { user,setUser, loading,signOut } = useAuth();
+  const { user, setUser, loading, signOut } = useAuth();
 
   const [isRecording, setIsRecording] = useState(false);
   const [videoUrl, setVideoUrl] = useState(null);
@@ -98,6 +99,26 @@ function VideoUploader() {
 
       setIsRecording(true);
     }
+  };
+
+  const handlePublish = () => {
+    // Save the recorded video and its metadata to Firebase RTDB
+    const videoId = nanoid(); // Generate a unique ID for the video
+    const userId = user.uid; // Get the user's ID from Firebase Auth
+
+    // Save the video data to Firebase RTDB
+    const videosRef = hhh.ref('videos');
+    videosRef.child(videoId).set({
+      videoUrl,
+      userId,
+      likes: 0,
+      dislikes: 0,
+      comments: [],
+    });
+
+    // Reset the video recorder state
+    setIsRecording(false);
+    setVideoUrl(null);
   };
 
   // Rest of the comment, likes, and replies handling logic
