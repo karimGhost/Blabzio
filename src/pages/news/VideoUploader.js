@@ -6,14 +6,26 @@ import videojs from 'video.js';
 import RecordRTC from 'recordrtc';
 import { useAuth } from '../../Accounts/useAuth';
 import { Button } from 'react-bootstrap';
+const firebaseConfig212121 = {
+  apiKey: "AIzaSyChFGTB5YEugUKho-YqcWVZtKJG3PIrtt0",
 
-const firebaseConfig = {
-  // Your Firebase configuration object
-  // apiKey, authDomain, databaseURL, projectId, storageBucket, messagingSenderId, appId, measurementId, etc.
+  authDomain: "thewall-10a4a.firebaseapp.com",
+
+  databaseURL: "https://thewall-10a4a-default-rtdb.firebaseio.com",
+
+  projectId: "thewall-10a4a",
+
+  storageBucket: "thewall-10a4a.appspot.com",
+
+  messagingSenderId: "221023885061",
+
+  appId: "1:221023885061:web:bc550d03edd2fbf60e496c",
+
+  measurementId: "G-7V80059NF7"
 };
 
 function VideoUploader() {
-  firebase.initializeApp(firebaseConfig, 'app212121');
+  firebase.initializeApp(firebaseConfig212121, 'app212121');
   const hhh = firebase.app('app212121').database();
   const { user } = useAuth();
 
