@@ -10,7 +10,7 @@ const firebaseConfig121212 = {
 
   authDomain: "thewall-10a4a.firebaseapp.com",
 
-  hhhURL: "https://thewall-10a4a-default-rtdb.firebaseio.com",
+  databaseURL: "https://thewall-10a4a-default-rtdb.firebaseio.com",
 
   projectId: "thewall-10a4a",
 
@@ -46,30 +46,55 @@ const hhh = firebase.app("app212121")
   const recorderRef = useRef(null);
   const videoRef = useRef(null); // Add this line to reference the video element
  
-
-  const handleRecord = async () => {
-    if (isRecording) {
-      // Stop recording
-      recorderRef.current.stopRecording(() => {
-        const blob = recorderRef.current.getBlob();
-        const url = URL.createObjectURL(blob);
-        setVideoUrl(url);
-      });
-    } else {
-      // Start recording
-      const stream = await navigator.mediaDevices.getUserMedia({
-        audio: true,
-        video: true,
-      });
-      const recorder = new RecordRTC(stream, {
-        type: 'video',
-        mimeType: 'video/webm',
-      });
-      recorderRef.current = recorder;
-      recorder.startRecording();
+useEffect(() => {
+  // Fetch comments from Firebase RTDB
+  const commentsRef = database.ref('comments');
+  commentsRef.on('value', (snapshot) => {
+    const data = snapshot.val();
+    if (data) {
+      const commentsArray = Object.keys(data).map((key) => ({
+        id: key,
+        ...data[key],
+      }));
+      setComments(commentsArray);
     }
-    setIsRecording(!isRecording);
-  };
+  });
+
+  // Cleanup the Firebase listener on unmount
+  return () => commentsRef.off('value');
+}, [user, database]);
+
+const handleRecord = async () => {
+  if (isRecording) {
+    // Stop recording
+    recorderRef.current.stopRecording(() => {
+      const blob = recorderRef.current.getBlob();
+      const url = URL.createObjectURL(blob);
+      setVideoUrl(url);
+    });
+    setIsRecording(false);
+  } else {
+    // Start recording
+    const stream = await navigator.mediaDevices.getUserMedia({
+      audio: true,
+      video: true,
+    });
+    const recorder = new RecordRTC(stream, {
+      type: 'video',
+      mimeType: 'video/webm',
+    });
+    recorderRef.current = recorder;
+    recorder.startRecording();
+
+    // Continuously update the video element's srcObject while recording is in progress
+    const mediaStream = new MediaStream();
+    mediaStream.addTrack(stream.getVideoTracks()[0]);
+    mediaStream.addTrack(stream.getAudioTracks()[0]);
+    videoRef.current.srcObject = mediaStream;
+
+    setIsRecording(true);
+  }
+};
 
   const handlePublish = () => {
     if(!user){
