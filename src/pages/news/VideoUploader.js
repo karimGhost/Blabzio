@@ -4,8 +4,7 @@ import 'firebase/compat/database';
 import { nanoid } from 'nanoid';
 import videojs from 'video.js';
 import RecordRTC from 'recordrtc';
-import { useAuth } from '../../../Accounts/useAuth';
-
+import { useAuth } from '../../Accounts/useAuth';
 const firebaseConfig121212 = {
   apiKey: "AIzaSyChFGTB5YEugUKho-YqcWVZtKJG3PIrtt0",
 
