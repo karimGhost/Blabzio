@@ -6,7 +6,8 @@ import videojs from 'video.js';
 import RecordRTC from 'recordrtc';
 import { useAuth } from '../../Accounts/useAuth';
 
-const firebaseConfig = {
+const firebaseConfig121212 = {
+  
   // Your Firebase configuration object
   apiKey: "AIzaSyChFGTB5YEugUKho-YqcWVZtKJG3PIrtt0",
 
@@ -23,9 +24,10 @@ const firebaseConfig = {
   appId: "1:221023885061:web:bc550d03edd2fbf60e496c",
 
   measurementId: "G-7V80059NF7"
-}
+};
+
 function VideoUploader() {
-  firebase.initializeApp(firebaseConfig, 'app212121');
+  firebase.initializeApp(firebaseConfig121212, 'app212121');
   const hhh = firebase.app('app212121').database();
   const { user, setUser, loading, signOut } = useAuth();
 
@@ -136,7 +138,7 @@ function VideoUploader() {
           style={{ width: '100%', marginBottom: '10px' }}
           controls
         >
-          <source src={videoUrl} type="video/webm" />
+          <source src={videoUrl || ''} type="video/webm" />
         </video>
         <div>
           {!isRecording ? (
