@@ -22,13 +22,12 @@ const firebaseConfig = {
   appId: "1:221023885061:web:bc550d03edd2fbf60e496c",
 
   measurementId: "G-7V80059NF7"
-
-};
+}
 
 function VideoUploader() {
   firebase.initializeApp(firebaseConfig, 'app212121');
   const hhh = firebase.app('app212121').database();
-  const { user, setUser, loading, signOut } = useAuth();
+  const { user } = useAuth();
 
   const [isRecording, setIsRecording] = useState(false);
   const [videoUrl, setVideoUrl] = useState(null);
@@ -36,7 +35,7 @@ function VideoUploader() {
   const [newComment, setNewComment] = useState('');
 
   const recorderRef = useRef(null);
-  const videoRef = useRef(null); // Add this line to reference the video element
+  const videoRef = useRef(null);
 
   useEffect(() => {
     // Fetch comments from Firebase RTDB
@@ -103,12 +102,9 @@ function VideoUploader() {
   };
 
   const handlePublish = () => {
-    if (!user) {
-      return;
-    }
     // Save the recorded video and its metadata to Firebase RTDB
     const videoId = nanoid(); // Generate a unique ID for the video
-    const userId = user.uid; // Get the user's ID from Firebase Auth
+    const userId = user?.uid; // Get the user's ID from Firebase Auth
 
     // Save the video data to Firebase RTDB
     const videosRef = hhh.ref('videos');
@@ -137,25 +133,16 @@ function VideoUploader() {
           style={{ width: '100%', marginBottom: '10px' }}
           controls
         >
-          <source src={videoUrl || ''} type="video/webm" />
+          <source src={videoUrl} type="video/webm" />
         </video>
         <div>
-          {!isRecording ? (
-            <button className="btn btn-danger mr-2" onClick={handleRecord}>
-              Start Recording
+          <button className="btn btn-danger mr-2" onClick={handleRecord}>
+            {isRecording ? 'Stop Recording' : 'Start Recording'}
+          </button>
+          {videoUrl && (
+            <button className="btn btn-success" onClick={handlePublish}>
+              Publish Video
             </button>
-          ) : (
-            <>
-              <button className="btn btn-danger mr-2" onClick={handleRecord} disabled>
-                Stop Recording
-              </button>
-              <button className="btn btn-success" onClick={handlePublish}>
-                Publish Video
-              </button>
-              <button className="btn btn-secondary" onClick={() => setIsRecording(false)}>
-                Discard
-              </button>
-            </>
           )}
         </div>
       </div>
