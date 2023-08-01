@@ -62,7 +62,7 @@ useEffect(() => {
 
   // Cleanup the Firebase listener on unmount
   return () => commentsRef.off('value');
-}, [user, database]);
+}, [user, hhh]);
 
 const handleRecord = async () => {
   if (isRecording) {
