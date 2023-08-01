@@ -1,6 +1,6 @@
 import React from 'react';
 import videojs from 'video.js';
-export const VideoJS = (props) => {
+const VideoJS = (props) => {
    const videoReference = React.useRef(null);
    const playerReference = React.useRef(null);
    const videoRef = React.useRef(null)
