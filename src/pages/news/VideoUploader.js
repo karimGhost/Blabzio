@@ -46,7 +46,24 @@ const hhh = firebase.app("app212121")
   const recorderRef = useRef(null);
   const videoRef = useRef(null); // Add this line to reference the video element
 
-
+ 
+  useEffect(() => {
+    // Fetch comments from Firebase RTDB
+    const commentsRef = hhh.ref('comments');
+    commentsRef.on('value', (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const commentsArray = Object.keys(data).map((key) => ({
+          id: key,
+          ...data[key],
+        }));
+        setComments(commentsArray);
+      }
+    });
+  
+    // Cleanup the Firebase listener on unmount
+    return () => commentsRef.off('value');
+  }, [user, hhh]);
 const handleRecord = async () => {
   if (isRecording) {
     // Stop recording
@@ -116,7 +133,7 @@ const handleRecord = async () => {
         userId,
         likes: 0,
         dislikes: 0,
-        replies: [],
+        replies: [],database
       };
       const commentsRef = hhh.ref('comments');
       commentsRef.child(commentId).set(commentData);
