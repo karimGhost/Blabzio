@@ -5,24 +5,12 @@ import { nanoid } from 'nanoid';
 import videojs from 'video.js';
 import RecordRTC from 'recordrtc';
 import { useAuth } from '../../Accounts/useAuth';
+import { Button } from 'react-bootstrap';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyChFGTB5YEugUKho-YqcWVZtKJG3PIrtt0",
-
-  authDomain: "thewall-10a4a.firebaseapp.com",
-
-  databaseURL: "https://thewall-10a4a-default-rtdb.firebaseio.com",
-
-  projectId: "thewall-10a4a",
-
-  storageBucket: "thewall-10a4a.appspot.com",
-
-  messagingSenderId: "221023885061",
-
-  appId: "1:221023885061:web:bc550d03edd2fbf60e496c",
-
-  measurementId: "G-7V80059NF7"
-}
+  // Your Firebase configuration object
+  // apiKey, authDomain, databaseURL, projectId, storageBucket, messagingSenderId, appId, measurementId, etc.
+};
 
 function VideoUploader() {
   firebase.initializeApp(firebaseConfig, 'app212121');
@@ -121,7 +109,54 @@ function VideoUploader() {
     setVideoUrl(null);
   };
 
-  // Rest of the comment, likes, and replies handling logic
+  const handleAddComment = () => {
+    if (!user) {
+      return;
+    }
+
+    if (newComment.trim() !== '') {
+      const commentId = nanoid(); // Generate a unique ID for the comment
+      const userId = user.uid; // Get the user's ID from Firebase Auth
+      const commentData = {
+        text: newComment,
+        userId,
+        likes: 0,
+        dislikes: 0,
+        replies: [],
+      };
+      const commentsRef = hhh.ref('comments');
+      commentsRef.child(commentId).set(commentData);
+      setNewComment('');
+    }
+  };
+
+  const handleLikeComment = (commentId) => {
+    const updatedComments = comments.map((comment) => {
+      if (comment.id === commentId) {
+        return { ...comment, likes: comment.likes + 1 };
+      }
+      return comment;
+    });
+    setComments(updatedComments);
+    // Update the likes in the Firebase RTDB as well
+    const commentsRef = hhh.ref('comments');
+    commentsRef.child(commentId).update({ likes: firebase.database.ServerValue.increment(1) });
+  };
+
+  const handleDislikeComment = (commentId) => {
+    const updatedComments = comments.map((comment) => {
+      if (comment.id === commentId) {
+        return { ...comment, dislikes: comment.dislikes + 1 };
+      }
+      return comment;
+    });
+    setComments(updatedComments);
+    // Update the dislikes in the Firebase RTDB as well
+    const commentsRef = hhh.ref('comments');
+    commentsRef.child(commentId).update({ dislikes: firebase.database.ServerValue.increment(1) });
+  };
+
+  // Rest of the comment, replies, and replies handling logic
 
   return (
     <div className="container mt-5">
@@ -136,17 +171,59 @@ function VideoUploader() {
           <source src={videoUrl} type="video/webm" />
         </video>
         <div>
-          <button className="btn btn-danger mr-2" onClick={handleRecord}>
+          <Button variant="danger" className="mr-2" onClick={handleRecord}>
             {isRecording ? 'Stop Recording' : 'Start Recording'}
-          </button>
+          </Button>
           {videoUrl && (
-            <button className="btn btn-success" onClick={handlePublish}>
+            <Button variant="success" onClick={handlePublish}>
               Publish Video
-            </button>
+            </Button>
           )}
         </div>
       </div>
-      {/* Rest of the comments, likes, and replies UI and implementation */}
+
+      {/* Placeholder for comments, likes, and replies UI */}
+      <div className="comments-section">
+        {/* Display the comments */}
+        {comments.map((comment) => (
+          <div key={comment.id} className="comment">
+            <p>{comment.text}</p>
+            <div className="comment-actions">
+              <Button variant="outline-primary" onClick={() => handleLikeComment(comment.id)}>
+                Like ({comment.likes})
+              </Button>
+              <Button variant="outline-danger" onClick={() => handleDislikeComment(comment.id)}>
+                Dislike ({comment.dislikes})
+              </Button>
+            </div>
+
+            {/* Display the replies */}
+            {comment.replies && comment.replies.length > 0 && (
+              <div className="replies">
+                {comment.replies.map((reply) => (
+                  <div key={reply.id} className="reply">
+                    <p>{reply.text}</p>
+                    {/* Add like/dislike functionality for replies if needed */}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Add reply functionality */}
+            <div className="add-reply">
+              <input
+                type="text"
+                placeholder="Add a reply..."
+                value={newReply}
+                onChange={(e) => setNewReply(e.target.value)}
+              />
+              <Button variant="outline-primary" onClick={() => handleAddReply(comment.id, newReply)}>
+                Add Reply
+              </Button>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
