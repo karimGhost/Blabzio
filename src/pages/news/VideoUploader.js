@@ -6,7 +6,8 @@ import videojs from 'video.js';
 import RecordRTC from 'recordrtc';
 import { useAuth } from '../../Accounts/useAuth';
 
-const firebaseConfig121212 = {
+const firebaseConfig = {
+  // Your Firebase configuration object
   apiKey: "AIzaSyChFGTB5YEugUKho-YqcWVZtKJG3PIrtt0",
 
   authDomain: "thewall-10a4a.firebaseapp.com",
@@ -24,7 +25,7 @@ const firebaseConfig121212 = {
   measurementId: "G-7V80059NF7"
 }
 function VideoUploader() {
-  firebase.initializeApp(firebaseConfig121212, 'app212121');
+  firebase.initializeApp(firebaseConfig, 'app212121');
   const hhh = firebase.app('app212121').database();
   const { user, setUser, loading, signOut } = useAuth();
 
@@ -101,6 +102,9 @@ function VideoUploader() {
   };
 
   const handlePublish = () => {
+    if (!user) {
+      return;
+    }
     // Save the recorded video and its metadata to Firebase RTDB
     const videoId = nanoid(); // Generate a unique ID for the video
     const userId = user.uid; // Get the user's ID from Firebase Auth
@@ -120,6 +124,8 @@ function VideoUploader() {
     setVideoUrl(null);
   };
 
+  // Rest of the comment, likes, and replies handling logic
+
   return (
     <div className="container mt-5">
       <h1 className="mb-4">Video Recorder</h1>
@@ -133,18 +139,22 @@ function VideoUploader() {
           <source src={videoUrl} type="video/webm" />
         </video>
         <div>
-          <button className="btn btn-primary mr-2" onClick={handleRecord}>
-            {isRecording ? 'Stop Recording' : 'Start Recording'}
-          </button>
-          {videoUrl && (
-            <div>
+          {!isRecording ? (
+            <button className="btn btn-danger mr-2" onClick={handleRecord}>
+              Start Recording
+            </button>
+          ) : (
+            <>
+              <button className="btn btn-danger mr-2" onClick={handleRecord} disabled>
+                Stop Recording
+              </button>
               <button className="btn btn-success" onClick={handlePublish}>
                 Publish Video
               </button>
-              <button className="btn btn-secondary ml-2" onClick={() => setVideoUrl(null)}>
+              <button className="btn btn-secondary" onClick={() => setIsRecording(false)}>
                 Discard
               </button>
-            </div>
+            </>
           )}
         </div>
       </div>
