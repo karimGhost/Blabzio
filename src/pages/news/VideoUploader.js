@@ -45,24 +45,7 @@ const hhh = firebase.app("app212121")
 
   const recorderRef = useRef(null);
   const videoRef = useRef(null); // Add this line to reference the video element
- 
-useEffect(() => {
-  // Fetch comments from Firebase RTDB
-  const commentsRef = database.ref('comments');
-  commentsRef.on('value', (snapshot) => {
-    const data = snapshot.val();
-    if (data) {
-      const commentsArray = Object.keys(data).map((key) => ({
-        id: key,
-        ...data[key],
-      }));
-      setComments(commentsArray);
-    }
-  });
 
-  // Cleanup the Firebase listener on unmount
-  return () => commentsRef.off('value');
-}, [user, hhh]);
 
 const handleRecord = async () => {
   if (isRecording) {
@@ -189,12 +172,15 @@ const handleRecord = async () => {
     });
     setComments(updatedComments);
   };
+  const isCommentsEmpty = comments.length === 0;
 
   return (
+   
+
     <div className="container mt-4">
 
 
-      <h1> welll should iot function fnfnkingr</h1>
+      <h1> welll should iot function fnfnkingr</h1>  
     {/* Video recorder UI */}
     <video className="video-player" ref={videoRef} src={videoUrl} controls />
     <div>
@@ -207,7 +193,7 @@ const handleRecord = async () => {
         </button>
       )}
     </div>
-  
+
     {/* Comment section UI */}
     <div>
       <h2>Comments</h2>
@@ -227,6 +213,8 @@ const handleRecord = async () => {
                 <FaReply /> {comment.replies && comment.replies.length} Replies
               </button>
             </div>
+
+        
             {/* Implement rendering of replies */}
             {comment.replies && comment.replies.length > 0 && (
               <div>
@@ -234,7 +222,7 @@ const handleRecord = async () => {
                   <p key={reply.id && reply.id}>{reply.text && reply.text}</p>
                 ))}
               </div>
-            )}
+            )}   
             {/* Implement reply input for new replies */}
             {comment.showReplies && (
               <div>
