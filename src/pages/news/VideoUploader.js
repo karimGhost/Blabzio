@@ -35,8 +35,9 @@ const VideoUploader = () => {
   const { user,setUser, loading,signOut } = useAuth();
   firebase.initializeApp(firebaseConfig121212, 'app212121')
 
-const hhh = firebase.app("app212121")
+const hh = firebase.app("app212121")
 
+const hhh = hh.database()
 
   const [isRecording, setIsRecording] = useState(false);
   const [videoUrl, setVideoUrl] = useState(null);
@@ -45,7 +46,23 @@ const hhh = firebase.app("app212121")
 
   const recorderRef = useRef(null);
   const videoRef = useRef(null); // Add this line to reference the video element
-
+  useEffect(() => {
+    // Fetch comments from Firebase RTDB
+    const commentsRef = hhh.ref('comments');
+    commentsRef.on('value', (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const commentsArray = Object.keys(data).map((key) => ({
+          id: key,
+          ...data[key],
+        }));
+        setComments(commentsArray);
+      }
+    });
+  
+    // Cleanup the Firebase listener on unmount
+    return () => commentsRef.off('value');
+  }, [user, hhh]);
  
   
 const handleRecord = async () => {
