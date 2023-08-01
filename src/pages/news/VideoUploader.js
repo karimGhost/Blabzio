@@ -7,21 +7,8 @@ import RecordRTC from 'recordrtc';
 import { useAuth } from '../../Accounts/useAuth';
 
 const firebaseConfig121212 = {
-  apiKey: "AIzaSyChFGTB5YEugUKho-YqcWVZtKJG3PIrtt0",
-
-  authDomain: "thewall-10a4a.firebaseapp.com",
-
-  databaseURL: "https://thewall-10a4a-default-rtdb.firebaseio.com",
-
-  projectId: "thewall-10a4a",
-
-  storageBucket: "thewall-10a4a.appspot.com",
-
-  messagingSenderId: "221023885061",
-
-  appId: "1:221023885061:web:bc550d03edd2fbf60e496c",
-
-  measurementId: "G-7V80059NF7"
+  // Your Firebase configuration object
+  // apiKey, authDomain, databaseURL, projectId, storageBucket, messagingSenderId, appId, measurementId, etc.
 };
 
 function VideoUploader() {
@@ -121,8 +108,6 @@ function VideoUploader() {
     setVideoUrl(null);
   };
 
-  // Rest of the comment, likes, and replies handling logic
-
   return (
     <div className="container mt-5">
       <h1 className="mb-4">Video Recorder</h1>
@@ -136,13 +121,18 @@ function VideoUploader() {
           <source src={videoUrl} type="video/webm" />
         </video>
         <div>
-          <button className="btn btn-danger mr-2" onClick={handleRecord}>
+          <button className="btn btn-primary mr-2" onClick={handleRecord}>
             {isRecording ? 'Stop Recording' : 'Start Recording'}
           </button>
           {videoUrl && (
-            <button className="btn btn-success" onClick={handlePublish}>
-              Publish Video
-            </button>
+            <div>
+              <button className="btn btn-success" onClick={handlePublish}>
+                Publish Video
+              </button>
+              <button className="btn btn-secondary ml-2" onClick={() => setVideoUrl(null)}>
+                Discard
+              </button>
+            </div>
           )}
         </div>
       </div>
