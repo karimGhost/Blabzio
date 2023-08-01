@@ -3,6 +3,7 @@ import videojs from 'video.js';
 export const VideoJS = (props) => {
    const videoReference = React.useRef(null);
    const playerReference = React.useRef(null);
+   const videoRef = React.useRef(null)
    const {options, onReady} = props;
    React.useEffect(() => {
       // Initializing video.js player

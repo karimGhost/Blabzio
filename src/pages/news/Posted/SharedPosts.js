@@ -1,7 +1,11 @@
 import React from 'react'
+import VideoRecorder from 'react-video-recorder'
 
-export default function SharedPosts() {
-  return (
-    <div>SharedPosts</div>
-  )
-}
+const SharedPosts = () => (
+  <div>
+      <VideoRecorder />
+
+  </div>
+)
+
+export default SharedPosts;
