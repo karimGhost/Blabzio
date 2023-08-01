@@ -9,42 +9,31 @@ const VideoPreview = ({ stream }) => {
       videoRef.current.srcObject = stream;
     }
   }, [stream]);
+
   if (!stream) {
     return null;
   }
+
   return <video ref={videoRef} width={500} height={500} autoPlay controls />;
 };
 
 export default function SharedPosts() {
-  const [enable, setEnable] = useState(true);
+  const [enable, setEnable] = useState(false); // Set to 'false' initially
+
+  useEffect(() => {
+    setEnable(true); // Set 'enable' to 'true' on the client-side
+  }, []);
+
   return (
     <div>
       <h1>Hello StackBlitz!</h1>
       <div>
         <ReactMediaRecorder
-          // video
-          // render={({ status, startRecording, stopRecording, mediaBlobUrl }) => (
-          //   <div>
-          //     <p>{status}</p>
-          //     <button onClick={startRecording}>Start Recording</button>
-          //     <button onClick={stopRecording}>Stop Recording</button>
-          //     <video src={mediaBlobUrl} controls autoPlay loop />
-          //   </div>
-          // )}
-          // audio
-          video
-          blobPropertyBag={{
-            type: 'video/webm',
-          }}
-          // askPermissionOnMount={true}
-          render={({
-            previewStream,
-            status,
-            startRecording,
-            stopRecording,
-            mediaBlobUrl,
-          }) => {
+          // Other props...
+          render={({ previewStream, status, startRecording, stopRecording, mediaBlobUrl }) => {
             console.log(previewStream);
+            const isRecording = status === 'recording';
+
             return (
               <div>
                 <p>{status}</p>
@@ -53,15 +42,16 @@ export default function SharedPosts() {
                 <button
                   onClick={() => {
                     startRecording();
-                    setTimeout(stopRecording, 2000);
-                    setEnable(false);
+                    setTimeout(() => {
+                      stopRecording();
+                      setEnable(false);
+                    }, 2000);
                   }}
                 >
                   togglestreaming
                 </button>
-                {/* <audio src={mediaBlobUrl} controls autoPlay loop /> */}
-                <video src={mediaBlobUrl} controls autoPlay loop />
-                {enable && <VideoPreview stream={previewStream} />}
+                {isRecording && <video src={mediaBlobUrl} controls autoPlay loop />}
+                {isRecording && <VideoPreview stream={previewStream} />}
               </div>
             );
           }}
