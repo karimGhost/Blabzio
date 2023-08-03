@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useReactMediaRecorder } from "react-media-recorder"; // Correct import
 
 const VideoUploader = () => {
   const [useReactMediaRecorder, setUseReactMediaRecorder] = useState(null);
