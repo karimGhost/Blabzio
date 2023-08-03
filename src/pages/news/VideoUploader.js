@@ -17,14 +17,17 @@ const VideoUploader = () => {
     setIsBrowser(true);
     // Dynamically import the module when the component mounts
     import("react-media-recorder").then((module) => {
+      if (window.Worker) {
+        // Web Workers are supported, so create a new Worker object
+        const worker = new Worker(module.url);
+      } else {
+        // Web Workers are not supported, so set mediaBlobUrl to null
+        setMediaBlobUrl(null);
+      }
+
       setIsBrowser(false); // Set isBrowser back to false after the import is done
     });
   }, []);
-
-  if (isBrowser && !window.Worker) {
-    // Check if running in the browser and Web Workers are supported
-    return <div>Web Workers are not supported in this browser.</div>;
-  }
 
   if (isBrowser && !mediaBlobUrl) {
     // Handle the case when mediaBlobUrl is not available yet
