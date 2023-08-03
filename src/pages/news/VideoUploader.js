@@ -1,36 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useReactMediaRecorder } from "react-media-recorder"; 
+import { useReactMediaRecorder } from "react-media-recorder";
 
 const VideoUploader = () => {
-  const [useReactMediaRecorder, setUseReactMediaRecorder] = useState(null);
-
-  useEffect(() => {
-    // Dynamically import the module when the component mounts
-    import("react-media-recorder").then((module) => {
-      setUseReactMediaRecorder(module.useReactMediaRecorder);
-    });
-  }, []);
-
-  if (!useReactMediaRecorder) {
-    return <div>Loading...</div>; // Or any placeholder while loading the module
-  }
-
-  const OPTIONS = {
-    filename: "test-filename",
-    fileType: "mp4",
-    width: 1920,
-    height: 1080,
-  };
-
-  // Web Worker setup wrapped in a browser check
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      // Create the Web Worker only in the browser environment
-      const worker = new Worker("your-worker-file.js");
-      // Use the worker as needed...
-    }
-  }, []);
-
+  const [isBrowser, setIsBrowser] = useState(false);
   const {
     status,
     startRecording,
@@ -40,6 +12,24 @@ const VideoUploader = () => {
     video: true,
     facingMode: { exact: "environment" },
   });
+
+  useEffect(() => {
+    setIsBrowser(true);
+    // Dynamically import the module when the component mounts
+    import("react-media-recorder").then((module) => {
+      setIsBrowser(false); // Set isBrowser back to false after the import is done
+    });
+  }, []);
+
+  if (isBrowser && !window.Worker) {
+    // Check if running in the browser and Web Workers are supported
+    return <div>Web Workers are not supported in this browser.</div>;
+  }
+
+  if (isBrowser && !mediaBlobUrl) {
+    // Handle the case when mediaBlobUrl is not available yet
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
