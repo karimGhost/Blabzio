@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useReactMediaRecorder } from "react-media-recorder"; // Correct import
+import { useReactMediaRecorder } from "react-media-recorder"; 
 
 const VideoUploader = () => {
   const [useReactMediaRecorder, setUseReactMediaRecorder] = useState(null);
@@ -15,14 +15,22 @@ const VideoUploader = () => {
     return <div>Loading...</div>; // Or any placeholder while loading the module
   }
 
-  // Once the module is loaded, continue with the rest of your code
-  // (the code from your original implementation)
   const OPTIONS = {
     filename: "test-filename",
     fileType: "mp4",
     width: 1920,
     height: 1080,
   };
+
+  // Web Worker setup wrapped in a browser check
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      // Create the Web Worker only in the browser environment
+      const worker = new Worker("your-worker-file.js");
+      // Use the worker as needed...
+    }
+  }, []);
+
   const {
     status,
     startRecording,
