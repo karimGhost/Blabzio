@@ -1,42 +1,47 @@
 import React, { useState, useEffect } from "react";
-import { useReactMediaRecorder } from "react-media-recorder";
+import { MediaRecorder } from "mediarecorder";
 
 const VideoUploader = () => {
-  const [isBrowser, setIsBrowser] = useState(false);
-  const {
-    status,
-    startRecording,
-    stopRecording,
-    mediaBlobUrl,
-  } = useReactMediaRecorder({
-    video: true,
-    facingMode: { exact: "environment" },
-  });
+  const [isRecording, setIsRecording] = useState(false);
+  const [mediaBlobUrl, setMediaBlobUrl] = useState(null);
+
+  const recorder = new MediaRecorder();
 
   useEffect(() => {
-    setIsBrowser(true);
-    // Dynamically import the module when the component mounts
-    import("react-media-recorder").then((module) => {
-      if (window.Worker) {
-        // Web Workers are supported, so create a new Worker object
-        const worker = new Worker(module.url);
-      } else {
-        // Web Workers are not supported, so set mediaBlobUrl to null
-        setMediaBlobUrl(null);
-      }
+    // Start recording when the button is clicked
+    const startRecording = () => {
+      recorder.start();
+    };
 
-      setIsBrowser(false); // Set isBrowser back to false after the import is done
-    });
+    // Stop recording when the button is clicked
+    const stopRecording = () => {
+      recorder.stop();
+    };
+
+    // Handle the recording state
+    const handleRecordingState = (event) => {
+      setIsRecording(event.state === "recording");
+    };
+
+    // Handle the media blob URL
+    const handleMediaBlobUrl = (event) => {
+      setMediaBlobUrl(event.dataUrl);
+    };
+
+    // Bind the event handlers
+    recorder.onstart = startRecording;
+    recorder.onstop = stopRecording;
+    recorder.ondataavailable = handleMediaBlobUrl;
+
+    return () => {
+      // Clean up the recorder when the component unmounts
+      recorder.stop();
+    };
   }, []);
-
-  if (isBrowser && !mediaBlobUrl) {
-    // Handle the case when mediaBlobUrl is not available yet
-    return <div>Loading...</div>;
-  }
 
   return (
     <div>
-      <p>{status}</p>
+      <p>{isRecording ? "Recording..." : "Not recording..."}</p>
       <button onClick={startRecording}>Start Recording</button>
       <button onClick={stopRecording}>Stop Recording</button>
       <video src={mediaBlobUrl} controls autoPlay loop />
