@@ -1,62 +1,62 @@
 import React, { useState } from "react";
-import { ReactMediaRecorder } from "react-media-recorder";
+import RecordRTC from "recordrtc";
 
-function VideoUploader(){
-  const [status, setStatus] = useState("idle");
-  const [mediaBlobUrl, setMediaBlobUrl] = useState(null);
+function VideoUploader() {
+  const [recording, setRecording] = useState(false);
+  const [mediaStream, setMediaStream] = useState(null);
+  const [recordedBlob, setRecordedBlob] = useState(null);
 
-  const onStartRecording = () => {
-    setStatus("recording");
-    setMediaBlobUrl(null); // Reset the mediaBlobUrl
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+      setMediaStream(stream);
+
+      const recorder = new RecordRTC(stream, { type: "video" });
+      recorder.startRecording();
+      setRecording(true);
+
+      // Stop recording after 10 seconds (adjust as needed)
+      setTimeout(() => {
+        recorder.stopRecording(() => {
+          setRecording(false);
+          setRecordedBlob(recorder.getBlob());
+          stream.getTracks().forEach(track => track.stop());
+        });
+      }, 40000);
+    } catch (error) {
+      console.error("Error starting recording:", error);
+    }
   };
 
-  const onStopRecording = (blobUrl) => {
-    setStatus("stopped");
-    setMediaBlobUrl(blobUrl); // Save the blobUrl to state
-  };
-
-  const onSaveRecording = () => {
-    setStatus("idle");
-    // Perform any actions needed with the saved mediaBlobUrl, like uploading to a server.
-  };
-
-  const onDiscardRecording = () => {
-    setStatus("idle");
-    // Discard the recording by setting mediaBlobUrl to null
-    setMediaBlobUrl(null);
+  const playRecordedBlob = () => {
+    if (recordedBlob) {
+      const videoElement = document.getElementById("recorded-video");
+      videoElement.src = URL.createObjectURL(recordedBlob);
+      videoElement.play();
+    }
   };
 
   return (
     <div>
-      <p>{status}</p>
-      {/* Pass the onStopRecording callback to handle blobUrl */}
-      <ReactMediaRecorder
-        video
-        render={({ status, startRecording, stopRecording, mediaBlobUrl }) => (
-          <div>
-            {status === "idle" ? (
-              <button onClick={startRecording}>Start Recording</button>
-            ) : (
-              <button onClick={stopRecording}>Stop Recording</button>
-            )}
-            {/* Show the recording preview while recording */}
-            {status === "recording" && (
-              <video src={mediaBlobUrl} controls autoPlay loop />
-            )}
-          </div>
-        )}
-        onStop={onStopRecording}
-      />
-      {status === "stopped" && (
+      <h2>Video Recorder with RecordRTC</h2>
+      {recording ? (
+        <p>Recording...</p>
+      ) : (
+        <button onClick={startRecording}>Start Recording</button>
+      )}
+
+      {mediaStream && (
+        <video src={URL.createObjectURL(mediaStream)} autoPlay muted />
+      )}
+
+      {recordedBlob && (
         <div>
-          {/* Show the saved video after stopping */}
-          <video src={mediaBlobUrl} controls autoPlay loop />
-          <button onClick={onSaveRecording}>Save</button>
-          <button onClick={onDiscardRecording}>Discard</button>
+          <button onClick={playRecordedBlob}>Play Recorded Video</button>
+          <video id="recorded-video" controls />
         </div>
       )}
     </div>
   );
-};
+}
 
 export default VideoUploader;
