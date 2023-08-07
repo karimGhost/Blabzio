@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkblabzio=self.webpackChunkblabzio||[]).push([[1477],{8070:function(e,n,t){t.r(n),t.d(n,{Head:function(){return l},default:function(){return i}});var u=t(7294);t(4866),t(4405),t(3869),t(4854),t(7043),t(9755);function i(){return u.createElement("div",null)}const l=()=>u.createElement("title",null,"Notifications")}}]);
+//# sourceMappingURL=component---src-pages-profile-page-notifications-js-8f14cdb58c819aad17e2.js.map
