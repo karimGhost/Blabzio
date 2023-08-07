@@ -1,8 +1,7 @@
 import { useReactMediaRecorder } from "react-media-recorder";
 import React from 'react';
-const VideoUploader= () => {
-  const { status, startRecording, stopRecording, mediaBlobUrl } =
-    useReactMediaRecorder({ video: true });
+function VideoUploader(){
+  const { status, startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({ video: true });
 
   return (
     <div>
