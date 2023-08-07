@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ReactMediaRecorder } from "react-media-recorder";
 
-function VideoUploader{
+function VideoUploader(){
   const [status, setStatus] = useState("idle");
   const [mediaBlobUrl, setMediaBlobUrl] = useState(null);
 
