@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useReactMediaRecorder } from 'react-media-recorder';
-import Worker from 'worker-loader/lib/worker';
+//import Worker from 'worker-loader/lib/worker';
 
 const VideoUploader = () => {
   const [status, setStatus] = useState('');
