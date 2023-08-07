@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkblabzio=self.webpackChunkblabzio||[]).push([[3251],{7477:function(e,n,u){u.r(n);var l=u(7294);n.default=function(){return l.createElement("div",null," go")}}}]);
+//# sourceMappingURL=component---src-pages-news-video-uploader-js-92a48dccca5f23e403a2.js.map
