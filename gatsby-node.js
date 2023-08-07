@@ -8,4 +8,4 @@ exports.onCreateWebpackConfig = ({ actions, loaders, getConfig }) => {
     use: loaders.worker(),
   });
   actions.replaceWebpackConfig(config);
-};
+}
