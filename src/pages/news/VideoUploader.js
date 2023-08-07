@@ -1,60 +1,51 @@
 import React, { useState } from "react";
-import RecordRTC from "recordrtc";
+import { ReactMediaRecorder } from "react-media-recorder";
 
 function VideoUploader() {
   const [recording, setRecording] = useState(false);
-  const [mediaStream, setMediaStream] = useState(null);
   const [recordedBlob, setRecordedBlob] = useState(null);
 
-  const startRecording = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
-      setMediaStream(stream);
-
-      const recorder = new RecordRTC(stream, { type: "video" });
-      recorder.startRecording();
-      setRecording(true);
-
-      // Stop recording after 10 seconds (adjust as needed)
-      setTimeout(() => {
-        recorder.stopRecording(() => {
-          setRecording(false);
-          setRecordedBlob(recorder.getBlob());
-          stream.getTracks().forEach(track => track.stop());
-        });
-      }, 40000);
-    } catch (error) {
-      console.error("Error starting recording:", error);
-    }
+  const handleRecordingStart = () => {
+    setRecording(true);
+    setRecordedBlob(null);
   };
 
-  const playRecordedBlob = () => {
-    if (recordedBlob) {
-      const videoElement = document.getElementById("recorded-video");
-      videoElement.src = URL.createObjectURL(recordedBlob);
-      videoElement.play();
-    }
+  const handleRecordingStop = (blobUrl) => {
+    setRecording(false);
+    setRecordedBlob(blobUrl);
   };
 
   return (
     <div>
-      <h2>Video Recorder with RecordRTC</h2>
-      {recording ? (
-        <p>Recording...</p>
-      ) : (
-        <button onClick={startRecording}>Start Recording</button>
-      )}
+      <h2>Video Recorder</h2>
+      <ReactMediaRecorder
+        video
+        render={({ status, startRecording, stopRecording, mediaBlobUrl }) => (
+          <div>
+            {status === "idle" ? (
+              <button onClick={startRecording} disabled={recording}>
+                Start Recording
+              </button>
+            ) : (
+              <button onClick={stopRecording} disabled={!recording}>
+                Stop Recording
+              </button>
+            )}
 
-      {mediaStream && (
-        <video src={URL.createObjectURL(mediaStream)} autoPlay muted />
-      )}
+            {/* Show the real-time recording preview */}
+            {status === "recording" && <video src={mediaBlobUrl} autoPlay loop />}
 
-      {recordedBlob && (
-        <div>
-          <button onClick={playRecordedBlob}>Play Recorded Video</button>
-          <video id="recorded-video" controls />
-        </div>
-      )}
+            {/* Show the recorded video after recording */}
+            {recordedBlob && (
+              <div>
+                <video src={recordedBlob} controls />
+              </div>
+            )}
+          </div>
+        )}
+        onStart={handleRecordingStart}
+        onStop={handleRecordingStop}
+      />
     </div>
   );
 }
