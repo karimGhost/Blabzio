@@ -32,13 +32,14 @@ const VideoUploader = () => {
       {/* Pass the onStopRecording callback to handle blobUrl */}
       <ReactMediaRecorder
         video
-        render={({ status, startRecording, stopRecording }) => (
+        render={({ status, startRecording, stopRecording, mediaBlobUrl }) => (
           <div>
             {status === "idle" ? (
               <button onClick={startRecording}>Start Recording</button>
             ) : (
               <button onClick={stopRecording}>Stop Recording</button>
             )}
+            {/* Show the recording preview while recording */}
             {status === "recording" && (
               <video src={mediaBlobUrl} controls autoPlay loop />
             )}
@@ -48,6 +49,7 @@ const VideoUploader = () => {
       />
       {status === "stopped" && (
         <div>
+          {/* Show the saved video after stopping */}
           <video src={mediaBlobUrl} controls autoPlay loop />
           <button onClick={onSaveRecording}>Save</button>
           <button onClick={onDiscardRecording}>Discard</button>
