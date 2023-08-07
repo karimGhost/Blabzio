@@ -1,6 +1,7 @@
 import { ReactMediaRecorder } from "react-media-recorder";
 import React from 'react' ;
-export default const VideoUploader = () => (
+export default function VideoUploader() {
+  return (
   <div>
     <ReactMediaRecorder
       video
@@ -15,3 +16,4 @@ export default const VideoUploader = () => (
     />
   </div>
 );
+}
