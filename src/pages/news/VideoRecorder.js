@@ -96,7 +96,7 @@ const stopRecording = () => {
     
     return (
         <div>
-   <h2>The WALL</h2>
+   
     <main>
         <div className="video-controls">
             {!permission ? (
