@@ -36,7 +36,7 @@ const getCameraPermission = async () => {
             ]);
             setStream(combinedStream);
             //set videostream to live feed player
-            liveVideoFeed.current.srcObject = videoStream;
+            liveVideoFeed.current.srcObject = combinedStream;
         } catch (err) {
             alert(err.message);
         }
