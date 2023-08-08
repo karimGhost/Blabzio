@@ -9,8 +9,11 @@ const VideoUploader = () => {
             setRecordOption(type);
         };
     };
+
+
+    
     return (
-        <div>
+        <div className='vrecorderbod'>
             <h1>React Media Recorder</h1>
             <div className="button-flex">
                 <button onClick={toggleRecordOption("video")}>
@@ -26,4 +29,4 @@ const VideoUploader = () => {
         </div>
     );
 };
-export default VideoRecorder;
+export default VideoUploader;
