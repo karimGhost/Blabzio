@@ -130,7 +130,7 @@ const stopRecording = () => {
                 <i style={{ width:'1.2rem', height:'1.2rem',padding:'4px',background:'green',borderRadius:'50%'>    Stop Recording </i>
             </button>
             ) : null}
-{ recordingStatus === "inactive"  && <button style={{position:'absolute',zIndex:'20', top:'0', right:'0'}} type='button' onClick={{switchCamera}}> switchcam </button> }
+{ recordingStatus === "inactive"  && <button style={{position:'absolute',zIndex:'20', top:'0', right:'0'}} type='button' onClick={switchCamera}> switchcam </button> }
     </div>
 ) : null}
                     
