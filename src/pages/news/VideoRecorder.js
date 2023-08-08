@@ -11,65 +11,62 @@ const [stream, setStream] = useState(null);
 const [videoChunks, setVideoChunks] = useState([]);
 const [recordedVideo, setRecordedVideo] = useState(null);
   
-const [currentCamera, setCurrentCamera] = useState('front');
 
-const switchCamera = async () => {
-    const newCamera = currentCamera === 'front' ? 'back' : 'front';
-    setCurrentCamera(newCamera);
+const [facingMode, setFacingMode] = useState("user"); // "user" for front camera, "environment" for back camera
 
-    try {
-        const newStream = await navigator.mediaDevices.getUserMedia({
-            video: {
-                facingMode: newCamera,
-            },
-        });
-        // Update the video track of the existing combinedStream
-        const newVideoTrack = newStream.getVideoTracks()[0];
-        const existingAudioTracks = stream.getAudioTracks();
-        const combinedStream = new MediaStream([newVideoTrack, ...existingAudioTracks]);
-        setStream(combinedStream);
-    } catch (err) {
-        console.error('Error switching camera:', err);
-    }
-};
+  
 
     
 const getCameraPermission = async () => {
-        setRecordedVideo(null);
-        if ("MediaRecorder" in window) {
-            try {
-                const videoConstraints = {
-                    audio: false,
-                    video: true,
-                };
-                const audioConstraints = { audio: true };
-                // create audio and video streams separately
-                const audioStream = await navigator.mediaDevices.getUserMedia(
-                    audioConstraints
-                );
-                const videoStream = await navigator.mediaDevices.getUserMedia(
-                    videoConstraints
-                );
-                setPermission(true);
-                // combine both audio and video streams
-                const combinedStream = new MediaStream([
-                    ...videoStream.getVideoTracks(),
-                    ...audioStream.getAudioTracks(),
-                ]);
-                setStream(combinedStream);
-            } catch (err) {
-                alert(err.message);
-            }
-        } else {
-            alert("The MediaRecorder API is not supported in your browser.");
-        }
-    };
+  setRecordedVideo(null);
+  if ("MediaRecorder" in window) {
+    try {
+      const videoConstraints = {
+        audio: false,
+        video: {
+          facingMode: facingMode, // Use the current facingMode state here
+        },
+      };
+      const audioConstraints = { audio: true };
+      // create audio and video streams separately
+      const audioStream = await navigator.mediaDevices.getUserMedia(
+        audioConstraints
+      );
+      const videoStream = await navigator.mediaDevices.getUserMedia(
+        videoConstraints
+      );
+      setPermission(true);
+      // combine both audio and video streams
+      const combinedStream = new MediaStream([
+        ...videoStream.getVideoTracks(),
+        ...audioStream.getAudioTracks(),
+      ]);
+      setStream(combinedStream);
+    } catch (err) {
+      alert(err.message);
+    }
+  } else {
+    alert("The MediaRecorder API is not supported in your browser.");
+  }
+};
+
 
     useEffect(() => {
         if (permission && liveVideoFeed.current && stream) {
             liveVideoFeed.current.srcObject = stream;
         }
     }, [permission, stream]);
+    
+const switchCamera = async () => {
+    if (stream) {
+      stream.getTracks().forEach((track) => track.stop());
+    }
+
+    const newFacingMode = facingMode === "user" ? "environment" : "user";
+    setFacingMode(newFacingMode);
+
+    await getCameraPermission();
+  };
 
 const startRecording = async () => {
     setRecordingStatus("recording");
