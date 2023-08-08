@@ -17056,7 +17056,6 @@ img {
     animation: blink 1s infinite;
     color: red; /* Initial color */
   }
-
   @keyframes changeColor {
     0% { color: red; }
     25% { color: yellow; }
