@@ -98,16 +98,15 @@ const stopRecording = () => {
         </div>
 
                 {permission && liveVideoFeed ? (
-    <div className="video-player">
-        {  recordingStatus === 'recording' &&  <span style={{color:'red'}} > <ul><li style={{color:'red'}} className='recordmode'>{recordingStatus}</li></ul></span>}
-        <video ref={liveVideoFeed} autoPlay playsInline></video>
+    <div style={{position:'relative' }}  className="video-player">
+        {  recordingStatus === 'recording' &&  <span style={{color:'red'}} > <ul><li style={{color:'red', position:'absolute',zIndex:'20'}} className='recordmode colorChanging'>{recordingStatus}</li></ul></span>}
+        <video  className='live-player' ref={liveVideoFeed} autoPlay playsInline></video>
     </div>
 ) : null}
-
                     
                 { !permission && recordedVideo ? (
         <div className="video-player">
-            <video src={recordedVideo} controls autoPlay></video>
+            <video className='recorded-player' src={recordedVideo} controls autoPlay></video>
             <a download href={recordedVideo}>
                 Download Recording
             </a>
