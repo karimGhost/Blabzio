@@ -17046,3 +17046,34 @@ img {
     height: 400px;
     width: 800px;
 }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .recordmode {
+    animation: blink 1s infinite;
+    color: red; /* Initial color */
+  }
+
+  @keyframes changeColor {
+    0% { color: red; }
+    25% { color: yellow; }
+    50% { color: green; }
+    75% { color: blue; }
+    100% { color: purple; }
+  }
+
+  .colorChanging {
+    animation: changeColor 5s infinite;
+  }
+	.vrecorderbod {
+margin: 0;
+  display: flex;
+  place-items: start;
+  min-width: 320px;
+  min-height: 100vh;
+
+	}
+	
