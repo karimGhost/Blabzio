@@ -94,7 +94,7 @@ const stopRecording = () => {
         </div>
                 { videoChunks ? (
         <div className="video-player">
-            <video src={videoChunks} controls></Video>
+            <video src={videoChunks} controls></video>
             <a download href={videoChunks}>
                 Download Recording
             </a>
