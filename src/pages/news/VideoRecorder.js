@@ -78,7 +78,7 @@ const stopRecording = () => {
         <div className="video-controls">
             {!permission ? (
             <button onClick={getCameraPermission} type="button">
-                Get Microphone
+                Get video
             </button>
             ) : null}
             {permission && recordingStatus === "inactive" ? (
@@ -92,10 +92,19 @@ const stopRecording = () => {
             </button>
             ) : null}
         </div>
-                { videoChunks ? (
+
+                {permission && liveVideoFeed ? (
         <div className="video-player">
-            <video src={videoChunks} controls></video>
-            <a download href={videoChunks}>
+            <video src={liveVideoFeed} ></video>  
+
+
+        </div>
+                    ) : null }
+                    
+                { !permission && recordedVideo ? (
+        <div className="video-player">
+            <video src={recordedVideo} ></video>
+            <a download href={recordedVideo}>
                 Download Recording
             </a>
         </div>
