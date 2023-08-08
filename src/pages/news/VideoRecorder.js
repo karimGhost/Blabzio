@@ -94,12 +94,11 @@ const stopRecording = () => {
         </div>
 
                 {permission && liveVideoFeed ? (
-        <div className="video-player">
-            <video src={liveVideoFeed} ></video>  
+    <div className="video-player">
+        <video ref={liveVideoFeed} autoPlay playsInline></video>
+    </div>
+) : null}
 
-
-        </div>
-                    ) : null }
                     
                 { !permission && recordedVideo ? (
         <div className="video-player">
