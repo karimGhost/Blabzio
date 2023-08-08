@@ -13,37 +13,41 @@ const [recordedVideo, setRecordedVideo] = useState(null);
   
 
 const getCameraPermission = async () => {
-    setRecordedVideo(null);
-    if ("MediaRecorder" in window) {
-        try {
-            const videoConstraints = {
-                audio: false,
-                video: true,
-            };
-            const audioConstraints = { audio: true };
-            // create audio and video streams separately
-            const audioStream = await navigator.mediaDevices.getUserMedia(
-                audioConstraints
-            );
-            const videoStream = await navigator.mediaDevices.getUserMedia(
-                videoConstraints
-            );
-            setPermission(true);
-            //combine both audio and video streams
-            const combinedStream = new MediaStream([
-                ...videoStream.getVideoTracks(),
-                ...audioStream.getAudioTracks(),
-            ]);
-            setStream(combinedStream);
-            //set videostream to live feed player
-            liveVideoFeed.current.srcObject = combinedStream;
-        } catch (err) {
-            alert(err.message);
+        setRecordedVideo(null);
+        if ("MediaRecorder" in window) {
+            try {
+                const videoConstraints = {
+                    audio: false,
+                    video: true,
+                };
+                const audioConstraints = { audio: true };
+                // create audio and video streams separately
+                const audioStream = await navigator.mediaDevices.getUserMedia(
+                    audioConstraints
+                );
+                const videoStream = await navigator.mediaDevices.getUserMedia(
+                    videoConstraints
+                );
+                setPermission(true);
+                // combine both audio and video streams
+                const combinedStream = new MediaStream([
+                    ...videoStream.getVideoTracks(),
+                    ...audioStream.getAudioTracks(),
+                ]);
+                setStream(combinedStream);
+            } catch (err) {
+                alert(err.message);
+            }
+        } else {
+            alert("The MediaRecorder API is not supported in your browser.");
         }
-    } else {
-        alert("The MediaRecorder API is not supported in your browser.");
-    }
-};
+    };
+
+    useEffect(() => {
+        if (permission && liveVideoFeed.current && stream) {
+            liveVideoFeed.current.srcObject = stream;
+        }
+    }, [permission, stream]);
 
 const startRecording = async () => {
     setRecordingStatus("recording");
