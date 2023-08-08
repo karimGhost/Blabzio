@@ -122,12 +122,12 @@ const stopRecording = () => {
     </video>
     {permission && recordingStatus === "inactive" ? (
             <button style={{zIndex:'20', position:'absolute', bottom:'0', color:'red' ,borderRadius:'50%',width:'1.5rem',height:'1.5rem', background:'transparent',border:'2px solid green'}} onClick={startRecording} type="button">
-               <i style={{ width:'1.2rem', height:'1.2rem',padding:'4px',background:'green',borderRadius:'50%'> start </i>
+               <i style={{ width:'1.2rem', height:'1.2rem',padding:'4px',background:'green',borderRadius:'50%'}}> start </i>
             </button>
             ) : null}
             {recordingStatus === "recording" ? (
             <button style={{zIndex:'20', position:'absolute', bottom:'0', color:'red' ,borderRadius:'50%',width:'1.5rem',height:'1.5rem', background:'transparent',border:'2px solid red'}} onClick={stopRecording} type="button">
-                <i style={{ width:'1.2rem', height:'1.2rem',padding:'4px',background:'green',borderRadius:'50%'>    Stop Recording </i>
+                <i style={{ width:'1.2rem', height:'1.2rem',padding:'4px',background:'green',borderRadius:'50%'}}>    Stop Recording </i>
             </button>
             ) : null}
 { recordingStatus === "inactive"  && <button style={{position:'absolute',zIndex:'20', top:'0', right:'0'}} type='button' onClick={switchCamera}> switchcam </button> }
