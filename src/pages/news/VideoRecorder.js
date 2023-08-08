@@ -96,12 +96,12 @@ const stopRecording = () => {
     
     return (
         <div>
-    <h2>Audio Recorder</h2>
+   <h2>The WALL</h2>
     <main>
         <div className="video-controls">
             {!permission ? (
             <button onClick={getCameraPermission} type="button">
-                Get video
+               open camera
             </button>
             ) : null}
             
@@ -118,13 +118,13 @@ const stopRecording = () => {
     
     </video>
     {permission && recordingStatus === "inactive" ? (
-            <button style={{zIndex:'20', position:'absolute', bottom:'0', color:'red' ,borderRadius:'50%',width:'1.5rem',height:'1.5rem', background:'transparent',border:'2px solid green'}} onClick={startRecording} type="button">
-               <i style={{ width:'1.2rem', height:'1.2rem',padding:'4px',background:'green',borderRadius:'50%'}}> start </i>
+            <button style={{zIndex:'20', position:'absolute', bottom:'0', color:'red' ,borderRadius:'50%',width:'2.5rem',height:'2.5rem', background:'transparent',border:'2px solid green',marginLeft:'auto',marginRight:'auto'}} onClick={startRecording} type="button">
+               <i style={{marginLeft:'auto',marginRight:'auto', width:'2rem', height:'2rem',padding:'4px',background:'green',borderRadius:'50%'}}>s</i>
             </button>
             ) : null}
             {recordingStatus === "recording" ? (
-            <button style={{zIndex:'20', position:'absolute', bottom:'0', color:'red' ,borderRadius:'50%',width:'1.5rem',height:'1.5rem', background:'transparent',border:'2px solid red'}} onClick={stopRecording} type="button">
-                <i style={{ width:'1.2rem', height:'1.2rem',padding:'4px',background:'green',borderRadius:'50%'}}>    Stop Recording </i>
+            <button style={{zIndex:'20', position:'absolute', bottom:'0', color:'red' ,borderRadius:'50%',width:'2rem',height:'2rem', background:'transparent',border:'2px solid red',marginLeft:'auto',marginRight:'auto'}} onClick={stopRecording} type="button">
+                <i style={{marginLeft:'auto',marginRight:'auto', width:'1.8rem', height:'1.8rem',padding:'4px',background:'green',borderRadius:'50%'}}>p</i>
             </button>
             ) : null}
 { recordingStatus === "inactive"  && <button style={{position:'absolute',zIndex:'20', top:'0', right:'0'}} type='button' onClick={switchCamera}> switchcam </button> }
