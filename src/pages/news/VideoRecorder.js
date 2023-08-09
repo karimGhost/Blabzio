@@ -38,8 +38,9 @@ const getCameraPermission = async () => {
       setPermission(true);
       // combine both audio and video streams
       const combinedStream = new MediaStream([
-        ...videoStream.getVideoTracks()
-       /* ...audioStream.getAudioTracks(),*/
+       ...audioStream.getAudioTracks(),
+          ...videoStream.getVideoTracks()
+     
       ]);
       setStream(combinedStream);
     } catch (err) {
@@ -113,18 +114,18 @@ const stopRecording = () => {
 
     
     
-    <video  className='live-player' ref={liveVideoFeed} autoPlay playsInline>
+    <video  className='live-player w-100 m-50' ref={liveVideoFeed} autoPlay playsInline>
     
     
     </video>
     {permission && recordingStatus === "inactive" ? (
-            <button style={{zIndex:'20', position:'absolute', bottom:'0', color:'red' ,borderRadius:'50%',width:'4.5rem',height:'4.5rem', background:'transparent',border:'2px solid green',marginLeft:'20%',marginRight:'20%'}} onClick={startRecording} type="button">
-               <i style={{marginLeft:'20%',marginRight:'20%', width:'4rem', height:'4rem',padding:'4px',background:'green',borderRadius:'50%'}}>s</i>
+            <button style={{zIndex:'20', position:'absolute', bottom:'0', color:'red' ,borderRadius:'50%',width:'3rem',height:'3rem', background:'transparent',border:'2px solid green',marginLeft:'50%',marginRight:'50%'}} onClick={startRecording} type="button">
+               <i style={{marginLeft:'50%',marginRight:'50%', width:'5rem', height:'5rem',padding:'4px',background:'green',borderRadius:'50%'}}>s</i>
             </button>
             ) : null}
             {recordingStatus === "recording" ? (
-            <button style={{zIndex:'20', position:'absolute', bottom:'0', color:'red' ,borderRadius:'50%',width:'4rem',height:'4rem', background:'transparent',border:'2px solid red',marginLeft:'20%',marginRight:'20%'}} onClick={stopRecording} type="button">
-                <i style={{marginLeft:'20%',marginRight:'20%', width:'3.8rem', height:'3.8rem',padding:'4px',background:'green',borderRadius:'50%'}}>p</i>
+            <button style={{zIndex:'20', position:'absolute', bottom:'0', color:'red' ,borderRadius:'50%',width:'3rem',height:'3rem', background:'transparent',border:'2px solid red',marginLeft:'50%',marginRight:'50%'}} onClick={stopRecording} type="button">
+                <i style={{marginLeft:'50%',marginRight:'50%', width:'5rem', height:'5rem',padding:'4px',background:'green',borderRadius:'50%'}}>p</i>
             </button>
             ) : null}
 { recordingStatus === "inactive"  && <button style={{position:'absolute',zIndex:'20', top:'0', right:'0'}} type='button' onClick={switchCamera}> switchcam </button> }
