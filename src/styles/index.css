@@ -17044,6 +17044,17 @@ img {
     border: 1px solid #646cff;
     margin-bottom: 30px;
 }
+.live-player {
+-webkit-appearance: none ;
+  transform: rotateY(180deg);
+}
+.live-player video::-webkit-media-controls{
+  transform: rotateY(180deg) !important;
+}
+
+
+
+
 .recorded-player video {
     height: 400px;
     width: 800px;
