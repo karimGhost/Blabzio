@@ -10,7 +10,9 @@ main{
   margin-top: 30px;
 }
 
-
+*:focus {
+  box-shadow: none !important;
+}
 @media screen and (max-width:999px) {
   .barsp {
     width: -webkit-fit-content;
