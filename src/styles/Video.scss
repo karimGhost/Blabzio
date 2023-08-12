@@ -11,23 +11,12 @@
 	--third: #9f9f9f;
 	--poppins: "Poppins", sans-serif;
 }
-html {
-	height: 100%;
-}
-body {
-	background: #000;
 
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	height: 100%;
-	margin: 0;
-	font-family: var(--poppins);
-}
+
 
 // general settings
 
-.container {
+.containers{
 	background-color: #0d0d0d;
 	height: 570px;
 	width: 300px;
@@ -265,7 +254,7 @@ body {
 
 //  overlay
 
-.overlay {
+.overlay{
 	position: absolute;
 	z-index: 99;
 	height: 100%;
@@ -353,5 +342,5 @@ body {
 
 
 .shares{
-	
+
 }
