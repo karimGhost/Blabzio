@@ -136,10 +136,10 @@ const Videoplayer = () => {
   }, [video]);
 
   return (
-  	<div className={Video.containers}>
-		<div className={Video.overlay}>
-			<div className={Video.howto}>
-				<div className={Video.explain}>
+  	<div className={Video['containers']}>
+		<div className={Video['overlay']}>
+			<div className={Video['howto']}>
+				<div className={Video['explain']}>
 					<ul className={Video['explain-list']}>
 						<li className={Video['explain-details']}>
 							<h2 className={Video['explain-details-head']}>Likes</h2>
