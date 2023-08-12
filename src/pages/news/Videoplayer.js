@@ -136,7 +136,7 @@ const Videoplayer = () => {
   }, [video]);
 
   return (
-  	<div className={Video['containers']}>
+  	<div className="container">
 		<div className={Video['overlay']}>
 			<div className={Video['howto']}>
 				<div className={Video['explain']}>
