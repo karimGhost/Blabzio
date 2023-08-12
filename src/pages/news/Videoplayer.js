@@ -188,9 +188,9 @@ const Videoplayer = () => {
 		</div>
 
 		{/* right labels	*/ }
-		<div className={Video.right}>
-			<div className={`${Video.icons-item} ${Video.right-icon}`}>
-				<span className={Video.icon}>
+		<div className={Video['right']}>
+			<div className={`${Video['icons-item']} ${Video['right-icon']}`}>
+				<span className={Video['icon']}>
 					<img src="https://assets.codepen.io/2629920/heart.png" alt="" id="likes-icon"/>
 				</span>
 				<span className={`${Video['icon-label']} ${Video['right-label']}`} data-likes='999'>999</span>
