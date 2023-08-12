@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FaPlay, FaPause, FaHeart, FaThumbsUp, FaThumbsDown, FaComment, FaShare } from 'react-icons/fa';
 import { nanoid } from 'nanoid';
-import video from "../images/anim.mp4";
+import video from "../../images/anim.mp4";
 const Videoplayer = () => {
   const [playing, setPlaying] = useState(false);
   const [likes, setLikes] = useState(0);
@@ -28,7 +28,7 @@ const Videoplayer = () => {
   return (
     <div className="video-container">
       <video
-        src=""
+        src={video}
         controls={playing}
         onMouseEnter={() => setShowControls(true)}
         onMouseLeave={() => setShowControls(false)}
