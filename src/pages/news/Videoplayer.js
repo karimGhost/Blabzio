@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { FaPlay, FaPause, FaHeart, FaThumbsUp, FaThumbsDown, FaComment, FaShare } from 'react-icons/fa';
 import { nanoid } from 'nanoid';
 import video from "../../images/anim.mp4";
-import Video from "../../styles/Video.scss";
+import * as Video from "../../styles/Video.scss";
+
 const Videoplayer = () => {
 
   const [playing, setPlaying] = useState(false);
@@ -136,8 +137,8 @@ const Videoplayer = () => {
   }, [video]);
 
   return (
-  	<div className="container">
-		<div className={Video['overlay']}>
+  	<div className={Video.container}>
+		<div className={Video.overlay}>
 			<div className={Video['howto']}>
 				<div className={Video['explain']}>
 					<ul className={Video['explain-list']}>
