@@ -84,6 +84,7 @@ const Videoplayer = () => {
   };
 
   const loadComments = () => {
+    if(!comments){return;}
     const commentsList = comments.map((comment) => {
       const commentStyle = {
         backgroundImage: `url(${comment.profilePhoto})`,
