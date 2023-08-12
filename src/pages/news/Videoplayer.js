@@ -84,9 +84,13 @@ import '../../styles/Video.scss';
       return `${mins}:${seconds}`;
     };
   
+
+
     const updateProgress = () => {
-      barRef.current.style.width = `${(videoRef.current.currentTime / videoRef.current.duration) * 100}%`;
-      durationRef.current.textContent = `${displayTime(videoRef.current.currentTime)} : ${displayTime(videoRef.current.duration)}`;
+      if (videoRef.current && barRef.current && durationRef.current) {
+        barRef.current.style.width = `${(videoRef.current.currentTime / videoRef.current.duration) * 100}%`;
+        durationRef.current.textContent = `${displayTime(videoRef.current.currentTime)} : ${displayTime(videoRef.current.duration)}`;
+      }
     };
   
     const setProgress = (e) => {
