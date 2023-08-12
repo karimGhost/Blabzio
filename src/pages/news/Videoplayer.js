@@ -182,7 +182,7 @@ const Videoplayer = () => {
 		<video src="https://assets.codepen.io/2629920/gt3.mp4" className={Video.video} playsinline autoplay loop muted></video>
 
 		{/* 	top labels	*/}
-		<div className={top}>
+		<div className={Video.top}>
 			<span className={`${Video['label']} ${Video['label-main']}`}>Following</span>
 			<span className={`${Video['label']} ${Video['label-active']}`}>For You</span>
 		</div>
