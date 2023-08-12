@@ -51,11 +51,217 @@ const firebaseConfig222 ={
   measurementId: "G-B65PR7NNXS"
 
 }
+export default function Profiles(props) {
+ const app3 = firebase.initializeApp(firebaseConfig2, 'app0133');
+ const app334 = firebase.initializeApp(firebaseConfig222, 'app0144');
 
-export default function Profile(props) {
+const toast = useRef(null)
+
+  const app4 = firebase.app('app0133');
+
+ const  app33 = firebase.app('app0144');
+
+  const { user,setUser, loading,signOut } = useAuth();
+
+const [email, setEmail] = useState('')
+const [userId, setUserId] = useState('')
+const [Editable, setEditable] = useState(false)
+
+const [usernames, setUsernames] = useState({
+  useris : null,
+  firstname: null,
+  lastname: null,
+  DOB: null,
+  Location: null
+
+});
 
 
-  firebase.initializeApp(firebaseConfig2, 'app014');
+const [vals, setVals] = useState([''])
+const [Db, setDb] = useState()
+const [fname, setFname] = useState()
+const [lname, setLname] = useState()
+const [locate, setLocate] = useState()
+const va = vals.length;
+
+
+const  [clear, setClear] = useState(false)
+const [Darks, setDarks] = useState(false)
+
+
+useEffect(() => {  
+
+  if (user && user.email) {
+    app4
+      .database()
+      .ref('profile')
+      .orderByChild('email')
+      .equalTo(user.email)
+      .once('value')
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const userId = Object.keys(snapshot.val());
+          const snapshotval = snapshot.val()[userId];
+          if (snapshotval && snapshotval.username  ) {
+            snapshotval.darkmode &&   setDarks(snapshotval.darkmode)
+            setUsernames(pre => {
+              return{
+                ...pre,
+                useris: snapshotval.username,
+                firstname: snapshotval.firstname,
+                lastname: snapshotval.lastname,
+                Location : snapshotval.Location,
+                DOB: snapshotval.dob
+
+              }
+
+
+            });
+
+          }
+        }
+      });
+  } else {
+    // handle the case where user is not defined or does not have an email property
+    setUsernames('anoonymous')
+  }
+
+
+
+
+}, [user && user])
+
+const [unfilstate,setUnfilstate] = useState(0)
+
+useEffect(() => {
+  let unfilstateCount = 0;
+
+  const usertimed = usernames.useris && usernames.useris.trim();
+  const usertimedfname = usernames.firstname && usernames.firstname.trim();
+  const usertimedlname = usernames.lastname && usernames.lastname.trim();
+  const usertimedlocation = usernames.Location && usernames.Location.trim();
+  const usertimedDob = usernames.DOB && usernames.DOB.trim();
+
+  if (usernames.useris === null || usertimed === '') {
+    unfilstateCount++;
+  }
+  if (usernames.firstname === null || usertimedfname === '') {
+    unfilstateCount++;
+  }
+  if (usernames.lastname === null || usertimedlname === '') {
+    unfilstateCount++;
+  }
+  if (usernames.Location === null || usertimedlocation === '') {
+    unfilstateCount++;
+  }
+  if (usernames.DOB === null || usertimedDob === '') {
+    unfilstateCount++;
+  }
+
+  setUnfilstate(unfilstateCount);
+}, [usernames]); // Make sure to use 'usernames' as the dependency, not 'user'
+
+async function dataset(){
+  if (!user) {
+    // Handle the case where 'user' is not defined or not authenticated
+    console.error('User is not authenticated.');
+    return;
+  }
+  const normalizedUsername = usernames.useris;
+  const normalizedFirstname =usernames.firstname;
+  const normalizedLastname = usernames.lastname;
+  const normalizedLocation = usernames.Location;
+  const normalizedDOB = usernames.DOB;
+
+  try {
+   // Check if a user with that username already exists in the database
+   const snapshot1 = await app4.database().ref('profile').orderByChild('username').equalTo(normalizedUsername).once('value');
+
+   if (snapshot1.exists()) {
+     // A user with that username already exists
+     // Prompt the user to choose a different username
+     toast.current.show({severity: 'error', summary: 'Error', detail: 'username already exists. Please choose another one.', life: 3000 })
+
+
+  const snapshot2 = await app33.database().ref('comments/cards').orderByChild('user').equalTo(normalizedUsername).once('value');
+if(snapshot2.exists()){
+  toast.current.show({severity: 'error', summary: 'Error', detail: 'username already exists. Please choose another one.', life: 3000 })
+
+}
+
+
+   }else{
+
+    const userRef =   app4.database().ref('profile/' + user.uid)
+
+   userRef.update({
+         username: normalizedUsername  ,
+        firstname : normalizedFirstname  ,
+       lastname :  normalizedLastname,
+       Location : normalizedLocation,
+      dob :    normalizedDOB ,
+      email: user.email 
+
+       });
+
+     toast.current.show({severity: 'success', summary: 'Success', detail: 'you succesfully updated your details', life: 3000 })
+
+   }
+
+  } catch (error) {
+     console.log(error);
+     toast.current.show({severity: 'error', summary: 'Error', detail: 'Please Fill all the inputs', life: 5000 })
+
+  }
+
+ }
+
+
+
+/*
+if(user && user.email){
+  app4.database().ref('prof').orderByChild('email').equalTo( user && user.email).once('value')
+  .then((snapshot) => {
+    if (snapshot.exists()) {
+      const snapshotval = snapshot.val();
+      if(snapshotval && snapshotval.username){
+        setUsernames(snapshotval.username);
+    }
+    }
+    })
+  }
+*/
+
+ /*
+  useEffect(()  => {
+  
+ const uname= document.querySelector('.uname').value ;
+    const lname = document.querySelector('.lname').value;
+    const fname   = document.querySelector('.fname').value;
+    const DOB = document.querySelector('.DOB').value;
+    const Location = document.querySelector('.Location').value;
+  
+    if (uname && uname === '' ) {
+     setVals(pre =>   [...pre, "i" ] )  
+    }  
+    if (Db === '') {
+      setVals(pre =>   [...pre, "i"] )  
+    }  
+  
+     if (fname === '') {
+      setVals(pre =>   [...pre, "i"] )  
+    }  
+     if (lname === '') {
+      setVals(pre =>   [...pre, "i"] )  
+    }  
+  
+     if (locate === '') {
+      setVals(pre =>   [...pre, "i"] )  
+    }  
+     
+  }, [])
+  
+   */
 
   /*const [actives, setactive] = useState(false); */
 
@@ -63,8 +269,8 @@ export default function Profile(props) {
  const actives = props.actives;
  const  setactive = props.setactive;
 */
-  const app4 = firebase.app('app014');
-  const { user,setUser, loading,signOut } = useAuth();
+
+
   const auth = app4.auth();
   const database = app4.database();
 
@@ -72,7 +278,9 @@ export default function Profile(props) {
   const [favorites, setFavorites] = useState([]);
   const [profileImg, setProfileImg] = useState(im);
 
-  const [Darks, setDarks] = useState(false)
+
+
+
 
 
   useEffect(() => {
@@ -100,11 +308,11 @@ export default function Profile(props) {
   useEffect(() => {
     // Only run the effect if the user object is defined
     if (user) {
-      app4.database().ref(`profiles/${user.uid}`).on('value', snapshot => {
+      app4.database().ref(`profile/${user.uid}/profileImg`).on('value', snapshot => {
         console.log(JSON.stringify(snapshot.val()))
         if (!snapshot.val()) {
 
-          console.log("Snapshot value is null or undefined");
+          console.log(" value is null or undefined");
           return;
         }
 
@@ -153,18 +361,23 @@ setProfileImg(snapshot.val())
 
   };
 
-  const handleProfileImgChange = e => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setProfileImg(reader.result);
-      app4.database().ref(`profile/${user.uid}`).set({ profileImg:reader.result })
 
-    };
-    reader.readAsDataURL(file);
 
+const handleProfileImgChange = async (event) => {
+  const file = event.files[0];
+  const reader = new FileReader();
+  let blob = await fetch(file.objectURL).then((r) => r.blob());
+  reader.onloadend =() => {
+    setProfileImg(reader.result);
+    app4.database().ref('profile/' + user.uid).update({ profileImg:reader.result })
+
+    toast.current.show({severity: 'info', summary: 'Info', detail: 'Dp updated', life: 3000 })
 
   };
+  reader.readAsDataURL(blob);
+
+}
+
 
 /*
   useEffect(() => {
@@ -186,6 +399,7 @@ setProfileImg(snapshot.val())
   const bu = props.bu;
   const setBu =  props.setBu;
 */
+const myUploader = useRef(null)
 function active(){
   props.setactive(true)
   props.setBu(false)
@@ -213,102 +427,132 @@ function isActive({ isCurrent }) {
 /*     {user && !actives && <Profile  actives={actives} setactive={setactive} bu={props.bu} setBu={props.setBu} setIsOpen={props.setIsOpen} language={props.language} handleLanguageChange={props.handleLanguageChange} />}
                                {user && !actives && <Profile  actives={actives} setactive={setactive} bu={props.bu} setBu={props.setBu} setIsOpen={props.setIsOpen} language={props.language} handleLanguageChange={props.handleLanguageChange} />}
    */
+   const  rejectFunc = () => {
+
+toast.current.show({severity: 'warn', summary: 'Rejected', detail: 'you canceled', life: 3000 })
+
+}
+
+const confirm = () => {
+  confirmDialog({
+
+    message: 'Do you wish to proceed ?',
+    header: 'Confirm',
+    icon: 'pi pi-exclamation-triangle',
+    accept: () => dataset(),
+    reject: () => rejectFunc()
+
+  });
+}
 
 
-
+/*
+{
+if(user){
+return(
+    <div style={{alignItems:"center", justifyItems: "center", paddingTop: "25%"}} className='card flex justify-content-center align-content-center '>
+         <ProgressSpinner className='text-dark'> <h1>zena </h1> </ProgressSpinner> </div>
+{/* style={{width: '50px', height: '50px'}}  strokeWidth="8" fill="var(--surface-ground)" animationDuration= ".5s" */ 
+   /*
+)
+}
+l
+*/
 
   return (
-    <div>
 
+    <div className={`bg-dark ${Darks && "darken"}`}>
+
+<Toast ref = {toast} />
 
 
 {!user && !actives &&
   <img src={profileImg} className="round dr mt-2" style={{borderRadius: "50%"}}  height="50" 
-  alt="profile" loading="lazy" />
+  alt="profile"  />
 }
 
 
-<div style={{height: "100%", overflowY: "scroll"}} className={`{${Darks && "darken"} 'Bgg' }`}>
-<div class="container-xl px-4 mt-4">
 
-<Navbar setDarks={setDarks} />
+<div style={{height: "100%", overflowY: "scroll", background: Darks && "#141515"}} className={' Bgg'}>
+<div class="container-xl px-4 mt-4 "  style={{color: Darks && "silver", backgroundColor: Darks ? "#121212" : "white"}}>
+
+<Navbar Darks ={Darks} setDarks={setDarks}/>
 
   {/* Account page navigation*/}
 
-  <div className="row">
+  <div className="row" style={{background: Darks && "#141515"}}>
 
 
-<div className="col-xl-4">
+<div className="col-xl-4" style={{background: Darks && "#141515"}}>
   {/* Profile picture card*/}
-    <div className="card mb-4 mb-xl-0">
-        <div className="card-header">Profile Picture</div>
+    <div className="card mb-4 mb-xl-0"  style={{background: Darks && "#141515"}}>
+        <div className="card-header papol">Profile Picture</div>
         <div className="card-body text-center">
           {/* Profile picture image*/}
-            <img className="img-account-profile rounded-circle mb-2" src={profileImg} alt="" />
+            <img style={{width: "30%", height: '50%', borderRadius: "30%"}} className="img-account-profil  mb-2" src={profileImg} alt="" />
           {/* Profile picture help block*/}
-            <div className="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+            <div className="small font-italic text-muted mb-4 gree" style={{color:"green"}}>JPG or PNG no larger than 5 MB</div>
           {/* Profile picture upload button*/}
-            <button className="btn btn-primary" type="button">Upload new image</button>
+          <div>
+            <FileUpload maxFileSize={1000000}  ref={myUploader} chooseLabel='change Dp' uploadLabel='upload' cancelLabel='Cancel' mode="basic" name="upload" url="/api/upload" accept='image/*' customUpload uploadHandler={handleProfileImgChange}  />
+      {/*<button>Remove Dp </button> */}
+          </div>
     </div>
     </div>
 </div>
-<div className="col-xl-8">
+<div className="col-xl-8" style={{background: Darks && "#141515"}}>
   {/* Account details card */}
-    <div className="card mb-4">
-        <div className="card-header">Account Details</div>
-        <div className="card-body">
-            <form>
+    <div className="card mb-4" style={{background: Darks && "#141515"}}>
+        <div className="card-header papol" >Account Details  fill <span className='text-danger bold'>{unfilstate}</span></div>
+        <div className="card-body" style={{background: Darks && "#141515"}}>
+            <form >
               {/* Form Group (username)*/}
-                <div className="mb-3">
-                    <label className="small mb-1" for="inputUsername">Username (how your name will appear to other users on the site)</label>
-                    <input className="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="username"/>
+                <div className="mb-3 row "  style={{background: Darks && "#141515"}}>
+                <div className="col-md-6">
+                    <label className={`small mb-1   ${usernames.useris ==  null   && 'controlform1 text-danger' }`} for="inputUsername">Username </label>
+                    <input className={` uname form-control ${usernames.useris == null    && 'controlform text-danger' }`} id="inputUsername" type="text" placeholder="Enter your username" value={usernames.useris} onChange={ (event) => setUsernames(pre => {  return{  ...pre, useris: event.target.value} }) } />
+             </div>
+             <div className="col-md-6">
+                    <label className={`small mb-1   ${usernames.email   && 'controlform1 text-danger'}`}  for="inputEmailAddress">Email address</label>
+                    <input className={` form-control ${usernames.email  && 'controlform text-danger'}`} id="inputEmailAddress" type="email" placeholder="Enter your email address" value={user && user.email} disabled/>
+              </div>
                 </div>
+
               {/* Form Row*/}
                 <div className="row gx-3 mb-3">
                   {/* Form Group (first name)*/}
                     <div className="col-md-6">
-                        <label className="small mb-1" for="inputFirstName">First name</label>
-                        <input className="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="Valerie"/>
+                        <label className={`small mb-1   ${usernames.firstname == null  && 'controlform1 text-danger'}`} for="inputFirstName">First name </label>
+                        <input  className={`fname form-control ${usernames.firstname  == null   && 'controlfor text-danger' }`} id="inputFirstName" type="text" placeholder="Enter your first name" value={usernames.firstname} onChange={(event) => setUsernames(pre => {  return{ ...pre, firstname : event.target.value} }) }/>
                     </div>
                   {/* Form Group (last name)*/}
                     <div className="col-md-6">
-                        <label className="small mb-1" for="inputLastName">Last name</label>
-                        <input className="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="Luna"/>
+                        <label className={`small mb-1   ${usernames.lastname ==  null  && 'controlform1 text-danger'}`} for="inputLastName"> Last name </label>
+                        <input className={`lname form-control ${usernames.lastname ==  null  && 'controlform text-danger'}`} id="inputLastName" type="text" placeholder="Enter your last name" value={usernames.lastname} onChange={ (event) => setUsernames(pre => {  return{ ...pre, lastname : event.target.value} }) }/>
                     </div>
                 </div>
               {/* Form Row        */}
                 <div className="row gx-3 mb-3">
                   {/* Form Group (organization name)*/}
-                    <div className="col-md-6">
-                        <label className="small mb-1" for="inputOrgName">Organization name</label>
-                        <input className="form-control" id="inputOrgName" type="text" placeholder="Enter your organization name" value="Start Bootstrap"/>
-                    </div>
+
                   {/* Form Group (location)*/}
                     <div className="col-md-6">
-                        <label className="small mb-1" for="inputLocation">Location</label>
-                        <input className="form-control" id="inputLocation" type="text" placeholder="Enter your location" value="San Francisco, CA"/>
+                        <label className={` small mb-1 ${usernames.Location ==  null  && 'controlform text-danger'}`} for="inputLocation">Location</label>
+                        <input className={`Location form-control ${usernames.Location ==  null   && 'controlform text-danger'}`}  id="inputLocation" type="text" placeholder="Enter your location" value={usernames.Location && usernames.Location} onChange={ (event) => setUsernames(pre => {  return{ ...pre, Location : event.target.value} }) } required/>
+                    </div>
+                    <div className="col-md-6">
+                        <label  className={` small mb-1 ${usernames.DOB ==  null  &&  'controlform text-danger'}`} for="inputBirthday">Birthday</label>
+                        <input className={`DOB form-control ${usernames.DOB ==  null   && 'controlform text-danger'}`} id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday" value={usernames.DOB && usernames.DOB} onChange={(event) =>  setUsernames(pre => {  return{ ...pre, DOB : event.target.value} }) }/>
                     </div>
                 </div>
               {/* Form Group (email address)*/}
-                <div className="mb-3">
-                    <label className="small mb-1" for="inputEmailAddress">Email address</label>
-                    <input className="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="name@example.com"/>
-                </div>
+
               {/* Form Row*/}
-                <div className="row gx-3 mb-3">
-                  {/* Form Group (phone number)*/}
-                    <div className="col-md-6">
-                        <label className="small mb-1" for="inputPhone">Phone number</label>
-                        <input className="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value="555-123-4567"/>
-                    </div>
-                  {/* Form Group (birthday)*/}
-                    <div className="col-md-6">
-                        <label className="small mb-1" for="inputBirthday">Birthday</label>
-                        <input className="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday" value="06/10/1988"/>
-                    </div>
-                </div>
+
               {/* Save changes button*/}
-                <button className="btn btn-primary" type="button">Save changes</button>
+                <button onClick={confirm} icon="pi pi-check" className="btn btn-primary" type="button">Save changes</button>
+
+           <ConfirmDialog />
             </form>
         </div>
     </div>
