@@ -27,11 +27,7 @@ const Videoplayer = () => {
     setComments([...comments, newComment]);
   };
 
-<<<<<<< HEAD
-
-=======
 */
->>>>>>> 55402234 (sass Commit)
 
   const comments = [
     // ... your comment objects here
@@ -163,11 +159,7 @@ const Videoplayer = () => {
 						</li>
 					</ul>
 					<div className={Video.explain-video}>
-<<<<<<< HEAD
-						<h2 className={Video.explain-details-head, Video.explain-video}>Video</h2>
-=======
 						<h2 className={`${Video.explain-details-head} ${Video.explain-video}`}>Video</h2>
->>>>>>> 55402234 (sass Commit)
 						<div className={Video.explain-video-bar}>
 							<div className={Video.explain-video-bar-w}></div>
 						</div>
@@ -191,36 +183,12 @@ const Videoplayer = () => {
 
 		{/* 	top labels	*/}
 		<div className={top}>
-<<<<<<< HEAD
-			<span className={Video.label, Video.label-main}>Following</span>
-			<span className={Video.label, Video.label-active}>For You</span>
-=======
 			<span className={`${Video.label} ${Video.label-main}`}>Following</span>
 			<span className={`${Video.label} ${Video.label-active}`}>For You</span>
->>>>>>> 55402234 (sass Commit)
 		</div>
 
 		{/* right labels	*/ }
 		<div className={Video.right}>
-<<<<<<< HEAD
-			<div className={Video.icons-item,Video.right-icon}>
-				<span className={Video.icon}>
-					<img src="https://assets.codepen.io/2629920/heart.png" alt="" id="likes-icon"/>
-				</span>
-				<span className={Video.icon-label, Video.likes, Video.right-label} data-likes='999'>999</span>
-			</div>
-			<div className={Video.icons-item, Video.right-icon}>
-				<span className={Video.icon}>
-					<img src="https://assets.codepen.io/2629920/chat.png" alt="" id="comments-icon"/>
-				</span>
-				<span className={Video.icon-label, Video.comments, Video.right-label}></span>
-			</div>
-			<div className={Video.icons-item, Video.right-icon}>
-				<span className={Video.icon}>
-					<img src="https://assets.codepen.io/2629920/share.png" alt=""/>
-				</span>
-				<span className={Video.icon-label, Video.shares, Video.right-label}>94</span>
-=======
 			<div className={`${Video.icons-item} ${Video.right-icon}`}>
 				<span className={Video.icon}>
 					<img src="https://assets.codepen.io/2629920/heart.png" alt="" id="likes-icon"/>
@@ -238,7 +206,6 @@ const Videoplayer = () => {
 					<img src="https://assets.codepen.io/2629920/share.png" alt=""/>
 				</span>
 				<span className={`${Video.icon-label} ${Video.shares} ${Video.right-label}`}>94</span>
->>>>>>> 55402234 (sass Commit)
 			</div>
 
 		</div>
