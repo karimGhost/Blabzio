@@ -13,9 +13,19 @@
 }
 
 
+.ConBod{
 
+	background: #000;
 
-.containers{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	margin: 0;
+	font-family: var(--poppins);
+}
+
+.container{
 	background-color: #0d0d0d;
 	height: 570px;
 	width: 300px;
