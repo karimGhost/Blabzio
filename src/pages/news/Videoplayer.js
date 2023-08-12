@@ -278,7 +278,7 @@ const Videoplayer = () => {
 				</div>
 				<div className="icons-item">
 					<div className="icons-item-add">
-						<span className="icon" style="display: flex;">
+						<span className="icon" style={{display: "flex"}}>
 							<img src=" https://assets.codepen.io/2629920/add.png" alt=""/>
 						</span>
 					</div>
