@@ -32,7 +32,54 @@ const Videoplayer = () => {
 */
 
   const comments = [
-    // ... your comment objects here
+    {	
+      userName: "Mescudi",
+      timePosted: "Just now",
+      profilePhoto: "https://media.timeout.com/images/105653190/image.jpg",
+      comment: "It's a Akrapovic exhaust!!! Follow them for info 😎"
+    },
+    {
+      userName: "Wes",
+      timePosted: "3 mins ago",
+      profilePhoto:
+        "https://yeezymafia.com/content/images/2019/08/Kanye-West-adidas-Yeezy-Basketball-Shoe-YZY-BSKTBL.png",
+      comment: "Love the color, whats the color code!"
+    },
+    {
+      userName: "traviScott",
+      timePosted: "48 mins ago",
+      profilePhoto:
+        "https://pbs.twimg.com/profile_images/634514155261833216/czgYrPLQ.jpg",
+      comment: "💘💗💚💕🖤"
+    },
+    {
+      userName: "mr305",
+      timePosted: "2hrs ago",
+      profilePhoto:
+        "https://www.extremecustoms.com/inc.store/images/gallery/2008-gmc-sierra-2500-hd-with-leveling-kit-gear-alloy-big-block-726mb-22x12--44-offset-22-by-12-inch-wide-wheel-toyo-proxes-st-305-40r22-tire-pic4.jpg",
+      comment: "I need one right now"
+    },
+    {
+      userName: "its50",
+      timePosted: "Just now",
+      profilePhoto:
+        "https://media.npr.org/assets/music/sotd/2009/11/50cent-606653ff4067b3c2488559211d4adddf497a103b-s800-c85.jpg",
+      comment: "What wheels are those?"
+    },
+    {
+      userName: "ciciFlores",
+      timePosted: "12 mins ago",
+      profilePhoto:
+        "https://post.healthline.com/wp-content/uploads/2021/06/1336289-The-10-Best-Self-Help-Books-for-Women-in-2021-732x549-Feature.jpg",
+      comment: "WOW love the wheel set up"
+    },
+    {
+      userName: "boldJet",
+      timePosted: "1 day ago",
+      profilePhoto:
+        "https://worldarchery.sport/sites/default/files/styles/header_desktop/https/photos.smugmug.com/OLYMPIC-GAMES/TOKYO-2020/23-JULY-QUALIFICATION/i-K2L7PfT/0/125fcb9f/X3/X21_7255-X3.jpg?h=2e8ccfe0&itok=fkr_S58k",
+      comment: "Nice !!!"
+    }
   ];
   const [likesAmount, setLikesAmount] = useState(0);
 
@@ -72,7 +119,7 @@ const Videoplayer = () => {
   const activateComments = () => {
     const commentsContainer = document.querySelector('.comments-container');
     if (video && commentsContainer) {
-      commentsContainer.classList.add('comments-active');
+      commentsContainer.classNameList.add('comments-active');
       video.pause();
     }
   };
@@ -80,26 +127,26 @@ const Videoplayer = () => {
   const deactivateComments = () => {
     const commentsContainer = document.querySelector('.comments-container');
     if (video && commentsContainer) {
-      commentsContainer.classList.remove('comments-active');
+      commentsContainer.classNameList.remove('comments-active');
       video.play();
     }
   };
 
   const loadComments = () => {
-    if(!comments){return;}
+ 
     const commentsList = comments.map((comment) => {
       const commentStyle = {
         backgroundImage: `url(${comment.profilePhoto})`,
       };
 
       return (
-        <div className="comments-item" key={comment.userName}>
-          <span className="comment-top">
-            <span className="comment-top-logo" style={commentStyle}></span>
-            <span className="comment-top-details">
-              <span className="user-name">{comment.userName}</span>
-              <span className="user-time">{comment.timePosted}</span>
-              <span className="user-comment">{comment.comment}</span>
+        <div classNameName="comments-item" key={comment.userName}>
+          <span classNameName="comment-top">
+            <span classNameName="comment-top-logo" style={commentStyle}></span>
+            <span classNameName="comment-top-details">
+              <span classNameName="user-name">{comment.userName}</span>
+              <span classNameName="user-time">{comment.timePosted}</span>
+              <span classNameName="user-comment">{comment.comment}</span>
             </span>
           </span>
         </div>
@@ -138,117 +185,122 @@ const Videoplayer = () => {
   }, [video]);
 
   return (
-  	<div className="container">
+
+<div className="ConBod">
+<div className="container">
 		<div className="overlay">
 			<div className="howto">
-				<div className='explain'>
-					<ul className='explain-list'>
-						<li className='explain-details'>
-							<h2 className='explain-details-head'>Likes</h2>
-							<span className='explain-details-desc'>Click the <span className='icon'>
+				<div className="explain">
+					<ul className="explain-list">
+						<li className="explain-details">
+							<h2 className="explain-details-head">Likes</h2>
+							<span className="explain-details-desc">Click the <span className="icon">
 									<img src="https://assets.codepen.io/2629920/heart.png" alt=""/>
 								</span> to set a like on the video.</span>
 						</li>
-						<li className='explain-details'>
-							<h2 className='explain-details-head'>Comments</h2>
-							<span className='explain-details-desc'>Click the <span className='icon'>
+						<li className="explain-details">
+							<h2 className="explain-details-head">Comments</h2>
+							<span className="explain-details-desc">Click the <span className="icon">
 									<img src="https://assets.codepen.io/2629920/chat.png" alt=""/>
 								</span>view comments.</span>
 						</li>
 					</ul>
-					<div className='explain-video'>
-						<h2 className='explain-details-head explain-video'>Video</h2>
-						<div className='explain-video-bar'>
-							<div className='explain-video-bar-w'></div>
+					<div className="explain-video">
+						<h2 className="explain-details-head explain-video">Video</h2>
+						<div className="explain-video-bar">
+							<div className="explain-video-bar-w"></div>
 						</div>
-						<span className='explain-details-desc'>Click through the video to navigate to specific time line.</span>
+						<span className="explain-details-desc">Click through the video to navigate to specific time line.</span>
 					</div>
 				</div>
-				<button className='howto-close'>Got it</button>
+				<button className="howto-close">Got it</button>
 			</div>
 		</div>
-		<div className='comments-container'>
-			<div className='comments-head'>
-				<span className='comments-head-label'></span>
-				<span className='comments-head-close'>
+		<div className="comments-container">
+			<div className="comments-head">
+				<span className="comments-head-label"></span>
+				<span className="comments-head-close">
 					&#10005;
 				</span>
 			</div>
-			<div className='comments-list'>
+			<div className="comments-list">
 			</div>
 		</div>
-		<video src="https://assets.codepen.io/2629920/gt3.mp4" className='video' playsinline autoplay loop muted></video>
+		<video src="https://assets.codepen.io/2629920/gt3.mp4" className="video" playsinline autoplay loop muted></video>
 
-		{/* 	top labels	*/}
-		<div className='top'>
-			<span className='label label-main'>Following</span>
-			<span className='label label-active'>For You</span>
+		{/* 	top labels	*/ }
+		<div className="top">
+			<span className="label label-main">Following</span>
+			<span className="label label-active">For You</span>
 		</div>
 
-		{/* right labels	*/ }
-		<div className='right'>
-			<div className='icons-item right-icon'>
-				<span className='icon'>
-					<img src="https://assets.codepen.io/2629920/heart.png" alt="" id="likes-icon"/>
+		{/* right labels	 */}
+		<div className="right">
+			<div className="icons-item right-icon">
+				<span className="icon">
+					<img src="https://assets.codepen.io/2629920/heart.png" alt="" id="likes-icon" />
 				</span>
-				<span className='icon-label right-label' data-likes='999'>999</span>
+				<span className="icon-label likes right-label" data-likes='999'>999</span>
 			</div>
-			<div className='icons-item right-icon'>
-				<span className='icon'>
+			<div className="icons-item right-icon">
+				<span className="icon">
 					<img src="https://assets.codepen.io/2629920/chat.png" alt="" id="comments-icon"/>
 				</span>
-				<span className='icon-label comments right-label'></span>
+				<span className="icon-label comments right-label"></span>
 			</div>
-			<div className='icons-item right-icon'>
-				<span className='icon'>
+			<div className="icons-item right-icon">
+				<span className="icon">
 					<img src="https://assets.codepen.io/2629920/share.png" alt=""/>
 				</span>
-				<span className='icon-label shares right-label'>94</span>
+				<span className="icon-label shares right-label">94</span>
 			</div>
 
 		</div>
 
-		{/* 	bottom labels	*/}
-		<div className='bottom'>
-			<span className='progress-duration'></span>
-			<div className='progress-range' title="seek">
-				<div className='progress-bar'></div>
+	{/* 	bottom labels	 */}
+		<div className="bottom">
+			<span className="progress-duration"></span>
+			<div className="progress-range" title="seek">
+				<div className="progress-bar"></div>
 			</div>
-			<div className='icons'>
-				<div className='icons-item'>
-					<span className='icon'>
+			<div className="icons">
+				<div className="icons-item">
+					<span className="icon">
 						<img src="https://assets.codepen.io/2629920/home.png" alt=""/>
 					</span>
-					<span className='icon-label'>Home</span>
+					<span className="icon-label">Home</span>
 				</div>
-				<div className='icons-item'>
-					<span className='icon'>
+				<div className="icons-item">
+					<span className="icon">
 						<img src="https://assets.codepen.io/2629920/search_1.png" alt=""/>
 					</span>
-					<span className='icon-label'>Discover</span>
+					<span className="icon-label">Discover</span>
 				</div>
-				<div className='icons-item'>
-					<div className='icons-item-add'>
-						<span className='icon' style={{display: "flex"}}>
+				<div className="icons-item">
+					<div className="icons-item-add">
+						<span className="icon" style="display: flex;">
 							<img src=" https://assets.codepen.io/2629920/add.png" alt=""/>
 						</span>
 					</div>
 				</div>
-				<div className='icons-item'>
-					<span className='icon'>
+				<div className="icons-item">
+					<span className="icon">
 						<img src="https://assets.codepen.io/2629920/comment.png" alt=""/>
 					</span>
-					<span className='icon-label'>Inbox</span>
+					<span className="icon-label">Inbox</span>
 				</div>
-				<div className='icons-item'>
-					<span className='icon'>
+				<div className="icons-item">
+					<span className="icon">
 						<img src="https://assets.codepen.io/2629920/user+%281%29.png" alt=""/>
 					</span>
-					<span className='icon-label'>Me</span>
+					<span className="icon-label">Me</span>
 				</div>
 			</div>
 		</div>
 	</div>
+
+  </div>
+
   );
 };
 
