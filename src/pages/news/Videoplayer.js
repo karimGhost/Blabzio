@@ -144,47 +144,47 @@ const Videoplayer = () => {
 		<div className={Video.overlay}>
 			<div className={Video.howto}>
 				<div className={Video.explain}>
-					<ul className={Video.explain-list}>
-						<li className={Video.explain-details}>
-							<h2 className={Video.explain-details-head}>Likes</h2>
-							<span className={Video.explain-details-desc}>Click the <span className={Video.icon}>
+					<ul className={Video['explain-list']}>
+						<li className={Video['explain-details']}>
+							<h2 className={Video['explain-details-head']}>Likes</h2>
+							<span className={Video['explain-details-desc']}>Click the <span className={Video.icon}>
 									<img src="https://assets.codepen.io/2629920/heart.png" alt=""/>
 								</span> to set a like on the video.</span>
 						</li>
-						<li className={Video.explain-details}>
-							<h2 className={Video.explain-details-head}>Comments</h2>
-							<span className={Video.explain-details-desc}>Click the <span className={Video.icon}>
+						<li className={Video['explain-details']}>
+							<h2 className={Video['explain-details-head']}>Comments</h2>
+							<span className={Video['explain-details-desc']}>Click the <span className={Video.icon}>
 									<img src="https://assets.codepen.io/2629920/chat.png" alt=""/>
 								</span>view comments.</span>
 						</li>
 					</ul>
-					<div className={Video.explain-video}>
-						<h2 className={`${Video.explain-details-head} ${Video.explain-video}`}>Video</h2>
-						<div className={Video.explain-video-bar}>
-							<div className={Video.explain-video-bar-w}></div>
+					<div className={Video['explain-video']}>
+						<h2 className={`${Video['explain-details-head']} ${Video.explain-video}`}>Video</h2>
+						<div className={Video['explain-video-bar']}>
+							<div className={Video['explain-video-bar-w']}></div>
 						</div>
-						<span className={Video.explain-details-desc}>Click through the video to navigate to specific time line.</span>
+						<span className={Video['explain-details-desc']}>Click through the video to navigate to specific time line.</span>
 					</div>
 				</div>
-				<button className={Video.howto-close}>Got it</button>
+				<button className={Video['howto-close']}>Got it</button>
 			</div>
 		</div>
-		<div className={Video.comments-container}>
-			<div className={Video.comments-head}>
-				<span className={Video.comments-head-label}></span>
-				<span className={Video.comments-head-close}>
+		<div className={Video['comments-container']}>
+			<div className={Video['comments-head']}>
+				<span className={Video['comments-head-label']}></span>
+				<span className={Video['comments-head-close']}>
 					&#10005;
 				</span>
 			</div>
-			<div className={Video.comments-list}>
+			<div className={Video['comments-list']}>
 			</div>
 		</div>
 		<video src="https://assets.codepen.io/2629920/gt3.mp4" className={Video.video} playsinline autoplay loop muted></video>
 
 		{/* 	top labels	*/}
 		<div className={top}>
-			<span className={`${Video.label} ${Video.label-main}`}>Following</span>
-			<span className={`${Video.label} ${Video.label-active}`}>For You</span>
+			<span className={`${Video['label']} ${Video['label-main']}`}>Following</span>
+			<span className={`${Video['label']} ${Video['label-active']}`}>For You</span>
 		</div>
 
 		{/* right labels	*/ }
@@ -193,60 +193,60 @@ const Videoplayer = () => {
 				<span className={Video.icon}>
 					<img src="https://assets.codepen.io/2629920/heart.png" alt="" id="likes-icon"/>
 				</span>
-				<span className={`${Video.icon-label} ${Video.likes} ${Video.right-label}`} data-likes='999'>999</span>
+				<span className={`${Video['icon-label']} ${Video['right-label']}`} data-likes='999'>999</span>
 			</div>
-			<div className={`${Video.icons-item} ${Video.right-icon}`}>
-				<span className={Video.icon}>
+			<div className={`${Video['icons-item']} ${Video['right-icon']}`}>
+				<span className={Video['icon']}>
 					<img src="https://assets.codepen.io/2629920/chat.png" alt="" id="comments-icon"/>
 				</span>
-				<span className={`${Video.icon-label} ${Video.comments} ${Video.right-label}`}></span>
+				<span className={`${Video['icon-label']} ${Video['comments']} ${Video['right-label']}`}></span>
 			</div>
-			<div className={`${Video.icons-item} ${Video.right-icon}`}>
-				<span className={Video.icon}>
+			<div className={`${Video['icons-item']} ${Video['right-icon']}`}>
+				<span className={Video['icon']}>
 					<img src="https://assets.codepen.io/2629920/share.png" alt=""/>
 				</span>
-				<span className={`${Video.icon-label} ${Video.shares} ${Video.right-label}`}>94</span>
+				<span className={`${Video['icon-label']} ${Video.shares} ${Video['right-label']}`}>94</span>
 			</div>
 
 		</div>
 
 		{/* 	bottom labels	*/}
 		<div className={Video.bottom}>
-			<span className={Video.progress-duration}></span>
-			<div className={Video.progress-range} title="seek">
-				<div className={Video.progress-bar}></div>
+			<span className={Video['progress-duration']}></span>
+			<div className={Video['progress-range']} title="seek">
+				<div className={Video['progress-bar']}></div>
 			</div>
-			<div className={Video.icons}>
-				<div className={Video.icons-item}>
-					<span className={Video.icon}>
+			<div className={Video['icons']}>
+				<div className={Video['icons-item']}>
+					<span className={Video['icon']}>
 						<img src="https://assets.codepen.io/2629920/home.png" alt=""/>
 					</span>
-					<span className={Video.icon-label}>Home</span>
+					<span className={Video['icon-label']}>Home</span>
 				</div>
-				<div className={Video.icons-item}>
-					<span className={Video.icon}>
+				<div className={Video['icons-item']}>
+					<span className={Video['icon']}>
 						<img src="https://assets.codepen.io/2629920/search_1.png" alt=""/>
 					</span>
-					<span className={Video.icon-label}>Discover</span>
+					<span className={Video['icon-label']}>Discover</span>
 				</div>
-				<div className={Video.icons-item}>
-					<div className={Video.icons-item-add}>
-						<span className={Video.icon} style="display: flex;">
+				<div className={Video['icons-item']}>
+					<div className={Video['icons-item-add']}>
+						<span className={Video['icon']} style="display: flex;">
 							<img src=" https://assets.codepen.io/2629920/add.png" alt=""/>
 						</span>
 					</div>
 				</div>
-				<div className={Video.icons-item}>
-					<span className={Video.icon}>
+				<div className={Video['icons-item']}>
+					<span className={Video['icon']}>
 						<img src="https://assets.codepen.io/2629920/comment.png" alt=""/>
 					</span>
-					<span className={Video.icon-label}>Inbox</span>
+					<span className={Video['icon-label']}>Inbox</span>
 				</div>
-				<div className={Video.icons-item}>
-					<span className={Video.icon}>
+				<div className={Video['icons-item']}>
+					<span className={Video['icon']}>
 						<img src="https://assets.codepen.io/2629920/user+%281%29.png" alt=""/>
 					</span>
-					<span className={Video.icon-label}>Me</span>
+					<span className={Video['icon-label']}>Me</span>
 				</div>
 			</div>
 		</div>
