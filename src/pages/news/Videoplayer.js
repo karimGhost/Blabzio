@@ -32,7 +32,7 @@ const Videoplayer = () => {
   const comments = [
     // ... your comment objects here
   ];
-  let likesAmount = '';
+  const [likesAmount, setLikesAmount] = useState(0);
 
   const [video, setVideo] = useState(null);
   const [barWidth, setBarWidth] = useState(0);
@@ -84,33 +84,28 @@ const Videoplayer = () => {
   };
 
   const loadComments = () => {
-    const commentsList = document.querySelector('.comments-list');
-    const commentsCount = document.querySelector('.comments-head-label');
-    const commentsCount2 = document.querySelector('.comments');
+    const commentsList = comments.map((comment) => {
+      const commentStyle = {
+        backgroundImage: `url(${comment.profilePhoto})`,
+      };
 
-    if (commentsList && commentsCount && commentsCount2) {
-      commentsList.innerHTML = '';
-      commentsCount.textContent = `${comments.length} comments`;
-      commentsCount2.textContent = `${comments.length}`;
-
-      comments.forEach((comment) => {
-        const html = `<div class="comments-item">
-          <span class="comment-top">
-            <span class="comment-top-logo" style="background-image:url(${comment.profilePhoto})"></span>
-            <span class="comment-top-details">
-              <span class="user-name">${comment.userName}</span>
-              <span class="user-time">${comment.timePosted}</span>
-              <span class="user-comment">${comment.comment}</span>
+      return (
+        <div className="comments-item" key={comment.userName}>
+          <span className="comment-top">
+            <span className="comment-top-logo" style={commentStyle}></span>
+            <span className="comment-top-details">
+              <span className="user-name">{comment.userName}</span>
+              <span className="user-time">{comment.timePosted}</span>
+              <span className="user-comment">{comment.comment}</span>
             </span>
           </span>
-        </div>`;
-        commentsList.insertAdjacentHTML('afterbegin', html);
-      });
+        </div>
+      );
+    });
 
-      likesAmount = Number(likes.dataset.likes);
-    }
+    setLikesAmount(Number(likes.dataset.likes));
+    return commentsList;
   };
-
   const updateLikes = () => {
     const likes = document.querySelector('.likes');
     const likesIcon = document.getElementById('likes-icon');
