@@ -187,7 +187,7 @@ function setNull(){
     const darkmode = useRef(null)
     
     return (
-      <div style={{ background: darkmode.current   ? black : white}} className="ConBod " >
+      <div style={{ background: darkmode.current   ? "black" : "white"}} className="ConBod " >
         <div className="containered">
          {showNull &&     <div className="overlay"  ref={overlayRef}>
           <div className="howto">
