@@ -1,55 +1,33 @@
 import React, { useEffect, useState, useRef } from "react";
 
-const VideoRecorder = () => {
+const VideoRecorder = (props) => {
     const mimeType = "video/webm";
     
-const [permission, setPermission] = useState(false);
-const mediaRecorder = useRef(null);
-const liveVideoFeed = useRef(null);
+    const liveVideoFeed = useRef(null);
 const [recordingStatus, setRecordingStatus] = useState("inactive");
-const [stream, setStream] = useState(null);
 const [videoChunks, setVideoChunks] = useState([]);
-const [recordedVideo, setRecordedVideo] = useState(null);
   
+
+const stream = props.stream;
+const  setStream  = props.setStream;
+
+const permission  = props.permission;
+const  setPermission = props.setPermission;
+const recordedVideo = props.recordedVideo ;
+const setRecordedVideo = props.setRecordedVideo;
+
+const mediaRecorder =  props.mediaRecorder ;
+
+
+
+
+
+
+
 
 const [facingMode, setFacingMode] = useState("user"); // "user" for front camera, "environment" for back camera
 
   
-
-    
-const getCameraPermission = async () => {
-  setRecordedVideo(null);
-  if ("MediaRecorder" in window) {
-    try {
-      const videoConstraints = {
-        audio: true,
-        video: {
-          facingMode: facingMode, // Use the current facingMode state here
-        },
-      };
-      const audioConstraints = { audio: true };
-      // create audio and video streams separately
-      const audioStream = await navigator.mediaDevices.getUserMedia(
-        audioConstraints
-      );
-      const videoStream = await navigator.mediaDevices.getUserMedia(
-        videoConstraints
-      );
-      setPermission(true);
-      // combine both audio and video streams
-      const combinedStream = new MediaStream([
-       ...audioStream.getAudioTracks(),
-          ...videoStream.getVideoTracks()
-     
-      ]);
-      setStream(combinedStream);
-    } catch (err) {
-      alert(err.message);
-    }
-  } else {
-    alert("The MediaRecorder API is not supported in your browser.");
-  }
-};
 
 
     useEffect(() => {
