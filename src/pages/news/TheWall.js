@@ -3,20 +3,20 @@ import React, {useEffect, useState} from 'react';
 import VideoPlayer from './Videoplayer';
 
 import Layout from '../../components/Layout';
-
+import Navbar from '../../components/Navbar';
 
 export default function TheWall() {
 
   return (
 
-<Layout>
 
-  <div style={{marginTop:"200px"}}>
-    <button style={{marginBottom:"40px"}}>Record Video +</button>
+  <main style={{marginTop:"150px"}}>
+    <Navbar />
+    <button >Record Video +</button>
   <VideoPlayer />
 
-    </div>
-</Layout>
+    </main>
+
   )
 }
 
