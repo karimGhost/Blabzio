@@ -10,7 +10,12 @@ export default function TheWall() {
   return (
 
 <Layout>
-<VideoPlayer />
+
+  <div style={{marginTop:"200px"}}>
+    <button style={{marginBottom:"40px"}}>Record Video +</button>
+  <VideoPlayer />
+
+    </div>
 </Layout>
   )
 }
