@@ -4,8 +4,7 @@ import { nanoid } from 'nanoid';
 import video from "../../images/anim.mp4";
 import * as Video from "../../styles/Video.scss";
 import '../../styles/Video.scss';
-
-
+import { navigate } from 'gatsby';
   function VideoPlayer() {
     const [comments, setComments] = useState([
       {	
@@ -73,17 +72,48 @@ import '../../styles/Video.scss';
     const likesRef = useRef(null);
     const likesIconRef = useRef(null);
   
+
+    const [showNull, setShowNull] = useState(null)
     useEffect(() => {
       loadComments();
+
+    if(showNull === null){
+      setShowNull(true);
+    }else{
+      setShowNull(false);
+
+    }
+
+
+
+    videoRef.current.addEventListener('timeupdate', updateProgress);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      videoRef.current.removeEventListener('timeupdate', updateProgress);
+    };
+
+
+
     }, []);
   
+
+function setNull(){
+
+  setShowNull(false);
+
+}
+
+
+
+
    
     const displayTime = (time) => {
       const mins = Math.floor(time / 60);
       let seconds = Math.floor(time % 60);
       seconds = seconds <= 9 ? `0${seconds}` : seconds;
       return `${mins}:${seconds}`;
-    };
+    }; link 
   
 
 
@@ -118,6 +148,7 @@ import '../../styles/Video.scss';
         videoRef.current.style.cursor = "default";
       }
     };
+
     const loadComments = () => {
 
 
@@ -154,19 +185,19 @@ import '../../styles/Video.scss';
     return (
       <div className="ConBod">
         <div className="containered">
-          <div className="overlay" ref={overlayRef}>
-            <div className="howto">
+         {showNull &&     <div className="overlay"  ref={overlayRef}>
+          <div className="howto">
               <div className="explain">
                 <ul className="explain-list">
                   <li className="explain-details">
                     <h2 className="explain-details-head">Likes</h2>
-                    <span className="explain-details-desc">Click the <span className="icon">
+                    <span className="icocolor explain-details-desc">Click the <span className="icon">
                       <img src="https://assets.codepen.io/2629920/heart.png" alt=""/>
                     </span> to set a like on the video.</span>
                   </li>
                   <li className="explain-details">
                     <h2 className="explain-details-head">Comments</h2>
-                    <span className="explain-details-desc">Click the <span className="icon">
+                    <span className="explain-details-desc icocolor">Click the <span className="icon">
                       <img src="https://assets.codepen.io/2629920/chat.png" alt=""/>
                     </span>view comments.</span>
                   </li>
@@ -176,16 +207,17 @@ import '../../styles/Video.scss';
                   <div className="explain-video-bar">
                     <div className="explain-video-bar-w"></div>
                   </div>
-                  <span className="explain-details-desc">Click through the video to navigate to a specific timeline.</span>
+                  <span className="explain-details-desc icocolor">Click through the video to navigate to a specific timeline.</span>
                 </div>
               </div>
-              <button className="howto-close" ref={closeOverlayRef}>Got it</button>
+              <button onClick={setNull} className="howto-close" ref={closeOverlayRef}>Got it</button>
             </div>
-          </div>
+      
+          </div> }
           <div className="comments-container" ref={commentsContainerRef}>
             <div className="comments-head">
               <span className="comments-head-label" ref={commentsCountRef}></span>
-              <span className="comments-head-close" ref={closeCommentsRef}>
+              <span onClick={deactivateComments} className="comments-head-close" ref={closeCommentsRef}>
                 &#10005;
               </span>
             </div>
@@ -206,13 +238,13 @@ import '../../styles/Video.scss';
             <span className="label label-active">For You</span>
           </div>
           <div className="right">
-            <div className="icons-item right-icon">
+            <div  onClick={updateLikes} className="icons-item right-icon">
               <span className="icon">
                 <img src="https://assets.codepen.io/2629920/heart.png" alt="" id="likes-icon" ref={likesIconRef} />
               </span>
               <span className="icon-label likes right-label" data-likes='999' ref={likesRef}>999</span>
             </div>
-            <div className="icons-item right-icon">
+            <div  onClick={activateComments} className="icons-item right-icon">
               <span className="icon">
                 <img src="https://assets.codepen.io/2629920/chat.png" alt="" id="comments-icon"/>
               </span>
@@ -231,11 +263,11 @@ import '../../styles/Video.scss';
               <div className="progress-bar" ref={barRef}></div>
             </div>
             <div className="icons">
-              <div className="icons-item">
+              <div  onClick={ () => navigate('/')}  className="icons-item">
                 <span className="icon">
                   <img src="https://assets.codepen.io/2629920/home.png" alt=""/>
                 </span>
-                <span className="icon-label">Home</span>
+                <span  className="icon-label">Home</span>
               </div>
               <div className="icons-item">
                 <span className="icon">
@@ -256,7 +288,7 @@ import '../../styles/Video.scss';
                 </span>
                 <span className="icon-label">Inbox</span>
               </div>
-              <div className="icons-item">
+              <div onClick={ () => navigate('/profileComponents/Myprofile')} className="icons-item">
                 <span className="icon">
                   <img src="https://assets.codepen.io/2629920/user+%281%29.png" alt=""/>
                 </span>

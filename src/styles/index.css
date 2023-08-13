@@ -17106,67 +17106,11 @@ margin: 0;
   width: 100%;
 }
 
-.custom-controls {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 5px;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  transition: opacity 0.3s;
+.icocolor {
+  color: #b2c9eb !important;
 }
 
-.custom-controls span {
-  color: white;
-}
-
-.custom-controls svg {
-  color: white;
-  cursor: pointer;
-}
-
-.comments {
-  margin-top: 10px;
-}
-
-.comment {
-  background-color: rgba(0, 0, 0, 0.05);
-  padding: 5px;
-  border-radius: 5px;
-  margin-bottom: 5px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.comment p {
-  flex: 1;
-  margin: 0;
-}
-
-.comment svg {
-  color: gray;
-  cursor: pointer;
-}
-
-.comment span {
-  font-size: 12px;
-  color: gray;
-}
-
-.comment input[type="text"] {
-  width: 100%;
-  border: none;
-  background-color: transparent;
-  color: white;
-}
-
-.comment input[type="text"]::placeholder {
-  color: gray;
+.howto-close{
+  text-shadow: none !important;
 }
 
