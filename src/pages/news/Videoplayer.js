@@ -119,9 +119,13 @@ import '../../styles/Video.scss';
       }
     };
     const loadComments = () => {
+
+
       commentsListRef.current.innerHTML = "";
+      if(commentsListRef.current){
       commentsCountRef.current.textContent = `${comments.length} comments`;
       commentsCount2Ref.current.textContent = `${comments.length}`;
+      }
       comments.forEach((comment) => {
         const html = `
           <div className="comments-item">
@@ -142,7 +146,9 @@ import '../../styles/Video.scss';
       if (likesAmount >= 1000) return;
       likesIconRef.current.src = "https://assets.codepen.io/2629920/heart+%281%29.png";
       setLikesAmount(likesAmount + 1);
+   if(likesRef.current){
       likesRef.current.textContent = likesAmount === 999 ? "1K" : likesAmount + 1;
+   }
     };
     
     return (
