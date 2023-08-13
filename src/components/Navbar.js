@@ -185,6 +185,9 @@ ups = true;
   isBlogActive = true;
 }else if(location.pathname.startsWith('/ProfilePage/'  || "/ProfilePage/Profile/")){
 isBlogActive = true
+}else if (location.pathname.startsWith('/pages/news/TheWall')) {
+  isBlogActive = true
+
 }else{
 isBlogActive = false;
 ups = false

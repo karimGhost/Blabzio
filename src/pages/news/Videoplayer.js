@@ -6,6 +6,7 @@ import * as Video from "../../styles/Video.scss";
 import '../../styles/Video.scss';
 import { navigate } from 'gatsby';
 import { Avatar } from 'primereact/avatar';
+import { InputTextarea } from "primereact/inputtextarea";
 
   function VideoPlayer() {
     const [comments, setComments] = useState([
@@ -165,10 +166,17 @@ function setNull(){
             <span className="comment-top">
               <span className="comment-top-logo" style={{ backgroundImage: \`url(\${comment.profilePhoto})\` }}></span>
               <span className="comment-top-details">
-                <span className="user-name">${comment.userName}</span>
-                <span className="user-time">${comment.timePosted}</span>
+             
+              <div style={{display:"flex", flexDirection:"column"}}>
+              <Avatar image={"https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp"} className="flex align-items-center bg-transparent  justify-content-center mr-2" shape="circle" />
+              <span className="user-name">${comment.userName}</span>
+              </div>
+
+                <span style={{fontSize:"0.80rem"}} className="user-time ">${comment.timePosted}</span>
+
                 <span className="user-comment">${comment.comment}</span>
-              </span>
+
+             
             </span>
           </div>`;
         commentsListRef.current.insertAdjacentHTML("afterbegin", html);
@@ -185,7 +193,25 @@ function setNull(){
     };
 
     const darkmode = useRef(null)
-    
+    const [value, setValue] = useState({
+      userName: "mr305",
+      timePosted: "2hrs ago",
+      profilePhoto:
+        "https://www.extremecustoms.com/inc.store/images/gallery/2008-gmc-sierra-2500-hd-with-leveling-kit-gear-alloy-big-block-726mb-22x12--44-offset-22-by-12-inch-wide-wheel-toyo-proxes-st-305-40r22-tire-pic4.jpg",
+      comment: ""
+    });
+
+function Comment(){
+  setComments(prevComments => [
+    ...prevComments,
+    value  // Add the value object as a new comment
+  ]);
+
+  // After adding the comment, reset the value state to clear the comment field
+  setValue(prevValue => ({ ...prevValue, comment: '' }));
+}
+
+
     return (
       <div style={{ background: darkmode.current   ? "black" : "white"}} className="ConBod " >
         <div className="containered">
@@ -226,6 +252,16 @@ function setNull(){
               </span>
             </div>
             <div className="comments-list" ref={commentsListRef}></div>
+            <div style={{ position:"relative",height: "fit-content", width:"fit-content"}}>
+            <InputTextarea
+  value={value.comment}
+  onChange={(e) => setValue(prevValue => ({ ...prevValue, comment: e.target.value }))}
+  rows={100}
+  cols={30}
+/>
+
+<button onClick={Comment} style={{position:"absolute", bottom:"0", right:"0"}}>comment</button>
+</div>
           </div>
           <video
             src="https://assets.codepen.io/2629920/gt3.mp4"
@@ -237,7 +273,7 @@ function setNull(){
             ref={videoRef}
           ></video>
   
-          <div style={{position: "absolute", top:"10px", left: "20px"}} className="flex-auto float-left ml-auto top ">
+          <div style={{position: "absolute", top:"10px", left: "50px"}} className="flex-auto float-left ml-auto top ">
                    
                     <Avatar image={"https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp"} className="flex align-items-center bg-transparent  justify-content-center mr-2" size="large" shape="circle" />
                     <h5>User</h5>
