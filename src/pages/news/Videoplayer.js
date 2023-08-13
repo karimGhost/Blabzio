@@ -91,7 +91,7 @@ import '../../styles/Video.scss';
       if (videoRef.current && barRef.current && durationRef.current) {
         barRef.current.style.width = `${(videoRef.current.currentTime / videoRef.current.duration) * 100}%`;
      
-        if (durationRef.current) {
+        if (durationRef.current && durationRef.current.textContent) {
           durationRef.current.textContent = `${displayTime(videoRef.current.currentTime)} : ${displayTime(videoRef.current.duration)}`;
         }
      
@@ -122,7 +122,7 @@ import '../../styles/Video.scss';
 
 
       commentsListRef.current.innerHTML = "";
-      if(commentsListRef.current){
+      if(commentsListRef.current && commentsCountRef.current.textContent){
       commentsCountRef.current.textContent = `${comments.length} comments`;
       commentsCount2Ref.current.textContent = `${comments.length}`;
       }
@@ -146,7 +146,7 @@ import '../../styles/Video.scss';
       if (likesAmount >= 1000) return;
       likesIconRef.current.src = "https://assets.codepen.io/2629920/heart+%281%29.png";
       setLikesAmount(likesAmount + 1);
-   if(likesRef.current){
+   if(likesRef.current && likesRef.current.textContent){
       likesRef.current.textContent = likesAmount === 999 ? "1K" : likesAmount + 1;
    }
     };
