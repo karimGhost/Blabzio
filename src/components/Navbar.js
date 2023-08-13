@@ -185,7 +185,7 @@ ups = true;
   isBlogActive = true;
 }else if(location.pathname.startsWith('/ProfilePage/'  || "/ProfilePage/Profile/")){
 isBlogActive = true
-}else if (location.pathname.startsWith('/pages/news/TheWall')) {
+}else if (location.pathname.startsWith('/news/TheWall')) {
   isBlogActive = true
 
 }else{
