@@ -77,6 +77,7 @@ import '../../styles/Video.scss';
       loadComments();
     }, []);
   
+   
     const displayTime = (time) => {
       const mins = Math.floor(time / 60);
       let seconds = Math.floor(time % 60);
@@ -89,7 +90,11 @@ import '../../styles/Video.scss';
     const updateProgress = () => {
       if (videoRef.current && barRef.current && durationRef.current) {
         barRef.current.style.width = `${(videoRef.current.currentTime / videoRef.current.duration) * 100}%`;
-        durationRef.current.textContent = `${displayTime(videoRef.current.currentTime)} : ${displayTime(videoRef.current.duration)}`;
+     
+        if (durationRef.current) {
+          durationRef.current.textContent = `${displayTime(videoRef.current.currentTime)} : ${displayTime(videoRef.current.duration)}`;
+        }
+     
       }
     };
   
