@@ -5,6 +5,8 @@ import video from "../../images/anim.mp4";
 import * as Video from "../../styles/Video.scss";
 import '../../styles/Video.scss';
 import { navigate } from 'gatsby';
+import { Avatar } from 'primereact/avatar';
+
   function VideoPlayer() {
     const [comments, setComments] = useState([
       {	
@@ -113,7 +115,7 @@ function setNull(){
       let seconds = Math.floor(time % 60);
       seconds = seconds <= 9 ? `0${seconds}` : seconds;
       return `${mins}:${seconds}`;
-    }; link 
+    };  
   
 
 
@@ -233,10 +235,11 @@ function setNull(){
             ref={videoRef}
           ></video>
   
-          <div className="top">
-            <span className="label label-main">Following</span>
-            <span className="label label-active">For You</span>
-          </div>
+          <div className="flex-auto float-left top">
+                    <h5 className='light text-light'>User</h5>
+                    <Avatar image={"https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp"} className="flex align-items-center justify-content-center mr-2" size="large" />
+                </div>
+         
           <div className="right">
             <div  onClick={updateLikes} className="icons-item right-icon">
               <span className="icon">
