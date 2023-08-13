@@ -12,7 +12,7 @@ export default function TheWall() {
 
   <main style={{marginTop:"150px"}}>
     <Navbar />
-    <button style={{position:"fixed", top:"110px",zIndex:"20", margin:"0 20%", left:"0", right: "0", borderRadius:"15px", }} >Record Video +</button>
+    <button style={{position:"fixed", top:"110px",zIndex:"5", margin:"0 20%", left:"0", right: "0", borderRadius:"15px", }} >Record Video +</button>
     <div className='width:"fit-content ", height:"fit-content ", marginTop:"50px"'>
         <VideoPlayer />
 
