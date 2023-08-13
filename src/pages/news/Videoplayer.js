@@ -113,7 +113,6 @@ import '../../styles/Video.scss';
         videoRef.current.style.cursor = "default";
       }
     };
-  
     const loadComments = () => {
       commentsListRef.current.innerHTML = "";
       commentsCountRef.current.textContent = `${comments.length} comments`;
@@ -122,7 +121,7 @@ import '../../styles/Video.scss';
         const html = `
           <div className="comments-item">
             <span className="comment-top">
-              <span className="comment-top-logo" style={{ backgroundImage: "url(" + comment.profilePhoto + ")" }}></span>
+              <span className="comment-top-logo" style={{ backgroundImage: \`url(\${comment.profilePhoto})\` }}></span>
               <span className="comment-top-details">
                 <span className="user-name">${comment.userName}</span>
                 <span className="user-time">${comment.timePosted}</span>
@@ -134,17 +133,16 @@ import '../../styles/Video.scss';
       });
       setLikesAmount(Number(likesRef.current.dataset.likes));
     };
-  
     const updateLikes = () => {
       if (likesAmount >= 1000) return;
-      likesIconRef.current.src = `https://assets.codepen.io/2629920/heart+%281%29.png`;
+      likesIconRef.current.src = "https://assets.codepen.io/2629920/heart+%281%29.png";
       setLikesAmount(likesAmount + 1);
-      likesRef.current.textContent = `${likesAmount === 1000 ? "1K" : likesAmount}`;
+      likesRef.current.textContent = likesAmount === 999 ? "1K" : likesAmount + 1;
     };
-  
+    
     return (
       <div className="ConBod">
-        <div className="container">
+        <div className="containered">
           <div className="overlay" ref={overlayRef}>
             <div className="howto">
               <div className="explain">
