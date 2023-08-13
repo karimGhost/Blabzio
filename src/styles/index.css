@@ -17116,4 +17116,33 @@ margin: 0;
 
 
 
-@media 
+@media screen and (min-width: 756px){
+  .containered {
+    background-color: #0d0d0d;
+     border-radius: 5px !important; 
+    height: 500px;
+     min-width: auto ; 
+    overflow: hidden;
+    position: relative;
+    width: calc(100% - 50%) !important
+  }
+
+  .right{
+    position: absolute !important;
+    bottom: 0 !important;
+    flex-direction: row !important;
+    justify-content: space-around !important;
+    width: 100% !important;
+  }
+
+  .icons {
+    display: none !important;
+  }
+
+  .bottom {
+    bottom: 50px !important;
+    position: absolute;
+    width: 100% !important;
+}
+
+}

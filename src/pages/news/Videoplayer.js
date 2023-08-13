@@ -183,9 +183,11 @@ function setNull(){
       likesRef.current.textContent = likesAmount === 999 ? "1K" : likesAmount + 1;
    }
     };
+
+    const darkmode = useRef(null)
     
     return (
-      <div className="ConBod">
+      <div style={{ background: darkmode.current   ? black : white}} className="ConBod " >
         <div className="containered">
          {showNull &&     <div className="overlay"  ref={overlayRef}>
           <div className="howto">
@@ -235,9 +237,10 @@ function setNull(){
             ref={videoRef}
           ></video>
   
-          <div style={{position: "absolute", top:"10px", left: "0"}} className="flex-auto float-left ml-auto top ">
-                    <h5>User</h5>
+          <div style={{position: "absolute", top:"10px", left: "20px"}} className="flex-auto float-left ml-auto top ">
+                   
                     <Avatar image={"https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp"} className="flex align-items-center bg-transparent  justify-content-center mr-2" size="large" shape="circle" />
+                    <h5>User</h5>
                 </div>
          
           <div className="right">
@@ -258,7 +261,7 @@ function setNull(){
                 <img src="https://assets.codepen.io/2629920/share.png" alt=""/>
               </span>
               <span className="icon-label shares right-label">94</span>
-            </div>
+            </div> 
           </div>
           <div className="bottom">
             <span className="progress-duration" ref={durationRef}></span>
