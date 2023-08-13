@@ -235,9 +235,9 @@ function setNull(){
             ref={videoRef}
           ></video>
   
-          <div className="flex-auto float-left top">
-                    <h5 className='light text-light'>User</h5>
-                    <Avatar image={"https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp"} className="flex align-items-center justify-content-center mr-2" size="large" />
+          <div style={{position: "absolute", top:"10px", left: "0"}} className="flex-auto float-left ml-auto top ">
+                    <h5>User</h5>
+                    <Avatar image={"https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp"} className="flex align-items-center bg-transparent  justify-content-center mr-2" size="large" shape="circle" />
                 </div>
          
           <div className="right">
