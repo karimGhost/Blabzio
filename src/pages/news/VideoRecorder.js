@@ -76,10 +76,10 @@ const stopRecording = () => {
     return (
         <div>
    
-    <main className='boxmain'>
+    <main className= { props.showVid &&' boxmain'}>
         <div className="video-controls">
             { /*!permission ? (
-            <button onClick={getCameraPermission} type="button">
+            <button onClic={getCameraPermission} type="button">
                open camera
             </button>
             ) : null */}
