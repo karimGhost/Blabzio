@@ -8,7 +8,7 @@ import { navigate } from 'gatsby';
 import { Avatar } from 'primereact/avatar';
 import { InputTextarea } from "primereact/inputtextarea";
 
-  function VideoPlayer() {
+  function VideoPlayer(props) {
 
 const  videos= props.videoplay ? props.videoplay : "/";
 const  user= props.user ?  props.user  : "user";
