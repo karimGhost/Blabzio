@@ -13,6 +13,7 @@ export default function TheWall() {
   const mediaRecorder = useRef(null);
 
 const [showVid, setShowVid] = useState(false)
+const [facingMode, setFacingMode] = useState("user");
 
   const getCameraPermission = async () => {
     setRecordedVideo(null);
@@ -74,10 +75,11 @@ const [showVid, setShowVid] = useState(false)
  recordedVideo = {recordedVideo }
  setRecordedVideo = {setRecordedVideo} 
  mediaRecorder =  {mediaRecorder}
-
+ facingMode = {facingMode}
+ setFacingMode = {setFacingMode}
  /> }
     <div className='mtop width:"fit-content ", height:"fit-content ", marginTop:"50px"'>
-        <VideoPlayer />
+        <VideoPlayer  />
 
     </div>
 

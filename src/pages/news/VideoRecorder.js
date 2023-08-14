@@ -7,6 +7,8 @@ const VideoRecorder = (props) => {
 const [recordingStatus, setRecordingStatus] = useState("inactive");
 const [videoChunks, setVideoChunks] = useState([]);
   
+const facingMode = props.facingMode;
+const setFacingMode = props.setFacingMode;
 
 const stream = props.stream;
 const  setStream  = props.setStream;
@@ -25,7 +27,6 @@ const mediaRecorder =  props.mediaRecorder ;
 
 
 
-const [facingMode, setFacingMode] = useState("user"); // "user" for front camera, "environment" for back camera
 
   
 
