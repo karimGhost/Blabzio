@@ -79,13 +79,13 @@ const stopRecording = () => {
 const recordedVideos = props.recordedVideos;
 const  setRecordedVideos = props.setRecordedVideos;
 
-    const addRecordedVideo = (recordedVideo) => {
+    const addRecordedVideo = () => {
         const newRecordedVideo = { user: user.uid, id: nanoid(), recordedVideo: recordedVideo };
         setRecordedVideos(prevState => [...prevState, newRecordedVideo]);
 
-
+setRecordedVideo([])
         props.setShowVid(false)
-
+       
       };
 
     
@@ -132,7 +132,7 @@ const  setRecordedVideos = props.setRecordedVideos;
             <video className='recorded-player' src={recordedVideo} controls autoPlay></video>
          <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between", width:"100%"}}>
       
-            <button onClick={() => addRecordedVideo(recordedVideo)}>
+            <button onClick={addRecordedVideo}>
                 post Video
             </button>
 
