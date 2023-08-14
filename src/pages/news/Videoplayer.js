@@ -9,6 +9,10 @@ import { Avatar } from 'primereact/avatar';
 import { InputTextarea } from "primereact/inputtextarea";
 
   function VideoPlayer() {
+
+const  video=  props.video;
+const  user= props.user;
+
     const [comments, setComments] = useState([
       {	
         userName: "Mescudi",
@@ -272,7 +276,7 @@ function Comment(){
 </div>
           </div>
           <video
-            src="https://assets.codepen.io/2629920/gt3.mp4"
+            src={video}
             className="video"
             playsInline
             autoPlay
@@ -284,7 +288,7 @@ function Comment(){
           <div style={{position: "absolute", top:"10px", left: "50px"}} className="flex-auto float-left ml-auto top ">
                    
                     <Avatar image={"https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp"} className="flex align-items-center bg-transparent  justify-content-center mr-2" size="large" shape="circle" />
-                    <h5>User</h5>
+                    <h5>{user}</h5>
                 </div>
          
           <div className="right">

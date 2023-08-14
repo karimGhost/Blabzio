@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
-
+import { useAuth } from "../../Accounts/useAuth";
 const VideoRecorder = (props) => {
     const mimeType = "video/webm";
-    
+   const {user} = useAuth();
 const [recordingStatus, setRecordingStatus] = useState("inactive");
 const [videoChunks, setVideoChunks] = useState([]);
   
@@ -47,6 +47,8 @@ const switchCamera = async () => {
     await getCameraPermission();
   };
 
+
+
 const startRecording = async () => {
     setRecordingStatus("recording");
     const media = new MediaRecorder(stream, { mimeType });
@@ -72,6 +74,19 @@ const stopRecording = () => {
         setVideoChunks([]);
     };
 };
+
+const recordedVideos = props.recordedVideos;
+const  setRecordedVideos = props.setRecordedVideos;
+
+    const addRecordedVideo = (recordedVideo) => {
+        const newRecordedVideo = { user: user.uid, id: nanoid(), recordedVideo: recordedVideo };
+        setRecordedVideos(prevState => [...prevState, newRecordedVideo]);
+
+
+        setShowVid(false)
+
+      };
+
     
     return (
         <div>
@@ -114,9 +129,16 @@ const stopRecording = () => {
                 { !permission && recordedVideo ? (
         <div className="video-player">
             <video className='recorded-player' src={recordedVideo} controls autoPlay></video>
-            <a download href={recordedVideo}>
-                Download Recording
-            </a>
+         <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between", width:"100%"}}>
+      
+            <button onClick={() => addRecordedVideo(recordedVideo)}>
+                post Video
+            </button>
+
+            <button onClick={props.getCameraPermission}>
+             retake video
+            </button>
+</div>
         </div>
         ) : null}
     </main>
