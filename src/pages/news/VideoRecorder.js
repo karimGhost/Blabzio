@@ -76,7 +76,7 @@ const stopRecording = () => {
     return (
         <div>
    
-    <main>
+    <main className='boxmain'>
         <div className="video-controls">
             { /*!permission ? (
             <button onClick={getCameraPermission} type="button">
