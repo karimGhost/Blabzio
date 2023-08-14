@@ -63,10 +63,14 @@ const [facingMode, setFacingMode] = useState("user");
 
 
   <main style={{marginTop:"150px"}}>
+  { !showVid && 
+  <>
     <Navbar />
-    
     <button onClick={getCameraPermission} style={{position:"fixed", top:"110px",zIndex:"5", margin:"0 20%", left:"0", right: "0", borderRadius:"15px" }} >Record Video +</button>
-  { showVid &&
+   
+  </>
+}
+    { showVid &&
   <VideoRecorder 
  stream = {stream}
   setStream  = {setStream}
@@ -80,11 +84,12 @@ const [facingMode, setFacingMode] = useState("user");
  setFacingMode = {setFacingMode}
  liveVideoFeed ={liveVideoFeed}
  /> }
+ {!showVid &&
     <div className='mtop width:"fit-content ", height:"fit-content ", marginTop:"50px"'>
         <VideoPlayer  />
 
     </div>
-
+}
     </main>
 
   )
