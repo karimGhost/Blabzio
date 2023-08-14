@@ -10,7 +10,7 @@ import { InputTextarea } from "primereact/inputtextarea";
 
   function VideoPlayer() {
 
-const  video= props.videoplay ? props.videoplay : "/";
+const  videos= props.videoplay ? props.videoplay : "/";
 const  user= props.user ?  props.user  : "user";
 
     const [comments, setComments] = useState([
@@ -276,7 +276,7 @@ function Comment(){
 </div>
           </div>
           <video
-            src={video}
+            src={videos}
             className="video"
             playsInline
             autoPlay
