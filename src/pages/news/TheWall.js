@@ -7,6 +7,7 @@ import Navbar from '../../components/Navbar';
 
 export default function TheWall() {
   const [stream, setStream] = useState(null);
+  const liveVideoFeed = useRef(null);
 
   const [permission, setPermission] = useState(false);
   const [recordedVideo, setRecordedVideo] = useState(null);
@@ -77,6 +78,7 @@ const [facingMode, setFacingMode] = useState("user");
  mediaRecorder =  {mediaRecorder}
  facingMode = {facingMode}
  setFacingMode = {setFacingMode}
+ liveVideoFeed ={liveVideoFeed}
  /> }
     <div className='mtop width:"fit-content ", height:"fit-content ", marginTop:"50px"'>
         <VideoPlayer  />

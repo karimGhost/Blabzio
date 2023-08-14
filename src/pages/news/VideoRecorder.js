@@ -3,7 +3,6 @@ import React, { useEffect, useState, useRef } from "react";
 const VideoRecorder = (props) => {
     const mimeType = "video/webm";
     
-    const liveVideoFeed = useRef(null);
 const [recordingStatus, setRecordingStatus] = useState("inactive");
 const [videoChunks, setVideoChunks] = useState([]);
   
@@ -12,7 +11,7 @@ const setFacingMode = props.setFacingMode;
 
 const stream = props.stream;
 const  setStream  = props.setStream;
-
+const liveVideoFeed = props.liveVideoFeed;
 const permission  = props.permission;
 const  setPermission = props.setPermission;
 const recordedVideo = props.recordedVideo ;
