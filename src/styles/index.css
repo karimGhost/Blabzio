@@ -17039,8 +17039,8 @@ img {
     align-items: center;
 }
 .live-player {
-    height: 200px;
-    width: 400px;
+    height: 90vh;
+    width: 100%;
     border: 1px solid #646cff;
     margin-bottom: 30px;
 }
@@ -17151,4 +17151,10 @@ margin-top:auto !important
     width: 100% !important;
 }
 
+}
+
+
+.boxmain{
+  margin-top: 0px !important;
+  padding: 0px !important;
 }
