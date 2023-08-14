@@ -92,9 +92,9 @@ const [facingMode, setFacingMode] = useState("user");
  
  </div>}
  
- {recordedVideos.map(vid => (
+ {recordedVideos && recordedVideos.map(vid => (
   <div key={vid.id} className='mtop width:"fit-content ", height:"fit-content ", marginTop:"50px"'>
-    <VideoPlayer video={vid.recordedVideo} user={user} />
+    <VideoPlayer videoplay={ vid.recordedVideos && vid.recordedVideo } user={ vid.user && vid.user} />
   </div>
 ))}
 

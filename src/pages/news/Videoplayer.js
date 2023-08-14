@@ -10,8 +10,8 @@ import { InputTextarea } from "primereact/inputtextarea";
 
   function VideoPlayer() {
 
-const  video=  props.video;
-const  user= props.user;
+const  video= props.videoplay ? props.videoplay : "/";
+const  user= props.user ?  props.user  : "user";
 
     const [comments, setComments] = useState([
       {	
