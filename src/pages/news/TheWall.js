@@ -72,7 +72,7 @@ const [facingMode, setFacingMode] = useState("user");
     { showVid &&
     <div style={{zIndex:"50", height:"100vh", width: "100vw", position:"absolute", top:"0", bottom:"0",left:"0", right:"0", background:"white"}}>
   <VideoRecorder 
-  setShowVid ={setShowVid} 
+   setShowVid = {setShowVid}
   recordedVideos = {recordedVideos}
    setRecordedVideos = {setRecordedVideos}
   getCameraPermission = {getCameraPermission}

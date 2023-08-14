@@ -85,7 +85,7 @@ const  setRecordedVideos = props.setRecordedVideos;
 
 setRecordedVideo([])
         props.setShowVid(false)
-       
+       setStream(null)
       };
 
     
