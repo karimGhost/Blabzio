@@ -59,6 +59,12 @@ import { InputTextarea } from "primereact/inputtextarea";
         comment: "Nice !!!"
       }
     ]);
+
+    useState(() =>{
+
+      console.log("if these are the comments ", comments)
+    }, [comments])
+
     const [likesAmount, setLikesAmount] = useState('');
   
     const videoRef = useRef(null);
@@ -208,8 +214,10 @@ function Comment(){
   ]);
 
   // After adding the comment, reset the value state to clear the comment field
-  setValue(prevValue => ({ ...prevValue, comment: '' }));
+ // setValue(prevValue => ({ ...prevValue, comment: '' }));
 }
+
+
 
 
     return (
@@ -256,8 +264,8 @@ function Comment(){
             <InputTextarea
   value={value.comment}
   onChange={(e) => setValue(prevValue => ({ ...prevValue, comment: e.target.value }))}
-  rows={100}
-  cols={30}
+  rows={25}
+  cols={100}
 />
 
 <button onClick={Comment} style={{position:"absolute", bottom:"0", right:"0"}}>comment</button>
