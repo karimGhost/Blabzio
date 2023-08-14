@@ -83,7 +83,7 @@ const  setRecordedVideos = props.setRecordedVideos;
         setRecordedVideos(prevState => [...prevState, newRecordedVideo]);
 
 
-        setShowVid(false)
+        props.setShowVid(false)
 
       };
 
