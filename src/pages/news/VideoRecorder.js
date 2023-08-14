@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useAuth } from "../../Accounts/useAuth";
+import { nanoid } from "nanoid";
 const VideoRecorder = (props) => {
     const mimeType = "video/webm";
    const {user} = useAuth();
