@@ -98,12 +98,12 @@ const stopRecording = () => {
     </video>
     {permission && recordingStatus === "inactive" ? (
            <button style={{ zIndex: '20', position: 'absolute', bottom: '40px', left: '50%', transform: 'translateX(-50%)', background: 'transparent', border: '2px solid green', borderRadius: '50%', width: '3rem', height: '3rem' }} onClick={startRecording} type="button">
-           <i style={{ display: 'block', width: '5rem', height: '5rem', padding: '4px', background: 'green', borderRadius: '50%', margin: '1px auto' }}>s</i>
+           <i style={{ display: 'block', width: '2rem', height: '2rem', padding: '4px', background: 'red', borderRadius: '50%', margin: '1px auto' }}>s</i>
        </button>
             ) : null}
             {recordingStatus === "recording" ? (
            <button style={{ zIndex: '20', position: 'absolute', bottom: '40px', left: '50%', transform: 'translateX(-50%)', background: 'transparent', border: '2px solid red', borderRadius: '50%', width: '3rem', height: '3rem' }} onClick={stopRecording} type="button">
-           <i style={{ display: 'block', width: '5rem', height: '5rem', padding: '4px', background: 'green', borderRadius: '50%', margin: '1px auto' }}>p</i>
+           <i style={{ display: 'block', width: '2rem', height: '2rem', padding: '4px', background: 'green', borderRadius: '50%', margin: '1px auto' }}>p</i>
        </button>
        
             ) : null}
