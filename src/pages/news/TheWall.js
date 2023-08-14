@@ -13,6 +13,7 @@ export default function TheWall() {
   const mediaRecorder = useRef(null);
 
 const [showVid, setShowVid] = useState(false)
+
   const getCameraPermission = async () => {
     setRecordedVideo(null);
     if ("MediaRecorder" in window) {
@@ -62,7 +63,7 @@ const [showVid, setShowVid] = useState(false)
   <main style={{marginTop:"150px"}}>
     <Navbar />
     
-    <button onClick={getCameraPermission} style={{position:"fixed", top:"110px",zIndex:"5", margin:"0 20%", left:"0", right: "0", borderRadius:"15px", }} >Record Video +</button>
+    <button onClick={getCameraPermission} style={{position:"fixed", top:"110px",zIndex:"5", margin:"0 20%", left:"0", right: "0", borderRadius:"15px" }} >Record Video +</button>
   { !showVid &&
   <VideoRecorder 
  stream = {stream}

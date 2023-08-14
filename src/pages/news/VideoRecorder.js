@@ -78,11 +78,11 @@ const stopRecording = () => {
    
     <main>
         <div className="video-controls">
-            {!permission ? (
+            { /*!permission ? (
             <button onClick={getCameraPermission} type="button">
                open camera
             </button>
-            ) : null}
+            ) : null */}
             
         </div>
 
