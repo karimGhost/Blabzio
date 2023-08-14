@@ -69,6 +69,8 @@ const [facingMode, setFacingMode] = useState("user");
    
  
     { showVid &&
+    <div style={{zIndex:"50", position:"absolute", top:"0", bottom:"0",left:"0", right:"0", background:"white"}}>
+
   <VideoRecorder 
  stream = {stream}
   setStream  = {setStream}
@@ -81,13 +83,16 @@ const [facingMode, setFacingMode] = useState("user");
  facingMode = {facingMode}
  setFacingMode = {setFacingMode}
  liveVideoFeed ={liveVideoFeed}
- /> }
- {!showVid &&
+ />
+ 
+ 
+ </div>}
+ 
     <div className='mtop width:"fit-content ", height:"fit-content ", marginTop:"50px"'>
         <VideoPlayer  />
 
     </div>
-}
+
     </main>
 
   )
