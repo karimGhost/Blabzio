@@ -62,14 +62,14 @@ const [facingMode, setFacingMode] = useState("user");
   return (
 
 
-  <main style={{marginTop:"150px"}}>
+  <main style={{marginTop:"150px"}}  className='boxmain'>
 
     <Navbar />
     <button onClick={getCameraPermission} style={{position:"fixed", top:"110px",zIndex:"5", margin:"0 20%", left:"0", right: "0", borderRadius:"15px" }} >Record Video +</button>
    
  
     { showVid &&
-    <div style={{zIndex:"50", position:"absolute", top:"0", bottom:"0",left:"0", right:"0", background:"white"}}>
+    <div style={{zIndex:"50", height:"100vh", width: "100vw", position:"absolute", top:"0", bottom:"0",left:"0", right:"0", background:"white"}}>
 
   <VideoRecorder 
  stream = {stream}

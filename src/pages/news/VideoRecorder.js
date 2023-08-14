@@ -92,7 +92,7 @@ const stopRecording = () => {
 
     
     
-    <video  className='live-player w-100 m-50' ref={liveVideoFeed} autoPlay playsInline>
+    <video  className='live-player  m-50' ref={liveVideoFeed} autoPlay playsInline>
     
     
     </video>
