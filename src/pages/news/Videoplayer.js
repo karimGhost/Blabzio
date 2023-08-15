@@ -291,7 +291,7 @@ const togglePlay = () => {
               <span className="icon">
                 <img src="https://assets.codepen.io/2629920/heart.png" alt="" id="likes-icon" ref={likesIconRef} />
               </span>
-              <span className="icon-label likes right-label" data-likes='999' ref={likesRef}>999</span>
+              <span className="icon-label likes right-label" data-likes={props.likes} ref={likesRef}>{props.likes}</span>
             </div>
             <div  onClick={activateComments} className="icons-item right-icon">
               <span className="icon">
