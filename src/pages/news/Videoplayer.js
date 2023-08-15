@@ -240,7 +240,7 @@ function setNull(){
       timePosted: "2hrs ago",
       profilePhoto:"https://www.extremecustoms.com/inc.store/images/gallery/2008-gmc-sierra-2500-hd-with-leveling-kit-gear-alloy-big-block-726mb-22x12--44-offset-22-by-12-inch-wide-wheel-toyo-proxes-st-305-40r22-tire-pic4.jpg",
       comment: "",
-      userid : user.uid &&  user.uid ,
+      userid : user ? user.uid : "" ,
       id: nanoid()
     });
 
