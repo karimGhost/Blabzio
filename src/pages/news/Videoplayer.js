@@ -202,7 +202,7 @@ function Comment(id){
       return video;
     })
   );
-
+console.log("values as is ", props.recordedVideos )
   // After adding the comment, reset the value state to clear the comment field
   setValue(prevValue => ({ ...prevValue, comment: '' }));
 }
