@@ -16,57 +16,6 @@ import { useAuth } from '../../Accounts/useAuth';
 const  videos= props.videoplay ;
 const  usered= props.user;
 
-    const [comments, setComments] = useState([
-      {	
-        userName: "Mescudi",
-        timePosted: "Just now",
-        profilePhoto: "https://media.timeout.com/images/105653190/image.jpg",
-        comment: "It's a Akrapovic exhaust!!! Follow them for info 😎"
-      },
-      {
-        userName: "Wes",
-        timePosted: "3 mins ago",
-        profilePhoto:
-          "https://yeezymafia.com/content/images/2019/08/Kanye-West-adidas-Yeezy-Basketball-Shoe-YZY-BSKTBL.png",
-        comment: "Love the color, whats the color code!"
-      },
-      {
-        userName: "traviScott",
-        timePosted: "48 mins ago",
-        profilePhoto:
-          "https://pbs.twimg.com/profile_images/634514155261833216/czgYrPLQ.jpg",
-        comment: "💘💗💚💕🖤"
-      },
-      {
-        userName: "mr305",
-        timePosted: "2hrs ago",
-        profilePhoto:
-          "https://www.extremecustoms.com/inc.store/images/gallery/2008-gmc-sierra-2500-hd-with-leveling-kit-gear-alloy-big-block-726mb-22x12--44-offset-22-by-12-inch-wide-wheel-toyo-proxes-st-305-40r22-tire-pic4.jpg",
-        comment: "I need one right now"
-      },
-      {
-        userName: "its50",
-        timePosted: "Just now",
-        profilePhoto:
-          "https://media.npr.org/assets/music/sotd/2009/11/50cent-606653ff4067b3c2488559211d4adddf497a103b-s800-c85.jpg",
-        comment: "What wheels are those?"
-      },
-      {
-        userName: "ciciFlores",
-        timePosted: "12 mins ago",
-        profilePhoto:
-          "https://post.healthline.com/wp-content/uploads/2021/06/1336289-The-10-Best-Self-Help-Books-for-Women-in-2021-732x549-Feature.jpg",
-        comment: "WOW love the wheel set up"
-      },
-      {
-        userName: "boldJet",
-        timePosted: "1 day ago",
-        profilePhoto:
-          "https://worldarchery.sport/sites/default/files/styles/header_desktop/https/photos.smugmug.com/OLYMPIC-GAMES/TOKYO-2020/23-JULY-QUALIFICATION/i-K2L7PfT/0/125fcb9f/X3/X21_7255-X3.jpg?h=2e8ccfe0&itok=fkr_S58k",
-        comment: "Nice !!!"
-      }
-    ]);
-
     useState(() =>{
 
       console.log("if these are the comments ", comments)
@@ -318,8 +267,8 @@ const togglePlay = () => {
             <InputTextarea
   value={value.comment}
   onChange={(e) => setValue(prevValue => ({ ...prevValue, comment: e.target.value }))}
-  rows={25}
-  cols={100}
+  rows={3}
+  cols={70}
 />
 
 <button onClick={() => Comment(props.id)} style={{position:"absolute", bottom:"0", right:"0"}}>comment</button>
