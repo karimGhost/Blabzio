@@ -220,8 +220,18 @@ function Comment(){
   // After adding the comment, reset the value state to clear the comment field
  // setValue(prevValue => ({ ...prevValue, comment: '' }));
 }
+const [isPlaying, setIsPlaying] = useState(true);
 
-
+const togglePlay = () => {
+  if (videoRef.current) {
+    if (isPlaying) {
+      videoRef.current.pause();
+    } else {
+      videoRef.current.play();
+    }
+    setIsPlaying(!isPlaying);
+  }
+};
 
 
     return (
@@ -281,7 +291,7 @@ function Comment(){
             playsInline
             autoPlay
             loop
-            muted
+           onClick={togglePlay}
             ref={videoRef}
           ></video>
   
