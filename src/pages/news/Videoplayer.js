@@ -109,33 +109,13 @@ function setNull(){
         videoRef.current.style.cursor = "default";
       }
     };
-    const loadComments = () => {
-      if (commentsListRef.current && commentsCountRef.current.textContent) {
-        commentsCountRef.current.textContent = `${recordedVideo.comments.length} comments`;
-        commentsCount2Ref.current.textContent = `${recordedVideo.comments.length}`;
-      }
-    
-     props.comments.forEach((comment) => {
-        const html = `
-          <div className="comments-item">
-            <span className="comment-top">
-              <span className="comment-top-logo" style={{ backgroundImage: \`url(\${comment.profilePhoto})\` }}></span>
-              <span className="comment-top-details">
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <Avatar image={"https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp"} className="flex align-items-center bg-transparent justify-content-center mr-2" shape="circle" />
-                  <span className="user-name">${comment.userName && comment.userName}</span>
-                </div>
-    
-                <span style={{ fontSize: "0.80rem" }} className="user-time ">${comment.timePosted && comment.timePosted}</span>
-                <span className="user-comment">${comment.comment && comment.comment}</span>
-              </span>
-            </span>
-          </div>`;
-        commentsListRef.current.insertAdjacentHTML("afterbegin", html);
-      });
-    
-    
-    };
+
+    const [loadedComments, setLoadedComments] = useState([]);
+
+const loadComments = () => {
+  setLoadedComments(props.comments);
+};
+   
     const updateLikes = (id) => {
       setRecordedVideo(prevRecordedVideo =>
         prevRecordedVideo.map(video => {
@@ -253,7 +233,30 @@ const togglePlay = () => {
                 &#10005;
               </span>
             </div>
-            <div className="comments-list" ref={commentsListRef}></div>
+<div className="comments-list"> 
+
+
+  <span ref={commentsCountRef}>Comments: {loadedComments.length}</span>
+  <div ref={commentsListRef}>
+    {loadedComments.map((comment) => (
+      <div key={comment.id} className="comments-item">
+        <span className="comment-top">
+          <span className="comment-top-logo" style={{ backgroundImage: `url(${comment.profilePhoto})` }}></span>
+          <span className="comment-top-details">
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <Avatar image={"https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp"} className="flex align-items-center bg-transparent justify-content-center mr-2" shape="circle" />
+              <span className="user-name">{comment.userName && comment.userName}</span>
+            </div>
+
+            <span style={{ fontSize: "0.80rem" }} className="user-time ">{comment.timePosted && comment.timePosted}</span>
+            <span className="user-comment">{comment.comment && comment.comment}</span>
+          </span>
+        </span>
+      </div>
+    ))}
+  </div>
+
+ </div>
             <div style={{ position:"relative",height: "fit-content", width:"fit-content"}}>
             <InputTextarea
   value={value.comment}
