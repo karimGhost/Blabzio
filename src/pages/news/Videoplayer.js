@@ -8,10 +8,12 @@ import { navigate } from 'gatsby';
 import { Avatar } from 'primereact/avatar';
 import { InputTextarea } from "primereact/inputtextarea";
 
+import { useAuth } from '../../Accounts/useAuth';
   function VideoPlayer(props) {
 
+    const {user} = useAuth();
 const  videos= props.videoplay ;
-const  user= props.user;
+const  usered= props.user;
 
     const [comments, setComments] = useState([
       {	
@@ -229,14 +231,15 @@ function setNull(){
 
 
 
-    
+
     const darkmode = useRef(null)
     const [value, setValue] = useState({
       userName: "mr305",
       timePosted: "2hrs ago",
       profilePhoto:"https://www.extremecustoms.com/inc.store/images/gallery/2008-gmc-sierra-2500-hd-with-leveling-kit-gear-alloy-big-block-726mb-22x12--44-offset-22-by-12-inch-wide-wheel-toyo-proxes-st-305-40r22-tire-pic4.jpg",
       comment: "",
-      userid : user.uid
+      userid : user.uid,
+      id: nanoid()
     });
 
 function Comment(id){
@@ -333,7 +336,7 @@ const togglePlay = () => {
           <div style={{position: "absolute", top:"10px", left: "50px"}} className="flex-auto float-left ml-auto top ">
                    
                     <Avatar image={"https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp"} className="flex align-items-center bg-transparent  justify-content-center mr-2" size="large" shape="circle" />
-                    <h5>{user}</h5>
+                    <h5>{usered}</h5>
                 </div>
          
           <div className="right">
