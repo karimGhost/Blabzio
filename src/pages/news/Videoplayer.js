@@ -33,8 +33,7 @@ const  usered= props.user;
     const closeCommentsRef = useRef(null);
     const likesRef = useRef(null);
     const likesIconRef = useRef(null);
-  
-
+const setRecordedVideo = props.setRecordedVideo;
     const [showNull, setShowNull] = useState(null)
     useEffect(() => {
       loadComments();
