@@ -113,7 +113,7 @@ const stopCameraStream = () => {
      likes = {vid.likes}
      shares= {vid.shares}
      comments= {vid.comments}
-     id={id}
+     id={vid.id}
     />
   </div>
 ))}
