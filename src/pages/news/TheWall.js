@@ -17,6 +17,11 @@ export default function TheWall() {
 const [showVid, setShowVid] = useState(false)
 const [facingMode, setFacingMode] = useState("user");
 
+
+useEffect(() =>{
+console.log("these are the recorded videos ",recordedVideos)
+}, [recordedVideos])
+
 const getCameraPermission = async () => {
   setRecordedVideo(null);
   if ("MediaRecorder" in window) {

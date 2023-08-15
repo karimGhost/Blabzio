@@ -113,12 +113,13 @@ function setNull(){
     const loadComments = () => {
 
 
-      commentsListRef.current.innerHTML = "";
+    //  commentsListRef.current.innerHTML = "";
       if(commentsListRef.current && commentsCountRef.current.textContent){
       commentsCountRef.current.textContent = `${props.comments.length} props.comments`;
       commentsCount2Ref.current.textContent = `${props.comments.length}`;
       }
-      props.comments.forEach((comment) => {
+
+      props.comments.map((comment) => {
         const html = `
           <div className="comments-item">
             <span className="comment-top">
