@@ -16,42 +16,52 @@ export default function TheWall() {
 const [showVid, setShowVid] = useState(false)
 const [facingMode, setFacingMode] = useState("user");
 
-  const getCameraPermission = async () => {
-    setRecordedVideo(null);
-    if ("MediaRecorder" in window) {
-      try {
-        const videoConstraints = {
-          audio: true,
-          video: {
-            facingMode: facingMode, // Use the current facingMode state here
-          },
-        };
-        const audioConstraints = { audio: true };
-        // create audio and video streams separately
-        const audioStream = await navigator.mediaDevices.getUserMedia(
-          audioConstraints
-        );
-        const videoStream = await navigator.mediaDevices.getUserMedia(
-          videoConstraints
-        );
-        setPermission(true);
-        // combine both audio and video streams
-        const combinedStream = new MediaStream([
-         ...audioStream.getAudioTracks(),
-            ...videoStream.getVideoTracks()
-       
-        ]);
-        setStream(combinedStream);
-        setShowVid(true);
-      } catch (err) {
-        alert(err.message);
-      }
-    } else {
-      alert("The MediaRecorder API is not supported in your browser.");
-      setShowVid(false)
+const getCameraPermission = async () => {
+  setRecordedVideo(null);
+  if ("MediaRecorder" in window) {
+    try {
+      const videoConstraints = {
+        audio: true,
+        video: {
+          facingMode: facingMode, // Use the current facingMode state here
+        },
+      };
+      const audioConstraints = { audio: true };
+      // create audio and video streams separately
+      const audioStream = await navigator.mediaDevices.getUserMedia(
+        audioConstraints
+      );
+      const videoStream = await navigator.mediaDevices.getUserMedia(
+        videoConstraints
+      );
+      setPermission(true);
+      // combine both audio and video streams
+      const combinedStream = new MediaStream([
+       ...audioStream.getAudioTracks(),
+          ...videoStream.getVideoTracks()
+     
+      ]);
+      setStream(combinedStream);
+      setShowVid(true);
+    } catch (err) {
+      alert(err.message);
     }
-  };
-  
+  } else {
+    alert("The MediaRecorder API is not supported in your browser.");
+    setShowVid(false)
+  }
+};
+
+
+
+const stopCameraStream = () => {
+  if (stream) {
+    stream.getTracks().forEach((track) => track.stop());
+    setStream(null);
+    setPermission(false);
+    setShowVid(false);
+  }
+};
   
       useEffect(() => {
           if (permission && liveVideoFeed.current && stream) {
@@ -87,6 +97,7 @@ const [facingMode, setFacingMode] = useState("user");
  facingMode = {facingMode}
  setFacingMode = {setFacingMode}
  liveVideoFeed ={liveVideoFeed}
+ stopCameraStream = {stopCameraStream}
  />
  
  

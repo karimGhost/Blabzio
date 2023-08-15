@@ -79,13 +79,19 @@ const stopRecording = () => {
 const recordedVideos = props.recordedVideos;
 const  setRecordedVideos = props.setRecordedVideos;
 
+
+
+
     const addRecordedVideo = () => {
         const newRecordedVideo = { user: user.uid, id: nanoid(), recordedVideo: recordedVideo };
         setRecordedVideos(prevState => [...prevState, newRecordedVideo]);
 
 setRecordedVideo([])
+props.stopCameraStream();
         props.setShowVid(false)
        setStream(null)
+
+
       };
 
     
