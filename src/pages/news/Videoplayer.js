@@ -16,10 +16,7 @@ import { useAuth } from '../../Accounts/useAuth';
 const  videos= props.videoplay ;
 const  usered= props.user;
 
-    useState(() =>{
-
-      console.log("if these are the comments ", comments)
-    }, [comments])
+ 
 
     const [likesAmount, setLikesAmount] = useState('');
   
