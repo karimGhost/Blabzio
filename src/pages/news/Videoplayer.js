@@ -12,6 +12,7 @@ import { useAuth } from '../../Accounts/useAuth';
   function VideoPlayer(props) {
 
     const {user} = useAuth();
+
 const  videos= props.videoplay ;
 const  usered= props.user;
 
@@ -207,7 +208,7 @@ function setNull(){
           const index = updatedLikes.keys.indexOf(user.uid);
           if (index !== -1) {
             updatedLikes.keys.splice(index, 1);
-            likesIconRef.current.src = " ";
+            likesIconRef.current.src = "";
 
           }
         } else {
@@ -233,12 +234,13 @@ function setNull(){
 
 
     const darkmode = useRef(null)
+    
     const [value, setValue] = useState({
       userName: "mr305",
       timePosted: "2hrs ago",
       profilePhoto:"https://www.extremecustoms.com/inc.store/images/gallery/2008-gmc-sierra-2500-hd-with-leveling-kit-gear-alloy-big-block-726mb-22x12--44-offset-22-by-12-inch-wide-wheel-toyo-proxes-st-305-40r22-tire-pic4.jpg",
       comment: "",
-      userid :  user.uid,
+      userid : user.uid &&  user.uid ,
       id: nanoid()
     });
 
