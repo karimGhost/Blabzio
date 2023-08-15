@@ -17158,3 +17158,11 @@ margin-top:auto !important
   margin-top: 0px !important;
   padding: 0px !important;
 }
+
+
+.video {
+  height: 100%;
+  width: stretch;
+  object-fit: contain !important;
+  width: 100%;
+}
