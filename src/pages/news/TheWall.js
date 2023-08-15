@@ -114,11 +114,12 @@ const stopCameraStream = () => {
     <VideoPlayer
      videoplay={ vid.recordedVideo && vid.recordedVideo }
      user={ vid.user && vid.user}
-     setRecordedVideo = {setRecordedVideo}
+     setRecordedVideo = {setRecordedVideos}
      likes = {vid.likes}
      shares= {vid.shares}
      comments= {vid.comments}
      id={vid.id}
+     recordedVideos = {recordedVideos} 
     />
   </div>
 ))}
