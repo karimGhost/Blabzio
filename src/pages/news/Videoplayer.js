@@ -109,73 +109,66 @@ function setNull(){
         videoRef.current.style.cursor = "default";
       }
     };
-
     const loadComments = () => {
-
-
-    //  commentsListRef.current.innerHTML = "";
-      if(commentsListRef.current && commentsCountRef.current.textContent){
-      commentsCountRef.current.textContent = `${props.comments.length} props.comments`;
-      commentsCount2Ref.current.textContent = `${props.comments.length}`;
+      if (commentsListRef.current && commentsCountRef.current.textContent) {
+        commentsCountRef.current.textContent = `${recordedVideo.comments.length} comments`;
+        commentsCount2Ref.current.textContent = `${recordedVideo.comments.length}`;
       }
-
-      props.comments.map((comment) => {
+    
+     props.comments.forEach((comment) => {
         const html = `
           <div className="comments-item">
             <span className="comment-top">
               <span className="comment-top-logo" style={{ backgroundImage: \`url(\${comment.profilePhoto})\` }}></span>
               <span className="comment-top-details">
-             
-              <div style={{display:"flex", flexDirection:"column"}}>
-              <Avatar image={"https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp"} className="flex align-items-center bg-transparent  justify-content-center mr-2" shape="circle" />
-              <span className="user-name">${comment.userName && comment.userName}</span>
-              </div>
-
-                <span style={{fontSize:"0.80rem"}} className="user-time ">${comment.timePosted && comment.timePosted}</span>
-
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <Avatar image={"https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp"} className="flex align-items-center bg-transparent justify-content-center mr-2" shape="circle" />
+                  <span className="user-name">${comment.userName && comment.userName}</span>
+                </div>
+    
+                <span style={{ fontSize: "0.80rem" }} className="user-time ">${comment.timePosted && comment.timePosted}</span>
                 <span className="user-comment">${comment.comment && comment.comment}</span>
-
-             
+              </span>
             </span>
           </div>`;
         commentsListRef.current.insertAdjacentHTML("afterbegin", html);
       });
-      setLikesAmount(Number(likesRef.current.dataset.likes));
+    
+    
     };
     const updateLikes = (id) => {
-   setRecordedVideo(prevRecordedVideo => 
-
-    prevRecordedVideo.map(video => {
-      if (video.id === id) {
-        let updatedLikes = { ...video.likes };
-        
-        if (updatedLikes.keys.includes(user.uid)) {
-          // If user has already liked, remove their ID from keys
-          const index = updatedLikes.keys.indexOf(user.uid);
-          if (index !== -1) {
-            updatedLikes.keys.splice(index, 1);
-            likesIconRef.current.src = "";
-
+      setRecordedVideo(prevRecordedVideo =>
+        prevRecordedVideo.map(video => {
+          if (video.id === id) {
+            let updatedLikes = { ...video.likes };
+            
+            // Initialize likes.keys array if it doesn't exist
+            updatedLikes.keys = updatedLikes.keys || [];
+            
+            if (updatedLikes.keys.includes(user.uid)) {
+              // If user has already liked, remove their ID from keys
+              const index = updatedLikes.keys.indexOf(user.uid);
+              if (index !== -1) {
+                updatedLikes.keys.splice(index, 1);
+                likesIconRef.current.src = "";
+              }
+            } else {
+              // If user hasn't liked, add their ID to keys and increment likes count
+              likesIconRef.current.src = "https://assets.codepen.io/2629920/heart+%281%29.png";
+              updatedLikes.keys.push(user.uid);
+              updatedLikes[user.uid] = (updatedLikes[user.uid] || 0) + 1;
+            }
+      
+            return {
+              ...video,
+              likes: updatedLikes
+            };
           }
-        } else {
-          // If user hasn't liked, add their ID to keys and increment likes count
-          likesIconRef.current.src = "https://assets.codepen.io/2629920/heart+%281%29.png";
-
-          updatedLikes.keys.push(user.uid);
-          updatedLikes[user.uid] = (updatedLikes[user.uid] || 0) + 1;
-        }
-  
-        return {
-          ...video,
-          likes: updatedLikes
-        };
-      }
-      return video;
-    })
-  );
-  
+          return video;
+        })
+      );
     };
-
+    
 
 
 
