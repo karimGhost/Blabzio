@@ -5,6 +5,7 @@ import VideoRecorder from './VideoRecorder';
 import Layout from '../../components/Layout';
 import Navbar from '../../components/Navbar';
 import { useAuth } from '../../Accounts/useAuth';
+import { propTypes } from 'react-bootstrap/esm/Image';
 export default function TheWall() {
   const [stream, setStream] = useState(null);
   const liveVideoFeed = useRef(null);
@@ -105,7 +106,15 @@ const stopCameraStream = () => {
  
  {recordedVideos && recordedVideos.map(vid => (
   <div key={vid.id} className='mtop width:"fit-content ", height:"fit-content ", marginTop:"50px"'>
-    <VideoPlayer videoplay={ vid.recordedVideo && vid.recordedVideo } user={ vid.user && vid.user} />
+    <VideoPlayer
+     videoplay={ vid.recordedVideo && vid.recordedVideo }
+     user={ vid.user && vid.user}
+     setRecordedVideo = {setRecordedVideo}
+     likes = {vid.likes}
+     shares= {vid.shares}
+     comments= {vid.comments}
+     id={id}
+    />
   </div>
 ))}
 

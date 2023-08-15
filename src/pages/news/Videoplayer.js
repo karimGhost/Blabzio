@@ -167,10 +167,10 @@ function setNull(){
 
       commentsListRef.current.innerHTML = "";
       if(commentsListRef.current && commentsCountRef.current.textContent){
-      commentsCountRef.current.textContent = `${comments.length} comments`;
-      commentsCount2Ref.current.textContent = `${comments.length}`;
+      commentsCountRef.current.textContent = `${props.comments.length} props.comments`;
+      commentsCount2Ref.current.textContent = `${props.comments.length}`;
       }
-      comments.forEach((comment) => {
+      props.comments.forEach((comment) => {
         const html = `
           <div className="comments-item">
             <span className="comment-top">
@@ -179,12 +179,12 @@ function setNull(){
              
               <div style={{display:"flex", flexDirection:"column"}}>
               <Avatar image={"https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp"} className="flex align-items-center bg-transparent  justify-content-center mr-2" shape="circle" />
-              <span className="user-name">${comment.userName}</span>
+              <span className="user-name">${comment.userName && comment.userName}</span>
               </div>
 
-                <span style={{fontSize:"0.80rem"}} className="user-time ">${comment.timePosted}</span>
+                <span style={{fontSize:"0.80rem"}} className="user-time ">${comment.timePosted && comment.timePosted}</span>
 
-                <span className="user-comment">${comment.comment}</span>
+                <span className="user-comment">${comment.comment && comment.comment}</span>
 
              
             </span>
@@ -194,31 +194,66 @@ function setNull(){
       setLikesAmount(Number(likesRef.current.dataset.likes));
     };
     const updateLikes = () => {
-      if (likesAmount >= 1000) return;
-      likesIconRef.current.src = "https://assets.codepen.io/2629920/heart+%281%29.png";
-      setLikesAmount(likesAmount + 1);
-   if(likesRef.current && likesRef.current.textContent){
-      likesRef.current.textContent = likesAmount === 999 ? "1K" : likesAmount + 1;
-   }
+   setRecordedVideo(prevRecordedVideo => 
+
+    prevRecordedVideo.map(video => {
+      if (video.id === id) {
+        let updatedLikes = { ...video.likes };
+        
+        if (updatedLikes.keys.includes(user.uid)) {
+          // If user has already liked, remove their ID from keys
+          const index = updatedLikes.keys.indexOf(user.uid);
+          if (index !== -1) {
+            updatedLikes.keys.splice(index, 1);
+            likesIconRef.current.src = " ";
+
+          }
+        } else {
+          // If user hasn't liked, add their ID to keys and increment likes count
+          likesIconRef.current.src = "https://assets.codepen.io/2629920/heart+%281%29.png";
+
+          updatedLikes.keys.push(user.uid);
+          updatedLikes[user.uid] = (updatedLikes[user.uid] || 0) + 1;
+        }
+  
+        return {
+          ...video,
+          likes: updatedLikes
+        };
+      }
+      return video;
+    })
+  );
+  
     };
 
+
+
+    
     const darkmode = useRef(null)
     const [value, setValue] = useState({
       userName: "mr305",
       timePosted: "2hrs ago",
-      profilePhoto:
-        "https://www.extremecustoms.com/inc.store/images/gallery/2008-gmc-sierra-2500-hd-with-leveling-kit-gear-alloy-big-block-726mb-22x12--44-offset-22-by-12-inch-wide-wheel-toyo-proxes-st-305-40r22-tire-pic4.jpg",
-      comment: ""
+      profilePhoto:"https://www.extremecustoms.com/inc.store/images/gallery/2008-gmc-sierra-2500-hd-with-leveling-kit-gear-alloy-big-block-726mb-22x12--44-offset-22-by-12-inch-wide-wheel-toyo-proxes-st-305-40r22-tire-pic4.jpg",
+      comment: "",
+      userid : user.uid
     });
 
-function Comment(){
-  setComments(prevComments => [
-    ...prevComments,
-    value  // Add the value object as a new comment
-  ]);
+function Comment(id){
+  setRecordedVideo(prevRecordedVideo => 
+    prevRecordedVideo.map(video => {
+      if (video.id === id) {
+        return {
+          ...video,
+          comments: [...video.comments, value]
+        };
+      }
+      return video;
+    })
+  );
 
   // After adding the comment, reset the value state to clear the comment field
- // setValue(prevValue => ({ ...prevValue, comment: '' }));
+  setValue(prevValue => ({ ...prevValue, comment: '' }));
 }
 const [isPlaying, setIsPlaying] = useState(true);
 
@@ -282,7 +317,7 @@ const togglePlay = () => {
   cols={100}
 />
 
-<button onClick={Comment} style={{position:"absolute", bottom:"0", right:"0"}}>comment</button>
+<button onClick={() => Comment(props.id)} style={{position:"absolute", bottom:"0", right:"0"}}>comment</button>
 </div>
           </div>
           <video

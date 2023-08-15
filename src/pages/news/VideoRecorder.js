@@ -83,7 +83,14 @@ const  setRecordedVideos = props.setRecordedVideos;
 
 
     const addRecordedVideo = () => {
-        const newRecordedVideo = { user: user.uid, id: nanoid(), recordedVideo: recordedVideo };
+        const newRecordedVideo = {
+             user: user.uid,
+             id: nanoid(),
+              recordedVideo: recordedVideo,
+            likes: "",
+            shares: "",
+            comments: []
+            };
         setRecordedVideos(prevState => [...prevState, newRecordedVideo]);
 
 setRecordedVideo([])
