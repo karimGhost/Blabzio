@@ -195,7 +195,7 @@ function setNull(){
       });
       setLikesAmount(Number(likesRef.current.dataset.likes));
     };
-    const updateLikes = () => {
+    const updateLikes = (id) => {
    setRecordedVideo(prevRecordedVideo => 
 
     prevRecordedVideo.map(video => {
@@ -340,7 +340,7 @@ const togglePlay = () => {
                 </div>
          
           <div className="right">
-            <div  onClick={updateLikes} className="icons-item right-icon">
+            <div  onClick={() => updateLikes(props.id)} className="icons-item right-icon">
               <span className="icon">
                 <img src="https://assets.codepen.io/2629920/heart.png" alt="" id="likes-icon" ref={likesIconRef} />
               </span>
