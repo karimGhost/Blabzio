@@ -150,8 +150,9 @@ function setNull(){
               const index = updatedLikes.keys.indexOf(user.uid);
               if (index !== -1) {
                 updatedLikes.keys.splice(index, 1);
-                likesIconRef.current.src = "";
-              }
+                if (likesIconRef.current) {
+                  likesIconRef.current.src = "";
+                }              }
             } else {
               // If user hasn't liked, add their ID to keys and increment likes count
               likesIconRef.current.src = "https://assets.codepen.io/2629920/heart+%281%29.png";
