@@ -225,7 +225,7 @@ const togglePlay = () => {
             </div>
       
           </div> }
-          <div className="comments-container" style={{zIndex:"auto"}} ref={commentsContainerRef}>
+          <div className="comments-container" style={{zIndex:"4"}} ref={commentsContainerRef}>
             <div className="comments-head">
               <span className="comments-head-label" ref={commentsCountRef}></span>
               <span onClick={deactivateComments} className="comments-head-close" ref={closeCommentsRef}>
@@ -260,6 +260,7 @@ const togglePlay = () => {
 
             <div style={{ position:"relative",height: "fit-content", width:"fit-content"}}>
             <InputTextarea
+            style={{width:"100%"}}
   value={value.comment}
   onChange={(e) => setValue(prevValue => ({ ...prevValue, comment: e.target.value }))}
   rows={3}

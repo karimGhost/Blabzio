@@ -122,8 +122,8 @@ const [Useris, setUser] = useState("");
  
  </div>}
  
- {recordedVideos && recordedVideos.map(vid => (
-  <div key={vid.id} className='mtop width:"fit-content ", height:"fit-content ", marginTop:"50px"'>
+ {recordedVideos && recordedVideos.reverse().map(vid => (
+  <div key={vid.id} className='mtop' style={{ width:"fit-content ", height:"fit-content "}}>
     <VideoPlayer
      videoplay={ vid.recordedVideo && vid.recordedVideo }
      user={ vid.user && vid.user}
