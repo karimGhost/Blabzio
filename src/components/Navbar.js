@@ -777,7 +777,10 @@ useEffect(() => {
           if (snapshotval && snapshotval.username) {
 
             
-           
+            const user = snapshotval.username;
+if(user){
+      props.setUser(user)
+}
 
             setUsernames((prevState) => ({
               ...prevState,
@@ -792,10 +795,7 @@ useEffect(() => {
         }
       });
 
-      const user = snapshotval.username;
-if(user){
-      props.setUser(user)
-}
+     
   } else {
     // handle the case where user is not defined or does not have an email property
     props.setUser("")
