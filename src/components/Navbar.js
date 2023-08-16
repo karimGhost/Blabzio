@@ -795,7 +795,8 @@ useEffect(() => {
       props.setUser(snapshotval.username)
   } else {
     // handle the case where user is not defined or does not have an email property
-   
+    props.setUser(snapshotval.username)
+
   }
 }, [user && user]);
 
