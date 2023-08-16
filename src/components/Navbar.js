@@ -271,9 +271,12 @@ useEffect(() => {
       if(typeof snapshot.val() === 'object'){
         const val = snapshot.val(); 
         
+props.setImg(val.profileImg)
+
        setProfileImg(val.profileImg)
       } else {
 setProfileImg(snapshot.val())
+props.setImg(snapshot.val())
 
       }
     });
@@ -282,6 +285,7 @@ setProfileImg(snapshot.val())
 
 
 }, [user]);
+
 
 
 
@@ -692,7 +696,7 @@ useEffect(() =>{
 function Toggle(){
   
  
- // props.setdark(pre => !pre) props.dark
+ // props.setdark(pre => !pre) props.dark username
 
 }
 
@@ -754,6 +758,9 @@ setLight(thelight)
    
   });
 
+
+  
+
 useEffect(() => {
   if (user && user.email) {
     app101
@@ -783,6 +790,8 @@ useEffect(() => {
           }
         }
       });
+
+      props.setUser(snapshotval.username)
   } else {
     // handle the case where user is not defined or does not have an email property
    

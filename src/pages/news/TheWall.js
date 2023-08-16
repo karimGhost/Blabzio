@@ -6,6 +6,10 @@ import Layout from '../../components/Layout';
 import Navbar from '../../components/Navbar';
 import { useAuth } from '../../Accounts/useAuth';
 import { propTypes } from 'react-bootstrap/esm/Image';
+import im from "../../images/proxy.jpeg";
+
+
+
 export default function TheWall() {
   const [stream, setStream] = useState(null);
   const liveVideoFeed = useRef(null);
@@ -13,7 +17,6 @@ export default function TheWall() {
   const [permission, setPermission] = useState(false);
   const [recordedVideo, setRecordedVideo] = useState(null);
   const mediaRecorder = useRef(null);
-
 const [showVid, setShowVid] = useState(false)
 const [facingMode, setFacingMode] = useState("user");
 
@@ -75,13 +78,22 @@ const stopCameraStream = () => {
           }
       }, [permission, stream]);
 
+const [Image, setImg] = useState(im);
+const [Useris, setUser] = useState("");
+
+
+
   return (
 
 
 
   <main className={showVid && 'boxmain'} style={{marginTop:"150px"}} >  
 
-    <Navbar />
+    <Navbar  
+    setImg = {setImg}
+    setUser = {setUser}
+    />
+
     <button onClick={getCameraPermission} style={{position:"fixed", top:"110px",zIndex:"5", margin:"0 20%", left:"0", right: "0", borderRadius:"15px" }} >Record Video +</button>
    
     
@@ -104,6 +116,7 @@ const stopCameraStream = () => {
  setFacingMode = {setFacingMode}
  liveVideoFeed ={liveVideoFeed}
  stopCameraStream = {stopCameraStream}
+ 
  />
  
  
@@ -120,6 +133,11 @@ const stopCameraStream = () => {
      comments= {vid.comments}
      id={vid.id}
      recordedVideos = {recordedVideos} 
+     setImg = {setImg}
+setUser = {setUser}
+
+Image ={Image}
+ Useris ={Useris}
     />
   </div>
 ))}

@@ -13,10 +13,11 @@ import { useAuth } from '../../Accounts/useAuth';
 
     const {user} = useAuth();
 
-const  videos= props.videoplay ;
-const  usered= props.user;
 
- 
+   const  setImg = props.setImg;
+const setUser = props.setUser;
+
+
 
     const [likesAmount, setLikesAmount] = useState('');
   
@@ -66,7 +67,8 @@ function setNull(){
 }
 
 
-
+const Image =props.Image;
+const  Useris = props.Useris;
 
    
     const displayTime = (time) => {
@@ -151,9 +153,9 @@ const updateLikes = (id) => {
     const darkmode = useRef(null)
     
     const [value, setValue] = useState({
-      userName: "mr305",
+      userName: Useris,
       timePosted: "2hrs ago",
-      profilePhoto:"https://www.extremecustoms.com/inc.store/images/gallery/2008-gmc-sierra-2500-hd-with-leveling-kit-gear-alloy-big-block-726mb-22x12--44-offset-22-by-12-inch-wide-wheel-toyo-proxes-st-305-40r22-tire-pic4.jpg",
+      profilePhoto: Image ,
       comment: "",
       userid : user ? user.uid : "" ,
       id: nanoid()
@@ -252,6 +254,8 @@ const togglePlay = () => {
   </div>
 
  </div>
+
+
             <div style={{ position:"relative",height: "fit-content", width:"fit-content"}}>
             <InputTextarea
   value={value.comment}
@@ -275,8 +279,8 @@ const togglePlay = () => {
   
           <div style={{position: "absolute", top:"10px", width: "100%", paddingLeft:"5px"}} className="flex-auto float-left ml-auto top ">
                    
-                    <Avatar image={"https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp"} className="flex align-items-center bg-transparent  justify-content-center mr-2" size="large" shape="circle" />
-                    <h5>{usered}</h5>
+                    <Avatar image={Image && Image} className="flex align-items-center bg-transparent  justify-content-center mr-2" size="large" shape="circle" />
+                    <h5>{Useris && Useris}</h5>    
                 </div>
          
           <div className="right">
