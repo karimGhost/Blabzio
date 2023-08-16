@@ -157,7 +157,7 @@ const updateLikes = (id) => {
     const [value, setValue] = useState({
       userName: Useris,
       timePosted: "2hrs ago",
-      profilePhoto: Image ,
+      profilePhoto: Image,
       comment: "",
       userid : user ? user.uid : "" ,
       id: nanoid()
@@ -237,13 +237,13 @@ const togglePlay = () => {
 
   <span ref={commentsCountRef}>Comments: {props.comments && props.comments.length}</span>
   <div ref={commentsListRef}>
-    {props.comments && props.comments.map((comment) => (
+  {props.comments && props.comments.reverse().map((comment) => (
       <div key={comment.id} className="comments-item">
         <span className="comment-top">
           <span className="comment-top-logo" style={{ backgroundImage: `url(${comment.profilePhoto})` }}></span>
           <span className="comment-top-details">
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <Avatar image={"https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp"} className="flex align-items-center bg-transparent justify-content-center mr-2" shape="circle" />
+        {/*  <Avatar image={comment.profilePhoto} className="flex align-items-center bg-transparent justify-content-center mr-2" shape="circle" />   */}     
               <span className="user-name">{comment.userName && comment.userName}</span>
             </div>
 
