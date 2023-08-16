@@ -148,13 +148,6 @@ const updateLikes = (id) => {
     })
   );
 };
-
-
-
-
-
-
-
     const darkmode = useRef(null)
     
     const [value, setValue] = useState({
