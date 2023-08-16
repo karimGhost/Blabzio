@@ -115,41 +115,43 @@ function setNull(){
 const loadComments = () => {
   setLoadedComments(props.comments);
 };
-   
-    const updateLikes = (id) => {
-      setRecordedVideo(prevRecordedVideo =>
-        prevRecordedVideo.map(video => {
-          if (video.id === id) {
-            let updatedLikes = { ...video.likes };
-            
-            // Initialize likes.keys array if it doesn't exist
-            updatedLikes.keys = updatedLikes.keys || [];
-            
-            if (updatedLikes.keys.includes(user.uid)) {
-              // If user has already liked, remove their ID from keys
-              const index = updatedLikes.keys.indexOf(user.uid);
-              if (index !== -1) {
-                updatedLikes.keys.splice(index, 1);
-                if (likesIconRef.current) {
-                  likesIconRef.current.src = "";
-                }              }
-            } else {
-              // If user hasn't liked, add their ID to keys and increment likes count
-              likesIconRef.current.src = "https://assets.codepen.io/2629920/heart+%281%29.png";
-              updatedLikes.keys.push(user.uid);
-              updatedLikes[user.uid] = (updatedLikes[user.uid] || 0) + 1;
-            }
-      
-            return {
-              ...video,
-              likes: updatedLikes
-            };
+
+
+const updateLikes = (id) => {
+  setRecordedVideo(prevRecordedVideo =>
+    prevRecordedVideo.map(video => {
+      if (video.id === id) {
+        const updatedLikes = [...video.likes]; // Likes as an array
+
+        const userLiked = updatedLikes.includes(user.uid);
+
+        if (userLiked) {
+          // If user has already liked, remove their like
+          const updatedLikesWithoutUser = updatedLikes.filter(uid => uid !== user.uid);
+          if (likesIconRef.current) {
+            likesIconRef.current.src = "";
           }
-          return video;
-        })
-      );
-    };
-    
+          return {
+            ...video,
+            likes: updatedLikesWithoutUser
+          };
+        } else {
+          // If user hasn't liked, add their like
+          likesIconRef.current.src = "https://assets.codepen.io/2629920/heart+%281%29.png";
+          return {
+            ...video,
+            likes: [...updatedLikes, user.uid]
+          };
+        }
+      }
+      return video;
+    })
+  );
+};
+
+
+
+
 
 
 
@@ -295,7 +297,7 @@ const togglePlay = () => {
               <span className="icon">
                 <img src="https://assets.codepen.io/2629920/chat.png" alt="" id="comments-icon"/>
               </span>
-              <span className="icon-label comments right-label"></span>
+              <span className="icon-label comments right-label">{props.comments && props.comments.length}</span>
             </div>
             <div className="icons-item right-icon">
               <span className="icon">
