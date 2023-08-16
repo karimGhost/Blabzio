@@ -129,7 +129,7 @@ const updateLikes = (id) => {
           // If user has already liked, remove their like
           const updatedLikesWithoutUser = updatedLikes.filter(uid => uid !== user.uid);
           if (likesIconRef.current) {
-            likesIconRef.current.src = "";
+            likesIconRef.current.src = "https://assets.codepen.io/2629920/heart.png";
           }
           return {
             ...video,
@@ -221,7 +221,7 @@ const togglePlay = () => {
             </div>
       
           </div> }
-          <div className="comments-container" ref={commentsContainerRef}>
+          <div className="comments-container" style={{zIndex:"auto"}} ref={commentsContainerRef}>
             <div className="comments-head">
               <span className="comments-head-label" ref={commentsCountRef}></span>
               <span onClick={deactivateComments} className="comments-head-close" ref={closeCommentsRef}>
@@ -273,7 +273,7 @@ const togglePlay = () => {
             ref={videoRef}
           ></video>
   
-          <div style={{position: "absolute", top:"10px", left: "50px"}} className="flex-auto float-left ml-auto top ">
+          <div style={{position: "absolute", top:"10px", width: "100%", paddingLeft:"5px"}} className="flex-auto float-left ml-auto top ">
                    
                     <Avatar image={"https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp"} className="flex align-items-center bg-transparent  justify-content-center mr-2" size="large" shape="circle" />
                     <h5>{usered}</h5>
@@ -284,11 +284,11 @@ const togglePlay = () => {
               <span className="icon">
                 <img src="https://assets.codepen.io/2629920/heart.png" alt="" id="likes-icon" ref={likesIconRef} />
               </span>
-              <span className="icon-label likes right-label" data-likes={props.likes} ref={likesRef}>{props.likes}</span>
+              <span className="icon-label likes right-label" data-likes={props.likes && props.likes.length} ref={likesRef}>{props.likes}</span>
             </div>
             <div  onClick={activateComments} className="icons-item right-icon">
               <span className="icon">
-                <img src="https://assets.codepen.io/2629920/chat.png" alt="" id="comments-icon"/>
+              <img src="https://assets.codepen.io/2629920/chat.png" alt="" id="comments-icon"/>
               </span>
               <span className="icon-label comments right-label">{props.comments && props.comments.length}</span>
             </div>
