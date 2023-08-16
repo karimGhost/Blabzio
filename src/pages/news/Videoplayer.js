@@ -236,9 +236,9 @@ const togglePlay = () => {
 <div className="comments-list"> 
 
 
-  <span ref={commentsCountRef}>Comments: {loadedComments.length}</span>
+  <span ref={commentsCountRef}>Comments: {props.comments.length}</span>
   <div ref={commentsListRef}>
-    {loadedComments.map((comment) => (
+    {props.comments.map((comment) => (
       <div key={comment.id} className="comments-item">
         <span className="comment-top">
           <span className="comment-top-logo" style={{ backgroundImage: `url(${comment.profilePhoto})` }}></span>
