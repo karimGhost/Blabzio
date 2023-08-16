@@ -17,6 +17,8 @@ import { useAuth } from '../../Accounts/useAuth';
    const  setImg = props.setImg;
 const setUser = props.setUser;
 
+const  videos= props.videoplay ;
+
 
 
     const [likesAmount, setLikesAmount] = useState('');
