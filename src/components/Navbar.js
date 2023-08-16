@@ -261,7 +261,8 @@ useEffect(() => {
       console.log(JSON.stringify(snapshot.val()))
     
       if (!snapshot.val()) {
-  
+        setProfileImg(im)
+
         console.log("Snapshot value is null or undefined");
         return;
       }
