@@ -123,7 +123,7 @@ const [Useris, setUser] = useState("");
  </div>}
  
  {recordedVideos && recordedVideos.reverse().map(vid => (
-  <div key={vid.id} className='mtop' >
+  <div key={vid.id} className='mtop'  >
     <VideoPlayer
      videoplay={ vid.recordedVideo && vid.recordedVideo }
      user={ vid.user && vid.user}

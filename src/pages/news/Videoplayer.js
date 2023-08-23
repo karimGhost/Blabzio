@@ -7,7 +7,7 @@ import '../../styles/Video.scss';
 import { navigate } from 'gatsby';
 import { Avatar } from 'primereact/avatar';
 import { InputTextarea } from "primereact/inputtextarea";
-
+import 'primeicons/primeicons.css';
 import { useAuth } from '../../Accounts/useAuth';
   function VideoPlayer(props) {
 
@@ -180,7 +180,7 @@ console.log("values as is ", props.recordedVideos )
   setValue(prevValue => ({ ...prevValue, comment: '' }));
 }
 const [isPlaying, setIsPlaying] = useState(true);
-
+const [Visibility, setVisibility] = useState(false);
 const togglePlay = () => {
   if (videoRef.current) {
     if (isPlaying) {
@@ -194,6 +194,7 @@ const togglePlay = () => {
 
 
     return (
+      <div >
       <div style={{ background: darkmode.current   ? "black" : "white"}} className="ConBod " >
         <div className="containered">
          {showNull &&     <div className="overlay"  ref={overlayRef}>
@@ -273,20 +274,19 @@ const togglePlay = () => {
           <video
             src={videos}
             className="video"
+            style={{position:"relative"}}
             playsInline
-            autoPlay
             loop
            onClick={togglePlay}
             ref={videoRef}
-          ></video>
-  
-          <div style={{position: "absolute", top:"10px", width: "100%", paddingLeft:"5px"}} className="flex-auto float-left ml-auto top ">
-                   
-                    <Avatar image={Image && Image} className="flex align-items-center bg-transparent  justify-content-center mr-2" size="large" shape="circle" />
-                    <h5>{Useris && Useris}</h5>    
-                </div>
+          > <i  onMouseOver={() => setVisibility(true)} onMouseLeave={() => setVisibility(false)} className="pi pi-caret-right over " style={{display: Visibility ? "auto" :  "none ",zIndex:"5", fontSize: '2.5rem' , position:"absolute" }}></i>
+          </video>
+        
          
-          <div className="right">
+        
+            <div className="icons">
+            
+            <div className="right">
             <div  onClick={() => updateLikes(props.id)} className="icons-item right-icon">
               <span className="icon">
                 <img src="https://assets.codepen.io/2629920/heart.png" alt="" id="likes-icon" ref={likesIconRef} />
@@ -303,7 +303,7 @@ const togglePlay = () => {
               <span className="icon">
                 <img src="https://assets.codepen.io/2629920/share.png" alt=""/>
               </span>
-              <span className="icon-label shares right-label">94</span>
+              <span className="icon-label shares right-label">4</span>
             </div> 
           </div>
           <div className="bottom">
@@ -311,41 +311,31 @@ const togglePlay = () => {
             <div className="progress-range" title="seek" ref={rangeRef} onClick={setProgress}>
               <div className="progress-bar" ref={barRef}></div>
             </div>
-            <div className="icons">
-              <div  onClick={ () => navigate('/')}  className="icons-item">
-                <span className="icon">
-                  <img src="https://assets.codepen.io/2629920/home.png" alt=""/>
-                </span>
-                <span  className="icon-label">Home</span>
-              </div>
-              <div className="icons-item">
-                <span className="icon">
-                  <img src="https://assets.codepen.io/2629920/search_1.png" alt=""/>
-                </span>
-                <span className="icon-label">Discover</span>
-              </div>
-              <div className="icons-item">
-                <div className="icons-item-add">
-                  <span className="icon" style={{ display: "flex" }}>
-                    <img src="https://assets.codepen.io/2629920/add.png" alt=""/>
-                  </span>
-                </div>
-              </div>
-              <div className="icons-item">
-                <span className="icon">
-                  <img src="https://assets.codepen.io/2629920/comment.png" alt=""/>
-                </span>
-                <span className="icon-label">Inbox</span>
-              </div>
+            
+        
+             
               <div onClick={ () => navigate('/profileComponents/Myprofile')} className="icons-item">
                 <span className="icon">
-                  <img src="https://assets.codepen.io/2629920/user+%281%29.png" alt=""/>
+                <Avatar image={Image && Image} className="flex align-items-center bg-transparent  justify-content-center mr-2" size="large" shape="circle" />
+
                 </span>
-                <span className="icon-label">Me</span>
+
+
+                <span className="icon-label">{Useris && Useris}</span>
+
               </div>
             </div>
           </div>
         </div>
+
+      </div>
+      <div style={{display:"flex"}}>
+      <span className="icon">
+                <Avatar image={Image && Image} className="flex align-items-center bg-transparent  justify-content-center mr-2" size="large" shape="circle" />
+
+                </span>
+<h2>Title</h2>
+</div>
       </div>
     );
   }
