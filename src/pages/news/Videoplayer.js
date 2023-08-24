@@ -279,7 +279,7 @@ const togglePlay = () => {
             loop
            onClick={togglePlay}
             ref={videoRef}
-          > <i  onMouseOver={() => setVisibility(true)} onMouseLeave={() => setVisibility(false)} className="pi pi-caret-right over " style={{display: Visibility ? "auto" :  "none ",zIndex:"5", fontSize: '2.5rem' , position:"absolute" }}></i>
+          > <i  onMouseOver={() => setVisibility(true)} onMouseLeave={() => setVisibility(false)} className="pi pi-caret-right over " style={{display: Visibility ? "flex" :  "none ",zIndex:"5", fontSize: '2.5rem' , position:"absolute" }}></i>
           </video>
         
          
@@ -287,12 +287,14 @@ const togglePlay = () => {
             <div className="icons">
             
             <div className="right">
+
             <div  onClick={() => updateLikes(props.id)} className="icons-item right-icon">
               <span className="icon">
                 <img src="https://assets.codepen.io/2629920/heart.png" alt="" id="likes-icon" ref={likesIconRef} />
               </span>
               <span className="icon-label likes right-label" data-likes={props.likes && props.likes.length} ref={likesRef}>{props.likes && props.likes.length}</span>
             </div>
+
             <div  onClick={activateComments} className="icons-item right-icon">
               <span className="icon">
               <img src="https://assets.codepen.io/2629920/chat.png" alt="" id="comments-icon"/>
@@ -312,30 +314,21 @@ const togglePlay = () => {
               <div className="progress-bar" ref={barRef}></div>
             </div>
             
-        
-             
-              <div onClick={ () => navigate('/profileComponents/Myprofile')} className="icons-item">
-                <span className="icon">
-                <Avatar image={Image && Image} className="flex align-items-center bg-transparent  justify-content-center mr-2" size="large" shape="circle" />
-
-                </span>
-
-
-                <span className="icon-label">{Useris && Useris}</span>
-
-              </div>
+         
             </div>
           </div>
         </div>
-
-      </div>
-      <div style={{display:"flex"}}>
+        <div className="bottomTitle"  onClick={ () => navigate('/profileComponents/Myprofile')} 
+ style={{display:"flex"}}>
       <span className="icon">
                 <Avatar image={Image && Image} className="flex align-items-center bg-transparent  justify-content-center mr-2" size="large" shape="circle" />
 
                 </span>
 <h2>Title</h2>
 </div>
+
+      </div>
+    
       </div>
     );
   }

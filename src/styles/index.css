@@ -17118,7 +17118,16 @@ margin: 0;
 margin-top: 50px !important;
 }
 
-@media screen and (min-width: 756px){
+
+.right{
+  position: absolute !important;
+  bottom: 0 !important;
+  flex-direction: row !important;
+  justify-content: space-around !important;
+  width: 100% !important;
+}
+
+@media screen and (min-width: 991px){
   .containered {
     background-color: #0d0d0d;
      border-radius: 5px !important; 
@@ -17142,7 +17151,7 @@ margin-top:auto !important
   }
 
   .icons {
-    display: none !important;
+   /* display: none !important; */
   }
 
   .bottom {
@@ -17166,3 +17175,7 @@ margin-top:auto !important
   object-fit: contain !important;
   width: 100%;
 }
+
+
+@media screen and (min-width: 991 ){
+  
