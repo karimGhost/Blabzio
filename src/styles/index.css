@@ -17171,6 +17171,8 @@ margin-top:auto !important
   
   .ConBod{
     width: 100% !important;
+    display:flex !important;
+    flex-direction: column !important;
   }
   
   .mtop{
@@ -17200,3 +17202,10 @@ margin-top:auto !important
 
 
   
+
+
+.ConBod{
+  width: 100% !important;
+  display:flex !important;
+  flex-direction: column !important;
+}
