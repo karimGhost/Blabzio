@@ -17160,7 +17160,28 @@ margin-top:auto !important
     width: 100% !important;
 }
 
-}
+
+
+
+.bottomTitle{
+  background: black;
+      
+      margin: auto;
+  }
+  
+  .ConBod{
+    width: 100% !important;
+  }
+  
+  .mtop{
+    margin-top:auto !important;
+    width: 50% !important;
+    margin:auto !important
+      }
+
+    
+
+  }
 
 
 .boxmain{
@@ -17177,5 +17198,5 @@ margin-top:auto !important
 }
 
 
-@media screen and (min-width: 991 ){
+
   
