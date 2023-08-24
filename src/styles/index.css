@@ -17135,11 +17135,12 @@ margin-top: 50px !important;
      min-width: auto ; 
     overflow: hidden;
     position: relative;
-    width: calc(100% - 50%) !important
+width: 100%;
   }
 
   .mtop{
-margin-top:auto !important
+margin-top:auto !important;
+margin: 20px !important;
   }
 
   .right{
@@ -17205,7 +17206,18 @@ margin-top:auto !important
 
 
 .ConBod{
-  width: 100% !important;
+  width: 300px !important;
   display:flex !important;
   flex-direction: column !important;
+}
+
+
+.containered {
+ 
+width: 100% !important;
+}
+
+.mtop{
+margin-top:auto !important;
+margin: 20px !important;
 }
