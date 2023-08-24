@@ -6,7 +6,7 @@ flex-wrap: wrap !important;
 
 
 .mtop {
-    margin: auto !important;
+   
     width: 100% !important;
-    flex: 1;
+    flex: 0;
 }
