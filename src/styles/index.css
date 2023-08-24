@@ -17166,7 +17166,7 @@ margin: 20px !important;
 
 .bottomTitle{
   background: black;
-      
+      width: 100%;
       margin: auto;
   }
   
@@ -17220,4 +17220,41 @@ width: 100% !important;
 .mtop{
 margin-top:auto !important;
 margin: 20px !important;
+}
+
+
+
+
+
+.active {
+  background-color: #0a0a0acf;
+  /* border-radius: 5px!important; */
+  height: 280px !important;
+  padding-bottom: 60px !important;
+
+
+
+
+  
+  width: 100%!important;
+  max-width: 100%;
+  max-height: 100vh;
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;
+  margin: 0px !important;
+}
+
+
+.video{
+object-fit: cover !important;
+    /* margin-top: -70px; */
+    width: 100%;
+    /* margin: auto; */
+    height: 640px;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+
 }
