@@ -1,0 +1,12 @@
+.flexContainer{
+display: flex !important;
+flex-direction: row !important;
+flex-wrap: wrap !important;
+}
+
+
+.mtop {
+    margin: auto !important;
+    width: 100% !important;
+    flex: 1;
+}
