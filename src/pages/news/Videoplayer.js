@@ -195,14 +195,40 @@ const togglePlay = () => {
 
 
 const [videoStates, setVideoStates] = useState(
-  props.recordedVideos.map(video => ({ id: video.id, isVisible: false }))
+props.recordedVideos.map(video => ({ id: video.id, isVisible: false, isHovered: false }))
+
 );
 
 const toggleVisibility = (id, isVisible) => {
   const updatedVideoStates = videoStates.map(videoState =>
     videoState.id === id ? { ...videoState, isVisible } : videoState
+
+
+
   );
   setVideoStates(updatedVideoStates);
+};
+
+
+
+const startPlayback = (id) => {
+  //  delay of 3 seconds
+  setTimeout(() => {
+    const updatedVideoStates = videoStates.map(videoState =>
+      videoState.id === id ? { ...videoState,isVisible: false, isHovered: true } : videoState
+    );
+    setVideoStates(updatedVideoStates);
+  }, 3000);
+};
+
+const stopPlayback = (id) => {
+  //  delay of 3 seconds
+ 
+    const updatedVideoStates = videoStates.map(videoState =>
+      videoState.id === id ? { ...videoState,isVisible: false, isHovered: false } : videoState
+    );
+    setVideoStates(updatedVideoStates);
+
 };
 
     return (
@@ -286,6 +312,7 @@ const toggleVisibility = (id, isVisible) => {
 </div>
           </div>
           <video
+           
             src={videos}
             className="video"
             style={{position:"relative"}}
@@ -293,9 +320,14 @@ const toggleVisibility = (id, isVisible) => {
             loop
            onClick={togglePlay}
             ref={videoRef}
+             
+            onMouseOver={() => {toggleVisibility(props.id, true);      
+                     startPlayback(props.id) } }
 
-            onMouseOver={() => toggleVisibility(props.id, true)}
-            onMouseLeave={() => toggleVisibility(props.id, false)}
+            onMouseLeave={() => { toggleVisibility(props.id, false); 
+            
+              stopPlayback(props.id) }
+            }
           >
             </video>
         
