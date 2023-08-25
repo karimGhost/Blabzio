@@ -17271,3 +17271,15 @@ object-fit: cover !important;
   padding-left: 20px !important;
   background: transparent !important;
 }
+
+
+.caretpi {
+  
+    font-size: 4.5rem !important;
+    margin: 90px 120px !important;
+    color: #cb1414;
+    margin-top: -20px !important;
+    height: 100% !important; 
+    width: 100% !important;
+   
+}

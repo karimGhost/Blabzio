@@ -193,11 +193,25 @@ const togglePlay = () => {
 };
 
 
+
+const [videoStates, setVideoStates] = useState(
+  props.recordedVideos.map(video => ({ id: video.id, isVisible: false }))
+);
+
+const toggleVisibility = (id, isVisible) => {
+  const updatedVideoStates = videoStates.map(videoState =>
+    videoState.id === id ? { ...videoState, isVisible } : videoState
+  );
+  setVideoStates(updatedVideoStates);
+};
+
     return (
       <div >
       <div style={{ background: darkmode.current   ? "black" : "white"}} className="ConBod " >
         <div className="containered">
          {showNull &&     <div className="overlay"  ref={overlayRef}>
+         <i   className="caretpi pi pi-caret-right over "    style={{ display: videoStates.find(vs => vs.id === props.id).isVisible ? 'block' : 'none' }}></i>
+
           <div className="howto">
               <div className="explain">
                 <ul className="explain-list">
@@ -279,8 +293,11 @@ const togglePlay = () => {
             loop
            onClick={togglePlay}
             ref={videoRef}
-          > <i  onMouseOver={() => setVisibility(true)} onMouseLeave={() => setVisibility(false)} className="pi pi-caret-right over " style={{display: Visibility ? "flex" :  "none ",zIndex:"5", fontSize: '2.5rem' , position:"absolute" }}></i>
-          </video>
+
+            onMouseOver={() => toggleVisibility(props.id, true)}
+            onMouseLeave={() => toggleVisibility(props.id, false)}
+          >
+            </video>
         
          
         
@@ -324,10 +341,10 @@ const togglePlay = () => {
                 <Avatar image={Image && Image} className="flex align-items-center bg-transparent  justify-content-center mr-2" size="small" shape="circle" />
 
                 </span>
-                <div style={{display:"flex"}}>
+                <div style={{display:"flex", flexDirection: "column"}}>
 <h3 >{Useris && Useris}</h3>
 
-               <span style={{color:"gray"}}>0 Views </span>   
+               <span style={{color:"gray",  marginTop:"13px", fontSize:"13px"}}>0 Views </span>   
                 </div>
 
 
