@@ -17131,11 +17131,13 @@ margin-top: 50px !important;
   .containered {
     background-color: #0d0d0d;
      border-radius: 5px !important; 
-    height: 400px;
+    height: 300px;
      min-width: auto ; 
     overflow: hidden;
     position: relative;
 width: 100%;
+border-top-left-radius: 40px !important;
+border-top-right-radius: 40px !important; 
   }
 
   .mtop{
@@ -17213,7 +17215,8 @@ margin: 20px !important;
 
 
 .containered {
- 
+  border-top-left-radius: 40px !important;
+  border-top-right-radius: 40px !important; 
 width: 100% !important;
 }
 
@@ -17257,4 +17260,10 @@ object-fit: cover !important;
     max-width: 100%;
     max-height: 100%;
 
+}
+
+.bottomTitle{
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+  padding-left: 20px !important;
 }
