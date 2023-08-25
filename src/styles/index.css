@@ -17138,6 +17138,8 @@ margin-top: 50px !important;
 width: 100%;
 border-top-left-radius: 40px !important;
 border-top-right-radius: 40px !important; 
+border-radius: 40px !important;
+
   }
 
   .mtop{
@@ -17217,6 +17219,7 @@ margin: 20px !important;
 .containered {
   border-top-left-radius: 40px !important;
   border-top-right-radius: 40px !important; 
+  border-radius: 40px !important;
 width: 100% !important;
 }
 
@@ -17266,4 +17269,5 @@ object-fit: cover !important;
   border-bottom-left-radius: 40px;
   border-bottom-right-radius: 40px;
   padding-left: 20px !important;
+  background: transparent !important;
 }

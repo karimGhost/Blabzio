@@ -321,11 +321,18 @@ const togglePlay = () => {
         <div className="bottomTitle"  onClick={ () => navigate('/profileComponents/Myprofile')} 
  style={{display:"flex"}}>
       <span className="icon">
-                <Avatar image={Image && Image} className="flex align-items-center bg-transparent  justify-content-center mr-2" size="large" shape="circle" />
+                <Avatar image={Image && Image} className="flex align-items-center bg-transparent  justify-content-center mr-2" size="small" shape="circle" />
 
                 </span>
-<h2>Title</h2>
+                <div style={{display:"flex"}}>
+<h3 >{Useris && Useris}</h3>
+
+               <span style={{color:"gray"}}>0 Views </span>   
+                </div>
+
+
 </div>
+
 
       </div>
     
